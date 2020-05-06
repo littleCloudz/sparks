@@ -20,18 +20,24 @@
     "splitter",
     "expandable-chapters-small",
     "page-toc-button",
-    "back-to-top-button"
+    "back-to-top-button",
+    "page-treeview"
     ],
   "pluginsConfig": {
     "fontsettings": {
         "theme": "white",
-        "family": "serif",
+        "family": "sans",
         "size": 2
     },
     "search-pro": {
       "cutWordLib": "nodejieba",
       "defineWord": ["Spring Boot"],
       "expandable-chapters-small":{}
+    },
+    "page-treeview": {
+      "copyright": "Copyright &#169; aleen42",
+      "minHeaderCount": "5",
+      "minHeaderDeep": "5"
     }
   },
   "styles": {
