@@ -1,0 +1,40 @@
+{
+  "title": "Sparks from the Front-end Interviews",
+  "description": "记录前端面试中的闪光点",
+  "author": "littleCloudz",
+  "output.name": "site",
+  "language": "zh-hans",
+  "gitbook": "3.2.3",
+  "root": ".",
+  "structure": {
+    "readme": "README.md"
+  },
+  "plugins": [
+    "-lunr",
+    "-search",
+    "-highlight",
+    "-livereload",
+    "anchors@^0.7.1",
+    "search-pro",
+    "code",
+    "splitter",
+    "expandable-chapters-small",
+    "page-toc-button",
+    "back-to-top-button"
+    ],
+  "pluginsConfig": {
+    "fontsettings": {
+        "theme": "white",
+        "family": "serif",
+        "size": 2
+    },
+    "search-pro": {
+      "cutWordLib": "nodejieba",
+      "defineWord": ["Spring Boot"],
+      "expandable-chapters-small":{}
+    }
+  },
+  "styles": {
+    "website": "styles/website.css"
+  }
+}
