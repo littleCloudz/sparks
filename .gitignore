@@ -1,3 +1,5 @@
 .idea
 sparks.iml
 .gitignore
+node_modules
+_book
