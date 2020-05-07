@@ -4,15 +4,35 @@
         <title>写一个Vue组件模拟原生a标签</title>
         <meta charset="UTF-8">
         <style type="text/css">
-            .atag {
+            .a-tag {
                 color: blue;
-
+                text-decoration: underline;
             }
+            /*.a-tag:link {*/
+            /*    color: blue;*/
+            /*    text-decoration: underline;*/
+            /*}*/
+            /*.a-tag:visied {*/
+            /*    color: purple;*/
+            /*    text-decoration: underline;*/
+            /*}*/
+            .a-tag-visited {
+                color: purple;
+                text-decoration: underline;
+            }
+            .a-tag:hover {
+                color: red;
+                text-decoration: underline;
+            }
+            /*.a-tag:active {*/
+            /*    color: red;*/
+            /*    text-decoration: underline;*/
+            /*}*/
         </style>
     </head>
     <body>
         <div id="app">
-            <a-tag href="https://www.baidu.com" target="_blank"></a-tag>
+            <a-tag href="https://www.baidu.com" target="_blank" ></a-tag>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

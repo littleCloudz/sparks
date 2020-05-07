@@ -1,8 +1,8 @@
 Vue.component('a-tag', {
-    template: '<span @click="redirect" :class="tagClassName">abc</span>',
+    template: `<span @click="redirect" :class="['a-tag', {'a-tag-visited': visited}]">abc</span>`,
     data(){
       return {
-          tagClassName: 'atag'
+          visited: false
       }
     },
     props: {
@@ -17,6 +17,7 @@ Vue.component('a-tag', {
     },
     methods: {
         redirect(){
+            this.visited = true
             window.open(this.href, this.target)
         }
     }
@@ -24,8 +25,6 @@ Vue.component('a-tag', {
 
 new Vue({
     el: '#app',
-
-
 })
 
 
