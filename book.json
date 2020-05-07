@@ -12,7 +12,7 @@
   "plugins": [
     "-lunr",
     "-search",
-    "-highlight",
+    "highlight",
     "-livereload",
     "anchors@^0.7.1",
     "search-pro",
