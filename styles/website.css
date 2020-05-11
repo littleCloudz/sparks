@@ -48,6 +48,20 @@ strong {
     border-radius: 4px;
     font-weight: bold;
 }
+
+.s8 {
+    color: #43952a;
+    background-color: #fdfdfd;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.s7 {
+    color: #bf6d97;
+    background-color: #fdfdfd;
+    border-radius: 4px;
+    font-weight: bold;
+}
 /*方法*/
 em {
     background-color: #7952B3;
