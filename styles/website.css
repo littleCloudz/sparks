@@ -63,7 +63,7 @@ strong {
     font-weight: bold;
 }
 /*属性*/
-.s9 {
+.key {
     background-color: rgba(1,126,102,0.08);
     color: #009a61;
     border-radius: 0.25rem;
@@ -71,16 +71,31 @@ strong {
     font-weight: bold;
 }
 
-/*事件*/
-.s10 {
+/*属性值*/
+.key-value {
     background-color: rgba(1,126,102,0.08);
+    color: #009a61;
+    border-radius: 0.25rem;
+    text-decoration: underline;
+}
+/*事件*/
+.event {
+    background-color: rgba(229,168,153,0.08);
     color: #ec4f27;
     border-radius: 0.25rem;
     text-decoration: none;
     font-weight: bold;
 }
+/*对象*/
+.object {
+    background-color: rgba(205,142,182,0.08);
+    color: #ce3095;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-weight: bold;
+}
 /*方法*/
-.s11 {
+.method {
     background-color: #7952B3;
     color: #fff;
     border-radius: 0.25rem;
