@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>sync修饰符</title>
+   </head>
+   <body>
+      <div id="app">
+         我是{{username}}
+         <input-username v-model="username"></input-username>
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+      <script>
+
+         Vue.component('input-username', {
+             template: `<input type="text" :value="localValue" @input="handleInput"></input>`,
+             props: {
+                 value: {
+                     type: String,
+                     required: true
+                 }
+             },
+             computed:{
+                 localValue: {
+                     get(){
+                         return this.value
+                     },
+                     set(value){
+                         console.log(value)
+                         this.$emit('input', value)
+                     }
+
+                 }
+             },
+             methods: {
+                 handleInput(e){
+                     const value = e.target.value.toLowerCase();
+                     console.log(value)
+                     if(this.localValue !== value) {
+                         this.localValue = value
+                     }
+                 }
+             }
+         })
+
+         new Vue({
+             el: '#app',
+             data: {
+                 username: ''
+             },
+             updated(){
+                 console.log(this.username)
+             }
+
+         })
+
+      </script>
+   </body>
+
+
+</html>

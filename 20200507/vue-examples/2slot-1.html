@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>具名插槽</title>
+</head>
+<body>
+   <div id="app">
+      <blog-post :author="author">
+         <template v-slot:header>博文的标题</template>
+         <p>博文的内容</p>
+         <p>更多内容</p>
+      </blog-post>
+   </div>
+
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   <script>
+      Vue.component('blog-post', {
+          template: `
+            <section class="blog-post">
+               <header>
+                  <slot name="header"></slot>
+                  <p>作者：{{author.name}}</p>
+               </header>
+               <main>
+                  <slot></slot>
+               </main>
+            </section>
+          `,
+          props: {
+              author: {
+                  type: Object,
+                  required: true
+              }
+          }
+      })
+
+      new Vue({
+          el: '#app',
+          data: {
+              author: {
+                  name: 'littleCloudz'
+              }
+          }
+
+      })
+
+
+   </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>作用域插槽与具名插槽组合在一起，用来覆盖元素的样式会很有用。</title>
+</head>
+<body>
+   <div id="app">
+      <blog-listing :posts="posts">
+         <template v-slot:summary="{post}">
+            <img :src="post.image" :alt="post.summary">
+         </template>
+      </blog-listing>
+
+   </div>
+
+
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   <script>
+
+      Vue.component('blog-listing', {
+          template: `
+            <div>
+               <div v-for="post in posts">
+                  <h1>{{post.title}}</h1>
+                  <slot name="summary" :post="post">
+                     <p>{{post.summary}}</p>
+                  </slot>
+               </div>
+            </div>
+          `,
+          props: {
+              posts: {
+                  type: Array,
+                  required: true
+              }
+          }
+
+      })
+
+      new Vue({
+          el: '#app',
+          data: {
+              posts: [{
+                  title: '标题1',
+                  summary: '简介1'
+              },{
+                  title: '标题2',
+                  summary: '简介2'
+              }]
+          }
+      });
+
+   </script>
+</body>
+</html>

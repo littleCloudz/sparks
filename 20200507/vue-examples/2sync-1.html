@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Title</title>
+</head>
+<body>
+   <div id="app">
+      <count-from-number :number.sync="numberToDisplay"></count-from-number>
+
+   </div>
+
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   <script>
+
+      Vue.component('count-from-number', {
+          template: `<p>当前数字是{{number}}</p>`,
+          props:{
+              number:{
+                  type: Number,
+                  required: true
+              }
+          },
+          computed:{
+              localNumber:{
+                  get(){
+                      return this.number
+                  },
+                  set(value){
+                      this.$emit('update:number', value)
+                  }
+              }
+          },
+          mounted(){
+              setInterval(()=>{
+                  this.localNumber++;
+              }, 1000)
+          }
+
+      })
+
+      new Vue({
+          el: '#app',
+          data: {
+              numberToDisplay: 1
+          },
+          updated(){
+              console.log(this.numberToDisplay)
+          }
+
+      })
+   </script>
+
+
+</body>
+</html>

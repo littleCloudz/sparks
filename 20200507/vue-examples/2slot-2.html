@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>作用域插槽</title>
+</head>
+<body>
+   <div id="app">
+      abc
+      <user-data v-slot:default="slotPorps">
+         <p v-if="user">用户名：{{slotPorps.user.name}}</p>
+      </user-data>
+   </div>
+
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+   <script>
+
+      Vue.component('user-data', {
+          template: `
+            <div class="user">
+               <slot :user="user"></slot>
+            </div>
+          `,
+          data(){
+              return {
+                  user: {
+                      name: 'littleCloudz'
+                  }
+              }
+          }
+      })
+
+      new Vue({
+          el: '#app',
+          data:{
+              user: true
+          }
+      })
+   </script>
+
+</body>
+</html>
