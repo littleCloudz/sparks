@@ -16,17 +16,38 @@ strong {
     border-radius: 4px;
     font-weight: bold;
 }
+.s1-1 {
+    color: #b9317c;
+    background-color: #fdfdfd;
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: underline;
+}
 .s2 {
     color: #4f9fcf;
     background-color: #fdfdfd;
     border-radius: 4px;
     font-weight: bold;
 }
+.s2-1 {
+    color: #4f9fcf;
+    background-color: #fdfdfd;
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: underline;
+}
 .s3 {
     color: #6157e7;
     background-color: #fdfdfd;
     border-radius: 4px;
     font-weight: bold;
+}
+.s3-1 {
+    color: #6157e7;
+    background-color: #fdfdfd;
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 .s4 {
@@ -84,6 +105,13 @@ strong {
     color: #ec4f27;
     border-radius: 0.25rem;
     text-decoration: none;
+    font-weight: bold;
+}
+.event-1 {
+    background-color: rgba(229,168,153,0.08);
+    color: #ec4f27;
+    border-radius: 0.25rem;
+    text-decoration: underline;
     font-weight: bold;
 }
 /*对象*/

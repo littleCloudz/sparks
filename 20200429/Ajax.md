@@ -1,3 +1,5 @@
+>[HTML5权威指南](https://weread.qq.com/web/reader/98232c3071a122f5982dffc)
+
 # 本章所有例子都是关于从服务器上获取数据的。
 第32章 使用Ajax（第Ⅰ部分）																												
 * Ajax是现代Web应用程序开发的一项关键工具。																												
