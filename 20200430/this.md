@@ -5,7 +5,7 @@ this关键字是一个很特别的关键字，被自动定义在所有函数的�
 
 ## 那this到底有用在哪里呢？——（why）为什么要使用this
 
-* 如果不使用this，那就需要给identify()和speak()显式传入一个上下文对象。
+* 如果不使用this，那就需要给identify()和speak()显式传入一个<span class="object">上下文对象</span>。
 	
     ```javascript																																
     function identify(context) {																																	
@@ -18,9 +18,9 @@ this关键字是一个很特别的关键字，被自动定义在所有函数的�
     identify(you);				// READER																													
     speak(me);				// hello, I'm KYLE		
     ```																											
-    * 这段代码可以在不同的上下文对象（me和you）中重复使用函数identify()和speak()，不用针对每个对象编写不同版本的函数。																																	
+    * 这段代码可以在不同的<span class="object">上下文对象</span>（me和you）中重复使用函数identify()和speak()，不用针对每个对象编写不同版本的函数。																																	
 * this提供了一种更优雅的方式来隐式“传递”一个对象引用，因此可以将API设计得更加简洁并且易于复用。																																	
-* 随着你的使用模式越来越复杂，显式传递上下文对象会让代码变得越来越混乱，使用this则不会这样。当我们介绍对象和原型时，你就会明白函数可以自动引用合适的上下文对象有多重要。																																	
+* 随着你的使用模式越来越复杂，显式传递<span class="object">上下文对象</span>会让代码变得越来越混乱，使用this则不会这样。当我们介绍对象和原型时，你就会明白函数可以自动引用合适的<span class="object">上下文对象</span>有多重要。																																	
 	```javascript
 	function identify() {																																	
 		return this.name.toUpperCase();																																
@@ -69,7 +69,7 @@ for(i = 0; i < 10; i++) {
 console.log(foo.count);	  // 0	
 ```																					
 																																	
-#### ① 词法作用域
+#### ① **词法作用域**
 许多开发者并不会深入思考为什么this的行为和预期的不一致，也不会试图回答那些很难解决但却非常重要的问题。他们只会回避这个问题并使用其他方法来达到目的，比如创建另一个带有count属性的对象。
 ```javascript
 function foo(num) {																															
@@ -97,8 +97,8 @@ console.log(data.count);										// 4
 																															
 从函数对象内部引用它自身：																																
 	为什么需要从函数内部引用函数自身呢？																															
-	· 常见的原因是递归（从函数内部调用这个函数）																															
-	· 可以写一个在第一次被调用后自己解除绑定的事件处理器																															
+	· 常见的原因是**递归**（从函数内部调用这个函数）																															
+	· 可以写一个在第一次被调用后自己解除绑定的**事件处理器**																															
 既然把函数看作一个对象（JavaScript中的所有函数都是对象），那就可以在调用函数时存储状态（属性的值）。这是可行的，但是在本书即将介绍的许多模式中你会发现，除了函数对象还有许多更合适存储状态的地方。																																
 #### ② 通过一个指向函数对象的词法标识符（变量）来引用它
 ```javascript
@@ -153,10 +153,10 @@ console.log(foo.count);										// 4
 ```																				
 																																
 																																
-### （2）指向函数的词法作用域
+### （2）指向函数的**词法作用域**
 这个问题有点复杂，因为在某种情况下它是正确的，但是在其他情况下它却是错误的。																																
-this在任何情况下都不指向函数的词法作用域。																																
-每当你想要把this和词法作用域的查找混合使用时，一定要提醒自己，这是无法实现的。																																
+this在任何情况下都不指向函数的**词法作用域**。																																
+每当你想要把this和**词法作用域**的查找混合使用时，一定要提醒自己，这是无法实现的。																																
 在JavaScript内部，作用域确实和对象类似，可见的标识符都是它的属性。但是作用域“对象”无法通过JavaScript代码访问，它存在于JavaScript引擎内部。
 ```javascript																								
 function foo() {																																
@@ -179,13 +179,13 @@ this的绑定和函数声明的位置没有任何关系，只取决于函数的�
 这个记录会包含函数在哪里被调用（调用栈）、函数的调用方式、传入的参数等信息。this就是这个记录的一个属性，会在函数执行的过程中用到。																																	
 																																		
 # 第2章 this全面解析
-## 如果要判断一个运行中函数的this绑定，就需要找到这个函数的直接调用位置。
-如何寻找函数的调用位置，从而判断函数在执行过程中会如何绑定this。																																	
-调用位置就是函数在代码中被调用的位置（而不是声明的位置）。																																	
-通常来说，寻找调用位置就是寻找“函数被调用的位置”，但是做起来并没有这么简单，因为某些编程模式可能会隐藏真正的调用位置。																																	
+## 如果要判断一个运行中函数的this绑定，就需要找到这个函数的直接<span class="s4">调用位置</span>。
+如何寻找函数的<span class="s4">调用位置</span>，从而判断函数在执行过程中会如何绑定this。																																	
+<span class="s4">调用位置</span>就是函数在代码中被调用的位置（而不是声明的位置）。																																	
+通常来说，寻找<span class="s4">调用位置</span>就是寻找“函数被调用的位置”，但是做起来并没有这么简单，因为某些编程模式可能会隐藏真正的<span class="s4">调用位置</span>。																																	
 最重要的是要分析调用栈（就是为了到达当前执行位置所调用的所有函数）。																																	
-我们关心的调用位置就在当前正在执行的函数的前一个调用中。																																	
-你必须找到调用位置，然后判断需要应用下面四条规则中的哪一条。																																	
+我们关心的<span class="s4">调用位置</span>就在当前正在执行的函数的前一个调用中。																																	
+你必须找到<span class="s4">调用位置</span>，然后判断需要应用下面四条规则中的哪一条。																																	
 																																
 ### 查看调用栈的方法：
 #### （1）你可以把调用栈想象成一个函数调用链。但是这种方法非常麻烦并且容易出错。
@@ -214,23 +214,25 @@ baz();		// baz的调用位置
 #### （2）使用浏览器的调试工具
 在工具中给foo()函数的第一行代码设置一个断点，或者直接在第一行代码之前插入一条debugger;语句。																															
 运行代码时，调试器会在那个位置暂停，同时会展示当前位置的函数调用列表，这就是你的调用栈。																															
-因此，如果你想要分析this的绑定，使用开发者工具得到调用栈，然后找到栈中第二个元素，这就是真正的调用位置。
+因此，如果你想要分析this的绑定，使用开发者工具得到调用栈，然后找到栈中第二个元素，这就是真正的<span class="s4">调用位置</span>。
 
 ## 四条规则
 找到之后就可以顺序应用下面这四条规则来判断this的绑定对象。																																		
-一定要注意，有些调用可能在无意中使用默认绑定规则。如果想“更安全”地忽略this绑定，你可以使用一个DMZ对象，比如ø =Object.create(null)，以保护全局对象。																																		
+一定要注意，有些调用可能在无意中使用默认绑定规则。如果想“更安全”地忽略this绑定，你可以使用一个**DMZ**对象，比如ø =Object.create(null)，以保护全局对象。																																		
 ### （1）new绑定——由new调用？绑定到新创建的对象。
 * JavaScript中new的机制实际上和面向类的语言完全不同：																																	
-	* 在传统的面向类的语言中，“构造函数”是类中的一些特殊方法，使用new初始化类时会调用类中的构造函数。																																
-		something = new MyClass(..);																															
-	* 在JavaScript中，构造函数只是一些使用new操作符时被调用的函数。																																
+	* 在传统的面向类的语言中，“**构造函数**”是类中的一些特殊方法，使用new初始化类时会调用类中的**构造函数**。																																
+    ```javascript
+    something = new MyClass(..);
+    ```																															
+	* 在JavaScript中，**构造函数**只是一些使用new操作符时被调用的函数。																																
 		它们并不会属于某个类，也不会实例化一个类。实际上，它们甚至都不能说是一种特殊的函数类型，它们只是被new操作符调用的普通函数而已。																															
-		Number(..)作为构造函数时的行为。当Number在new表达式中被调用时，它是一个构造函数：它会初始化新创建的对象。																															
-		包括内置对象函数（比如Number(..)，详情请查看第3章）在内的所有函数都可以用new来调用，这种函数调用被称为构造函数调用。																															
-		实际上并不存在所谓的“构造函数”，只有对于函数的“构造调用”。																															
-* 使用new来调用函数，或者说发生构造函数调用时，会自动执行下面的操作：																																	
+		Number(..)作为**构造函数**时的行为。当Number在new表达式中被调用时，它是一个**构造函数**：它会初始化新创建的对象。																															
+		包括内置对象函数（比如Number(..)，详情请查看第3章）在内的所有函数都可以用new来调用，这种函数调用被称为**构造函数**调用。																															
+		实际上并不存在所谓的“**构造函数**”，只有对于函数的“构造调用”。																															
+* 使用new来调用函数，或者说发生**构造函数**调用时，会自动执行下面的操作：																																	
 	* （1）创建（或者说构造）一个全新的对象。																																
-	* （2）这个新对象会被执行[[Prototype]]连接。													第5章会详细介绍它。																			
+	* （2）这个新对象会被执行<span class="s6">[[Prototype]]</span>连接。													第5章会详细介绍它。																			
 	* （3）这个新对象会绑定到函数调用的this。																																
 	* （4）如果函数没有返回其他对象，那么new表达式中的函数调用会自动返回这个新对象。		
 		```javascript																														
@@ -241,10 +243,10 @@ baz();		// baz的调用位置
 		console.log(bar.a);						// 2	
 		```																								
 																																		
-### （2）显式绑定——由call或者apply（或者bind）调用？绑定到指定的对象。
-* 函数的call(..)和apply(..)方法
-	如果我们不想在对象内部包含函数引用，而想在某个对象上强制调用函数。
-	它们的第一个参数是一个对象，是给this准备的，接着在调用函数时将其绑定到this。因为你可以直接指定this的绑定对象，因此我们称之为显式绑定。
+### （2）显式绑定——由<span class="method">call</span>或者<span class="method">apply</span>（或者<span class="method">bind</span>）调用？绑定到指定的对象。
+* 函数的<span class="method">call(..)</span>和<span class="method">apply(..)</span>方法  
+	如果我们不想在对象内部包含函数引用，而想在某个对象上强制调用函数。  
+	它们的第一个参数是一个对象，是给this准备的，接着在调用函数时将其绑定到this。因为你可以直接指定this的绑定对象，因此我们称之为显式绑定。  
 	```javascript		
 	function foo() {																																
 		console.log(this.a);																															
@@ -255,15 +257,15 @@ baz();		// baz的调用位置
 																																	
 	foo.call(obj);				// 2   
 	```
-	通过foo.call(..)，我们可以在调用foo时强制把它的this绑定到obj上。																												
+	通过foo.<span class="method">call(..)</span>，我们可以在调用foo时强制把它的this绑定到obj上。  																												
 																																	
-	严格来说，JavaScript的宿主环境有时会提供一些非常特殊的函数，它们并没有这两个方法。																																
-	但是这样的函数非常罕见，JavaScript提供的绝大多数函数以及你自己创建的所有函数都可以使用call(..)和apply(..)方法。																																
+	严格来说，JavaScript的宿主环境有时会提供一些非常特殊的函数，它们并没有这两个方法。  																																
+	但是这样的函数非常罕见，JavaScript提供的绝大多数函数以及你自己创建的所有函数都可以使用<span class="method">call(..)</span>和<span class="method">apply(..)</span>方法。  																																
 																																	
-	如果你传入了一个原始值（字符串类型、布尔类型或者数字类型）来当作this的绑定对象，这个原始值会被转换成它的对象形式（也就是new String(..)、new Boolean(..)或者new Number(..)）。这通常被称为“装箱”。																																
-	JavaScript中的“所有”函数都有一些有用的特性（这和它们的[[Prototype]]有关）。																																
+	如果你传入了一个原始值（字符串类型、布尔类型或者数字类型）来当作this的绑定对象，这个原始值会被转换成它的对象形式（也就是new String(..)、new Boolean(..)或者new Number(..)）。这通常被称为“**装箱**”。  																																
+	JavaScript中的“所有”函数都有一些有用的特性（这和它们的<span class="s6">[[Prototype]]</span>有关）。																																
 																																	
-* 硬绑定（函数的bind方法）																																	
+* 硬绑定（函数的<span class="method">bind</span>方法）																																	
 	显式绑定的变种可以固定this，来解决之前提出的隐式丢失this绑定问题
 	```javascript		
 	function foo() {																																
@@ -315,8 +317,9 @@ baz();		// baz的调用位置
 		var b = bar(3);											// 2 3																				
 		console.log(b);											// 5	
 		```																			
-		这种bind(..)是一种polyfill代码（polyfill就是我们常说的刮墙用的腻子，polyfill代码主要用于旧浏览器的兼容，比如说在旧的浏览器中并没有内置bind函数，因此可以使用polyfill代码在旧浏览器中实现新的功能），对于new使用的硬绑定函数来说，这段polyfill代码和ES5内置的bind(..)函数并不完全相同（后面会介绍为什么要在new中使用硬绑定函数）。由于polyfill并不是内置函数，所以无法创建一个不包含．prototype的函数，因此会具有一些副作用。如果你要在new中使用硬绑定函数并且依赖polyfill代码的话，一定要非常小心。																															
-	* ③ 由于硬绑定是一种非常常用的模式，所以ES5提供了内置的方法Function.prototype.bind																
+		这种<span class="method">bind(..)</span>是一种polyfill代码
+		（polyfill就是我们常说的刮墙用的腻子，polyfill代码主要用于旧浏览器的兼容，比如说在旧的浏览器中并没有内置<span class="method">bind(..)</span>函数，因此可以使用polyfill代码在旧浏览器中实现新的功能），对于new使用的硬绑定函数来说，这段polyfill代码和ES5内置的<span class="method">bind(..)</span>函数并不完全相同（后面会介绍为什么要在new中使用硬绑定函数）。由于polyfill并不是内置函数，所以无法创建一个不包含．<span class="s8">prototype</span>的函数，因此会具有一些副作用。如果你要在new中使用硬绑定函数并且依赖polyfill代码的话，一定要非常小心。																															
+	* ③ 由于硬绑定是一种非常常用的模式，所以ES5提供了内置的方法Function.<span class="s8">prototype</span>.<span class="method">bind(..)</span>																
 		```javascript																
 		function foo(something) {																															
 			console.log(this.a, something);																														
@@ -366,7 +369,7 @@ baz();		// baz的调用位置
 	```		
 																																	
 * 绑定例外——被忽略的this																																	
-	如果你把null或者undefined作为this的绑定对象传入call、apply或者bind，这些值在调用时会被忽略，实际应用的是默认绑定规则	
+	如果你把null或者undefined作为this的绑定对象传入<span class="method">call</span>、<span class="method">apply</span>或者<span class="method">bind</span>，这些值在调用时会被忽略，实际应用的是默认绑定规则	
 	```javascript	
 	function foo() {																																
 		console.log(this.a);																															
@@ -375,27 +378,27 @@ baz();		// baz的调用位置
 	foo.call(null);				// 2	
 	```																											
 	什么情况下你会传入null呢？																																
-	* ① 一种非常常见的做法是使用apply(..)来“展开”一个数组，并当作参数传入一个函数								
+	* ① 一种非常常见的做法是使用<span class="method">apply(..)</span>来“展开”一个数组，并当作参数传入一个函数								
 		```javascript																								
 		function foo(a, b) {																															
 			console.log("a:" + a + ",b:" + b);																														
 		}																															
 		foo.apply(null, [2, 3]);								// a:2, b:3  把数组“展开”成参数																						
 		```	
-		在ES6中，可以用．.．操作符代替apply(..)来“展开”数组，foo(...[1,2])和foo(1,2)是一样的，这样可以避免不必要的this绑定。																															
-	* ② bind(..)可以对参数进行柯里化（预先设置一些参数），这种方法有时非常有用
+		在ES6中，可以用．.．操作符代替<span class="method">apply(..)</span>来“展开”数组，foo(...[1,2])和foo(1,2)是一样的，这样可以避免不必要的this绑定。																															
+	* ② <span class="method">bind(..)</span>可以对参数进行**柯里化**（预先设置一些参数），这种方法有时非常有用
 		```javascript																																
 		var bar = foo.bind(null, 2);								// 使用bind(..)进行柯里化																							
 		bar(3);								// a:2, b:3				
 		```																			
-		在ES6中没有柯里化的相关语法，因此还是需要使用bind(..)																															
+		在ES6中没有**柯里化**的相关语法，因此还是需要使用<span class="method">bind(..)</span>																															
 	这两种方法都需要传入一个参数当作this的绑定对象。如果函数并不关心this的话，你仍然需要传入一个占位值，这时null可能是一个不错的选择																																
 	总是使用null来忽略this绑定可能产生一些副作用。如果某个函数确实使用了this（比如第三方库中的一个函数），那默认绑定规则会把this绑定到全局对象（在浏览器中这个对象是window），这将导致不可预计的后果（比如修改全局对象）。这种方式可能会导致许多难以分析和追踪的bug。
 
 	* 更安全的this																																
 	一种“更安全”的做法是传入一个特殊的对象，把this绑定到这个对象不会对你的程序产生任何副作用。																																
-	就像网络（以及军队）一样，我们可以创建一个“DMZ”（demilitarized zone，非军事区）对象——它就是一个空的非委托的对象（委托在第5章和第6章介绍）。																																
-	在忽略this绑定时总是传入一个DMZ对象																																
+	就像网络（以及军队）一样，我们可以创建一个“**DMZ**”（demilitarized zone，非军事区）对象——它就是一个空的非委托的对象（委托在第5章和第6章介绍）。																																
+	在忽略this绑定时总是传入一个**DMZ**对象																																
 	因为任何对于this的使用都会被限制在这个空对象中，不会对全局对象产生任何影响。	
 	```javascript																															
 	function foo(a, b) {																																
@@ -411,8 +414,8 @@ baz();		// baz的调用位置
 		bar(3);								// a:3, b:3	
 		```																						
 																																	
-*  API调用的“上下文”																																	
-	第三方库的许多函数，以及JavaScript语言和宿主环境中许多新的内置函数，都提供了一个可选的参数，通常被称为“上下文”（context），其作用和bind(..)一样，确保你的回调函数使用指定的this。
+*  API调用的“<span class="object">上下文</span>”																																	
+	第三方库的许多函数，以及JavaScript语言和宿主环境中许多新的内置函数，都提供了一个可选的参数，通常被称为“<span class="object">上下文</span>”（context），其作用和<span class="method">bind(..)</span>一样，确保你的回调函数使用指定的this。
 	```javascript																																
 	function foo(el) {																																
 		console.log(el, this.id);																															
@@ -425,9 +428,9 @@ baz();		// baz的调用位置
 								// 1 awesome 2 awesome 3 awesome	
 	```																								
 																																	
-### （3）隐式绑定——由上下文对象调用？绑定到那个上下文对象。
+### （3）隐式绑定——由<span class="object">上下文对象</span>调用？绑定到那个<span class="object">上下文对象</span>。
 隐式绑定时，我们必须在一个对象内部包含一个指向函数的属性，并通过这个属性间接引用函数，从而把this间接（隐式）绑定到这个对象上。																																	
-* 调用位置是否有上下文对象，																																	
+* <span class="s4">调用位置</span>是否有<span class="object">上下文对象</span>，																																	
 	或者说是否被某个对象拥有或者包含，不过这种说法可能会造成一些误导。需要注意的是foo()的声明方式，及其之后是如何被当作引用属性添加到obj中的。但是无论是直接在obj中定义还是先定义再添加为引用属性，这个函数严格来说都不属于obj对象。	
 	```javascript																															
 	function foo() {																																
@@ -438,10 +441,10 @@ baz();		// baz的调用位置
 		foo: foo																															
 	};																																
 	obj.foo();			// 2   然而，调用位置会使用obj上下文来引用函数，因此你可以说函数被调用时obj对象“拥有”或者“包含”它。																													
-				// 无论你如何称呼这个模式，当foo()被调用时，它的前面确实加上了对obj的引用。当函数引用有上下文对象时，隐式绑定规则会把函数调用中的this绑定到这个上下文对象。		
+				// 无论你如何称呼这个模式，当foo()被调用时，它的前面确实加上了对obj的引用。当函数引用有<span class="object">上下文对象</span>时，隐式绑定规则会把函数调用中的this绑定到这个<span class="object">上下文对象</span>。		
 	```																											
 																																	
-* 对象属性引用链中只有上一层或者说最后一层在调用位置中起作用	
+* 对象属性引用链中只有上一层或者说最后一层在<span class="s4">调用位置</span>中起作用	
 	```javascript																																
 	function foo() {																																
 		console.log(this.a);																															
@@ -527,13 +530,13 @@ setTimeout(obj.foo, 100);								// "oops, global"
 	}																															
 	```
 																																
-除此之外，还有一种情况this的行为会出乎我们意料：调用回调函数的函数可能会修改this。在一些流行的JavaScript库中事件处理器常会把回调函数的this强制绑定到触发事件的DOM元素上。																																
-无论是哪种情况，this的改变都是意想不到的，实际上你无法控制回调函数的执行方式，因此就没有办法控制调用位置以得到期望的绑定。																																
+除此之外，还有一种情况this的行为会出乎我们意料：调用回调函数的函数可能会修改this。在一些流行的JavaScript库中**事件处理器**常会把回调函数的this强制绑定到触发事件的DOM元素上。																																
+无论是哪种情况，this的改变都是意想不到的，实际上你无法控制回调函数的执行方式，因此就没有办法控制<span class="s4">调用位置</span>以得到期望的绑定。																																
 																																	
 ### （4）默认绑定——默认：在严格模式下绑定到undefined，否则绑定到全局对象。
 首先要介绍的是最常用的函数调用类型：独立函数调用。																																	
 可以把这条规则看作是无法应用其他规则时的默认规则。																																	
-this的绑定规则完全取决于调用位置																																	
+this的绑定规则完全取决于<span class="s4">调用位置</span>																																	
 #### ① 全局对象
 * 只有foo()运行在非strict mode下时，默认绑定才能绑定到全局对象	
 	```javascript																															
@@ -613,7 +616,7 @@ console.log(bar.a);						// 4
 ```																									
 																																	
 #### ④ new > 显式绑定（硬绑定）
-new和call/apply无法一起使用，因此无法通过new foo.call(obj1)来直接进行测试。但是我们可以使用硬绑定来测试它俩的优先级。																																
+new和call/<span class="method">apply</span>无法一起使用，因此无法通过new foo.<span class="method">call</span>(obj1)来直接进行测试。但是我们可以使用硬绑定来测试它俩的优先级。																																
 bar被硬绑定到obj1上，但是new bar(3)并没有像我们预计的那样把obj1.a修改为3。相反，new修改了硬绑定（到obj1的）调用bar(..)中的this。	
 ```javascript																															
 function foo(something) {																																
@@ -631,8 +634,8 @@ console.log(baz.a);						// 3
 ```
 因为使用了new绑定，我们得到了一个名字为baz的新对象，并且baz.a的值是3。																										
 																																
-实际上，ES5中内置的Function.prototype.bind(..)更加复杂。																																
-下面是MDN提供的一种bind(..)实现：	
+实际上，ES5中内置的Function.<span class="s8">prototype</span>.<span class="method">bind(..)</span>更加复杂。																																
+下面是MDN提供的一种<span class="method">bind(..)</span>实现：	
 ```javascript																															
 if(!Function.prototype.bind) {																																
 	Function.prototype.bind= function(oThis) {																															
@@ -655,7 +658,7 @@ if(!Function.prototype.bind) {
 ```		
 																																
 之所以要在new中使用硬绑定函数，主要目的是预先设置函数的一些参数，这样在使用new进行初始化时就可以只传入其余的参数。																																
-bind(..)的功能之一就是可以把除了第一个参数（第一个参数用于绑定this）之外的其他参数都传给下层的函数（这种技术称为“部分应用”，是“柯里化”的一种）。																			
+<span class="method">bind(..)</span>的功能之一就是可以把除了第一个参数（第一个参数用于绑定this）之外的其他参数都传给下层的函数（这种技术称为“部分应用”，是“**柯里化**”的一种）。																			
 ```javascript													
 function foo(p1, p2) {																															
 	this.val = p1 + p2;																														
@@ -668,19 +671,19 @@ baz.val;			// p1p2
 ```																										
 																																	
 ###  判断this
-根据优先级来判断函数在某个调用位置应用的是哪条规则。可以按照下面的顺序来进行判断：																																		
+根据优先级来判断函数在某个<span class="s4">调用位置</span>应用的是哪条规则。可以按照下面的顺序来进行判断：																																		
 #### （1）函数是否在new中调用（new绑定）？
 如果是的话this绑定的是新创建的对象。	
 ```javascript																															
 var bar = new foo()		
 ```																														
-#### （2）函数是否通过call、apply（显式绑定）或者硬绑定调用？
+#### （2）函数是否通过<span class="method">call</span>、<span class="method">apply</span>（显式绑定）或者硬绑定调用？
 如果是的话，this绑定的是指定的对象。	
 ```javascript																															
 var bar = foo.call(obj2)		
 ```																														
-#### （3）函数是否在某个上下文对象中调用（隐式绑定）？
-如果是的话，this绑定的是那个上下文对象。		
+#### （3）函数是否在某个<span class="object">上下文对象</span>中调用（隐式绑定）？
+如果是的话，this绑定的是那个<span class="object">上下文对象</span>。		
 ```javascript																														
 var bar = obj1.foo()		
 ```																														
@@ -692,13 +695,13 @@ var bar = foo()
 																																	
 																																		
 ## this词法
-* ES6中的箭头函数并不会使用四条标准的绑定规则，而是根据当前的词法作用域来决定this，具体来说，箭头函数会继承外层函数调用的this绑定（无论this绑定到什么）。																																	
+* ES6中的箭头函数并不会使用四条标准的绑定规则，而是根据当前的**词法作用域**来决定this，具体来说，箭头函数会继承外层函数调用的this绑定（无论this绑定到什么）。																																	
 这其实和ES6之前代码中的self = this机制一样。																																	
 * 之前介绍的四条规则已经可以包含所有正常的函数。																																	
 ES6中介绍了一种无法使用这些规则的特殊函数类型：箭头函数																																	
 箭头函数并不是使用function关键字定义的，而是使用被称为“胖箭头”的操作符=>定义的。																																	
 箭头函数不使用this的四种标准规则，而是根据外层（函数或者全局）作用域来决定this。																																	
-* 箭头函数的词法作用域：	
+* 箭头函数的**词法作用域**：	
 ```javascript																																
 function foo() {																																	
 	// 返回一个箭头函数																																
@@ -718,7 +721,7 @@ bar.call(obj2);				// 2，不是3！
 ```																												
 foo()内部创建的箭头函数会捕获调用时foo()的this。																																	
 由于foo()的this绑定到obj1, bar（引用箭头函数）的this也会绑定到obj1，箭头函数的绑定无法被修改。（new也不行！）																																	
-* 箭头函数最常用于回调函数中，例如事件处理器或者定时器：
+* 箭头函数最常用于回调函数中，例如**事件处理器**或者定时器：
 ```javascript																																	
 function foo(){																																	
 	setTimeout(()=>{																																
@@ -732,8 +735,8 @@ function foo(){
 }																																	
 foo.call(obj);  // 2		
 ```																															
-* 箭头函数可以像bind(..)一样确保函数的this被绑定到指定对象，																																	
-* 此外，其重要性还体现在它用更常见的词法作用域取代了传统的this机制。																																	
+* 箭头函数可以像<span class="method">bind(..)</span>一样确保函数的this被绑定到指定对象，																																	
+* 此外，其重要性还体现在它用更常见的**词法作用域**取代了传统的this机制。																																	
 实际上，在ES6之前我们就已经在使用一种几乎和箭头函数完全一样的模式。
 
 ```javascript
@@ -749,16 +752,16 @@ var obj = {
 };																																	
 foo.call(obj);  // 2		
 ```																															
-虽然self = this和箭头函数看起来都可以取代bind(..)，但是从本质上来说，它们想替代的是this机制。																																	
+虽然self = this和箭头函数看起来都可以取代<span class="method">bind(..)</span>，但是从本质上来说，它们想替代的是this机制。																																	
 * 如果你经常编写this风格的代码，但是绝大部分时候都会使用self = this或者箭头函数来否定this机制，那你或许应当：																																	
-	1. 只使用词法作用域并完全抛弃错误this风格的代码																																
-	2. 完全采用this风格，在必要时使用bind(..)，尽量避免使用self =this和箭头函数。																																
+	1. 只使用**词法作用域**并完全抛弃错误this风格的代码																																
+	2. 完全采用this风格，在必要时使用<span class="method">bind(..)</span>，尽量避免使用self =this和箭头函数。																																
 	当然，包含这两种代码风格的程序可以正常运行，但是在同一个函数或者同一个程序中混合使用这两种风格通常会使代码更难维护，并且可能也会更难编写。
 
 
 
 # 第3章 对象
-在第1章和第2章中，我们介绍了函数调用位置的不同会造成this绑定对象的不同。							
+在第1章和第2章中，我们介绍了函数<span class="s4">调用位置</span>的不同会造成this绑定对象的不同。							
 但是对象到底是什么，为什么我们需要绑定它们呢？本章会详细介绍对象。							
 							
 ## 3.1 语法
@@ -828,7 +831,7 @@ JavaScript中还有一些对象子类型，通常被称为内置对象。
 有些内置对象的名字看起来和简单基础类型一样，不过实际上它们的关系更复杂，我们稍后会详细介绍。							
 * 这些内置对象从表现形式来说很像其他语言中的类型（type）或者类（class），比如Java中的String类。						
 * 但是在JavaScript中，它们实际上只是一些内置函数。						
-这些内置函数可以当作构造函数（由new产生的函数调用——参见第2章）来使用，从而可以构造一个对应子类型的新对象。						
+这些内置函数可以当作**构造函数**（由new产生的函数调用——参见第2章）来使用，从而可以构造一个对应子类型的新对象。						
 * 举例来说：	
 	```javascript					
 	var strPrimitive = "I am a string";					
@@ -843,9 +846,9 @@ JavaScript中还有一些对象子类型，通常被称为内置对象。
 	Object.prototype.toString.call(strObject); // [object String]
 	```
 
-	* 在之后的章节中我们会详细介绍Object.prototype.toString..．是如何工作的，					
+	* 在之后的章节中我们会详细介绍Object.<span class="s8">prototype</span>.toString..．是如何工作的，					
 	不过简单来说，我们可以认为子类型在内部借用了Object中的toString()方法。					
-	从代码中可以看到，strObject是由String构造函数创建的一个对象。					
+	从代码中可以看到，strObject是由String**构造函数**创建的一个对象。					
 	* 原始值"I am a string"并不是一个对象，它只是一个字面量，并且是一个不可变的值。					
 	如果要在这个字面量上执行一些操作，比如获取长度、访问其中某个字符等，那需要将其转换为String对象。					
 * 在某些情况下，相比用文字形式创建对象，构造形式可以提供一些额外选项。						
@@ -960,7 +963,7 @@ var myObject = {
 	由于函数很容易被认为是属于某个对象，在其他语言中，属于对象（也被称为“类”）的函数通常被称为“方法”，因此把“属性访问”说成是“方法访问”也就不奇怪了。						
 	有意思的是，JavaScript的语法规范也做出了同样的区分。						
 	* 从技术角度来说，函数永远不会“属于”一个对象，所以把对象内部引用的函数称为“方法”似乎有点不妥。						
-	确实，有些函数具有this引用，有时候这些this确实会指向调用位置的对象引用。但是这种用法从本质上来说并没有把一个函数变成一个“方法”，因为this是在运行时根据调用位置动态绑定的，所以函数和对象的关系最多也只能说是间接关系。						
+	确实，有些函数具有this引用，有时候这些this确实会指向<span class="s4">调用位置</span>的对象引用。但是这种用法从本质上来说并没有把一个函数变成一个“方法”，因为this是在运行时根据<span class="s4">调用位置</span>动态绑定的，所以函数和对象的关系最多也只能说是间接关系。						
 	* 无论返回值是什么类型，每次访问对象的属性就是属性访问。如果属性访问返回的是一个函数，那它也并不是一个“方法”。						
 	属性访问返回的函数和其他函数没有任何区别（除了可能发生的隐式绑定this，就像我们刚才提到的）。						
 	举例来说：			
@@ -979,7 +982,7 @@ var myObject = {
 	myObject.someFoo; // foo(){ .. }	
 	```					
 		* someFoo和myObject.someFoo只是对于同一个函数的不同引用，并不能说明这个函数是特别的或者“属于”某个对象。如果foo()定义时在内部有一个this引用，那这两个函数引用的唯一区别就是myObject.someFoo中的this会被隐式绑定到一个对象。无论哪种引用形式都不能称之为“方法”。					
-		* 或许有人会辩解说，函数并不是在定义时成为方法，而是在被调用时根据调用位置的不同（是否具有上下文对象——详见第2章）成为方法。即便如此，这种说法仍然有些不妥。					
+		* 或许有人会辩解说，函数并不是在定义时成为方法，而是在被调用时根据<span class="s4">调用位置</span>的不同（是否具有<span class="object">上下文对象</span>——详见第2章）成为方法。即便如此，这种说法仍然有些不妥。					
 	* 最保险的说法可能是，“函数”和“方法”在JavaScript中是可以互换的。						
 	* ES6增加了super引用，一般来说会被用在class中（参见附录A）。						
 	super的行为似乎更有理由把super绑定的函数称为“方法”。						
@@ -1276,9 +1279,9 @@ myObject.a; // 2
 			* propertyIsEnumerable(..)会检查给定的属性名是否直接存在于对象中（而不是在原型链上）并且满足enumerable:true。			
 			* Object.keys(..)会返回一个数组，包含所有可枚举属性，			
 			* Object.getOwnPropertyNames(..)会返回一个数组，包含所有属性，无论它们是否可枚举。			
-				* in和hasOwnProperty(..)的区别在于是否查找[[Prototype]]链，		
-					* （目前）并没有内置的方法可以获取in操作符使用的属性列表（对象本身的属性以及[[Prototype]]链中的所有属性，参见第5章）。	
-					不过你可以递归遍历某个对象的整条[[Prototype]]链并保存每一层中使用Object.keys(..)得到的属性列表——只包含可枚举属性。	
+				* in和hasOwnProperty(..)的区别在于是否查找<span class="s6">[[Prototype]]</span>链，		
+					* （目前）并没有内置的方法可以获取in操作符使用的属性列表（对象本身的属性以及<span class="s6">[[Prototype]]</span>链中的所有属性，参见第5章）。	
+					不过你可以**递归**遍历某个对象的整条<span class="s6">[[Prototype]]</span>链并保存每一层中使用Object.keys(..)得到的属性列表——只包含可枚举属性。	
 				* 然而，Object.keys(..)和Object.getOwnPropertyNames(..)都只会查找对象直接包含的属性。
 
 						
@@ -1340,7 +1343,7 @@ Object.freeze(..)会创建一个冻结对象，
 	但是一定要小心，因为这样做有可能会在无意中冻结其他（共享）对象。											
 							
 * 3.3.7 [[Get]]							
-访问属性时，引擎实际上会调用内部的默认[[Get]]操作（在设置属性值时是[[Put]]）, [[Get]]操作会检查对象本身是否包含这个属性，如果没找到的话还会查找[[Prototype]]链（参见第5章）。							
+访问属性时，引擎实际上会调用内部的默认[[Get]]操作（在设置属性值时是[[Put]]）, [[Get]]操作会检查对象本身是否包含这个属性，如果没找到的话还会查找<span class="s6">[[Prototype]]</span>链（参见第5章）。							
 属性访问在实现时有一个微妙却非常重要的细节，思考下面的代码：
 ```javascript							
 var myObject = {							
@@ -1352,7 +1355,7 @@ myObject.a是一次属性访问，但是这条语句并不仅仅是在myObjet中
 	* 在语言规范中，myObject.a在myObject上实际上是实现了[[Get]]操作（有点像函数调用：[[Get]]()）。						
 		* 对象默认的内置[[Get]]操作首先在对象中查找是否有名称相同的属性，如果找到就会返回这个属性的值。					
 		* 然而，如果没有找到名称相同的属性，按照[[Get]]算法的定义会执行另外一种非常重要的行为。					
-		我们会在第5章中介绍这个行为（其实就是遍历可能存在的[[Prototype]]链，也就是原型链）。					
+		我们会在第5章中介绍这个行为（其实就是遍历可能存在的<span class="s6">[[Prototype]]</span>链，也就是原型链）。					
 		* 如果无论如何都没有找到名称相同的属性，那[[Get]]操作会返回值undefined：		
 		```javascript			
 		var myObject = {					
@@ -1361,7 +1364,7 @@ myObject.a是一次属性访问，但是这条语句并不仅仅是在myObjet中
 		myObject.b; // undefined	
 		```				
 			* 注意，这种方法和访问变量时是不一样的。				
-				* 如果你引用了一个当前词法作用域中不存在的变量，而是会抛出一个ReferenceError异常			
+				* 如果你引用了一个当前**词法作用域**中不存在的变量，而是会抛出一个ReferenceError异常			
 				* 并不会像对象属性一样返回undefined，			
 			* 从返回值的角度来说，这两个引用没有区别——它们都返回了undefined。				
 			然而，尽管乍看之下没什么区别，实际上底层的[[Get]]操作对myObject.b进行了更复杂的处理。
@@ -1383,7 +1386,7 @@ myObject.a是一次属性访问，但是这条语句并不仅仅是在myObjet中
 		2. 属性的数据描述符中writable是否是false？如果是，在非严格模式下静默失败，在严格模式下抛出TypeError异常。					
 		3. 如果都不是，将该值设置为属性的值。					
 	* 如果对象中不存在这个属性，[[Put]]操作会更加复杂。						
-	我们会在第5章讨论[[Prototype]]时详细进行介绍。						
+	我们会在第5章讨论<span class="s6">[[Prototype]]</span>时详细进行介绍。						
 							
 ### 属性不一定包含值
 
@@ -1466,18 +1469,18 @@ myObject.a; // 4
 	myObject.hasOwnProperty("b"); // false	
 	```					
 							
-		* in操作符会检查属性是否在对象及其[[Prototype]]原型链中（参见第5章）。					
+		* in操作符会检查属性是否在对象及其<span class="s6">[[Prototype]]</span>原型链中（参见第5章）。					
 		 看起来in操作符可以检查容器内是否有某个值，但是它实际上检查的是某个属性名是否存在。					
 		对于数组来说这个区别非常重要，4 in[2, 4, 6]的结果并不是你期待的True，因为[2, 4, 6]这个数组中包含的属性名是0、1、2，没有4。					
-		* 相比之下，hasOwnProperty(..)只会检查属性是否在myObject对象中，不会检查[[Prototype]]链。					
-		在第5章讲解[[Prototype]]时我们会详细介绍这两者的区别。					
-		* 所有的普通对象都可以通过对于Object.prototype的委托（参见第5章）来访问hasOwnProperty(..)，					
-		但是有的对象可能没有连接到Object.prototype（通过Object. create(null)来创建——参见第5章）。					
+		* 相比之下，hasOwnProperty(..)只会检查属性是否在myObject对象中，不会检查<span class="s6">[[Prototype]]</span>链。					
+		在第5章讲解<span class="s6">[[Prototype]]</span>时我们会详细介绍这两者的区别。					
+		* 所有的普通对象都可以通过对于Object.<span class="s8">prototype</span>的委托（参见第5章）来访问hasOwnProperty(..)，					
+		但是有的对象可能没有连接到Object.<span class="s8">prototype</span>（通过Object. create(null)来创建——参见第5章）。					
 		在这种情况下，形如myObejct.hasOwnProperty(..)就会失败。					
-		这时可以使用一种更加强硬的方法来进行判断：Object.prototype.hasOwnProperty. call(myObject, "a")，它借用基础的hasOwnProperty(..)方法并把它显式绑定（参见第2章）到myObject上。					
+		这时可以使用一种更加强硬的方法来进行判断：Object.<span class="s8">prototype</span>.hasOwnProperty. <span class="method">call</span>(myObject, "a")，它借用基础的hasOwnProperty(..)方法并把它显式绑定（参见第2章）到myObject上。					
 							
 ## 3.4 遍历
-### for..in循环可以用来遍历对象的可枚举属性列表（包括[[Prototype]]链）。
+### for..in循环可以用来遍历对象的可枚举属性列表（包括<span class="s6">[[Prototype]]</span>链）。
 此外，属性可以是可枚举或者不可枚举的，这决定了它们是否会出现在for..in循环中。							
 ### 但是如何遍历属性的值呢？
 #### 对于数值索引的数组来说，可以使用标准的for循环来遍历值：
@@ -1679,9 +1682,9 @@ for(var n of randoms){
 		如你所见，箭头的方向是从左向右、从上向下，它表示概念和物理意义上发生的复制操作。
 
 
-### 实例化（instantiation）——构造函数
-4.2.2 构造函数						
-类实例是由一个特殊的类方法构造的，这个方法名通常和类名相同，被称为构造函数。这个方法的任务就是初始化实例需要的所有信息（状态）。						
+### 实例化（instantiation）——**构造函数**
+4.2.2 **构造函数**						
+类实例是由一个特殊的类方法构造的，这个方法名通常和类名相同，被称为**构造函数**。这个方法的任务就是初始化实例需要的所有信息（状态）。						
 * 举例来说，思考下面这个关于类的伪代码（编造出来的语法）：
 
 	```javascript			
@@ -1696,14 +1699,14 @@ for(var n of randoms){
 	}					
 	```
 
-我们可以调用类构造函数来生成一个CoolGuy实例：					
+我们可以调用类**构造函数**来生成一个CoolGuy实例：					
 Joe = new CoolGuy("jumping rope")					
 Joe.showOff()  // 这是我的绝技：跳绳					
-注意，CoolGuy类有一个CoolGuy()构造函数，执行new CoolGuy()时实际上调用的就是它。					
-构造函数会返回一个对象（也就是类的一个实例），之后我们可以在这个对象上调用showOff()方法，来输出指定CoolGuy的特长。					
+注意，CoolGuy类有一个CoolGuy()**构造函数**，执行new CoolGuy()时实际上调用的就是它。					
+**构造函数**会返回一个对象（也就是类的一个实例），之后我们可以在这个对象上调用showOff()方法，来输出指定CoolGuy的特长。					
 显然，跳绳让乔成为了一个非常酷的家伙。					
-* 类构造函数属于类，而且通常和类同名。					
-此外，构造函数大多需要用new来调，这样语言引擎才知道你想要构造一个新的类实例。
+* 类**构造函数**属于类，而且通常和类同名。					
+此外，**构造函数**大多需要用new来调，这样语言引擎才知道你想要构造一个新的类实例。
 
 ### 继承（inheritance）
 4.3 类的继承						
@@ -1749,7 +1752,7 @@ class SpeedBoat inherits Vehicle {
 	}					
 }						
 ```
-* 为了方便理解并缩短代码，我们省略了这些类的构造函数。						
+* 为了方便理解并缩短代码，我们省略了这些类的**构造函数**。						
 	* 我们通过定义Vehicle类来假设一种发动机，一种点火方式，一种驾驶方法。但是你不可能制造一个通用的“交通工具”，因为这个类只是一个抽象的概念。					
 	* 接下来我们定义了两类具体的交通工具：Car和SpeedBoat。					
 	它们都从Vehicle继承了通用的特性并根据自身类别修改了某些特性。					
@@ -1765,10 +1768,10 @@ Car重写了继承自父类的drive()方法，但是之后Car调用了inherited:
 						
 * 多态是一个非常广泛的话题，我们现在所说的“相对”只是多态的一个方面：任何方法都可以引用继承层次中高层的方法（无论高层的方法名和当前方法名是否相同）。之所以说“相对”是因为我们并不会定义想要访问的绝对继承层次（或者说类），而是使用相对引用“查找上一层”。						
 在许多语言中可以使用super来代替本例中的inherited:，它的含义是“超类”（superclass），表示当前类的父类/祖先类。						
-	* 在传统的面向类的语言中super还有一个功能，就是从子类的构造函数中通过super可以直接调用父类的构造函数。					
-	通常来说这没什么问题，因为对于真正的类来说，构造函数是属于类的。					
-	然而，在JavaScript中恰好相反——实际上“类”是属于构造函数的（类似Foo.prototype..．这样的类型引用）。					
-	由于JavaScript中父类和子类的关系只存在于两者构造函数对应的．prototype对象中，因此它们的构造函数之间并不存在直接联系，从而无法简单地实现两者的相对引用（在ES6的类中可以通过super来“解决”这个问题，参见附录A）。					
+	* 在传统的面向类的语言中super还有一个功能，就是从子类的**构造函数**中通过super可以直接调用父类的**构造函数**。					
+	通常来说这没什么问题，因为对于真正的类来说，**构造函数**是属于类的。					
+	然而，在JavaScript中恰好相反——实际上“类”是属于**构造函数**的（类似Foo.<span class="s8">prototype</span>..．这样的类型引用）。					
+	由于JavaScript中父类和子类的关系只存在于两者**构造函数**对应的．<span class="s8">prototype</span>对象中，因此它们的**构造函数**之间并不存在直接联系，从而无法简单地实现两者的相对引用（在ES6的类中可以通过super来“解决”这个问题，参见附录A）。					
 * 多态的另一个方面是，在继承链的不同层次中一个方法名可以被多次定义，当调用方法时会自动选择合适的定义。						
 在之前的代码中就有两个这样的例子：drive()被定义在Vehicle和Car中，ignition()被定义在Vehicle和SpeedBoat中。						
 * 那么语言引擎会使用哪个ignition()呢，Vehicle的还是SpeedBoat的？						
@@ -1778,7 +1781,7 @@ Car重写了继承自父类的drive()方法，但是之后Car调用了inherited:
 	* 实际上它会使用SpeedBoat的ignition()。					
 	如果你直接实例化了Vehicle类然后调用它的drive()，那语言引擎就会使用Vehicle中的ignition()方法。					
 	换言之，ignition()方法定义的多态性取决于你是在哪个类的实例中引用它。					
-	* 这似乎是一个过于深入的学术细节，但是只有理解了这个细节才能理解JavaScript中类似（但是并不相同）的[[Prototype]]机制。					
+	* 这似乎是一个过于深入的学术细节，但是只有理解了这个细节才能理解JavaScript中类似（但是并不相同）的<span class="s6">[[Prototype]]</span>机制。					
 	在子类（而不是它们创建的实例对象！）中也可以相对引用它继承的父类，这种相对引用通常被称为super。					
 	还记得之前的那张图吗？	
     ![](.this_images/a71e9ff3.png)				
@@ -1799,7 +1802,7 @@ Car重写了继承自父类的drive()方法，但是之后Car调用了inherited:
 						
 ## 我们将会看到，这些概念实际上无法直接对应到JavaScript的对象机制，因此我们会介绍许多JavaScript开发者所使用的解决方法（比如混入，mixin）。
 ### 4.4 混入
-混入模式（无论显式还是隐式）可以用来模拟类的复制行为，但是通常会产生丑陋并且脆弱的语法，比如显式伪多态（OtherObj.methodName.call(this, ...)），这会让代码更加难懂并且难以维护。						
+混入模式（无论显式还是隐式）可以用来模拟类的复制行为，但是通常会产生丑陋并且脆弱的语法，比如显式伪多态（OtherObj.methodName.<span class="method">call</span>(this, ...)），这会让代码更加难懂并且难以维护。						
 此外，显式混入实际上无法完全模拟类的复制行为，因为对象（和函数！别忘了函数也是对象）只能复制引用，无法复制被引用的对象或者函数本身。忽视这一点会导致许多问题。						
 总地来说，在JavaScript中模拟类是得不偿失的，虽然能解决当前的问题，但是可能会埋下更多的隐患。						
 * 在继承或者实例化时，JavaScript的对象机制并不会自动执行复制行为。简单来说，JavaScript中只有对象，并不存在可以被实例化的“类”。一个对象并不会被复制到其他对象，它们会被关联起来（参见第5章）。						
@@ -1849,13 +1852,13 @@ var Car = mixin(Vehicle, {
       相反，属性engines就是直接从Vehicle中复制了值1。		
   * Car已经有了drive属性（函数），所以这个属性引用并没有被mixin重写，从而保留了Car中定义的同名属性，实现了“子类”对“父类”属性的重写（参见mixin(..)例子中的if语句）。			
 * 再说多态				
-我们来分析一下这条语句：Vehicle.drive.call(this)。				
+我们来分析一下这条语句：Vehicle.drive.<span class="method">call</span>(this)。				
   * 这就是我所说的显式多态。			
   还记得吗，在之前的伪代码中对应的语句是inherited:drive()，我们称之为相对多态。			
   * JavaScript（在ES6之前；参见附录A）并没有相对多态的机制。			
   所以，由于Car和Vehicle中都有drive()函数，为了指明调用对象，我们必须使用绝对（而不是相对）引用。			
   我们通过名称显式指定Vehicle对象并调用它的drive()函数。			
-  但是如果直接执行Vehicle.drive()，函数调用中的this会被绑定到Vehicle对象而不是Car对象（参见第2章），这并不是我们想要的。因此，我们会使用．call(this)（参见第2章）来确保drive()在Car对象的上下文中执行。			
+  但是如果直接执行Vehicle.drive()，函数调用中的this会被绑定到Vehicle对象而不是Car对象（参见第2章），这并不是我们想要的。因此，我们会使用．<span class="method">call</span>(this)（参见第2章）来确保drive()在Car对象的<span class="object">上下文</span>中执行。			
   * 如果函数Car.drive()的名称标识符并没有和Vehicle.drive()重叠（或者说“屏蔽”；参见第5章）的话，我们就不需要实现方法多态，因为调用mixin(..)时会把函数Vehicle.drive()的引用复制到Car中，因此我们可以直接访问this.drive()。			
   正是由于存在标识符重叠，所以必须使用更加复杂的显式伪多态方法。			
   * 使用伪多态通常会导致代码变得更加复杂、难以阅读并且难以维护，因此应当尽量避免使用显式伪多态，因为这样做往往得不偿失。			
@@ -1986,20 +1989,20 @@ Another.cool();
 Another.greeting(); // "Hello World"					
 Another.count; // 1 (count不是共享状态）		
 ```			
-  * 通过在构造函数调用或者方法调用中使用Something.cool.call(this)，我们实际上“借用”了函数Something.cool()并在Another的上下文中调用了它（通过this绑定；参见第2章）。				
+  * 通过在**构造函数**调用或者方法调用中使用Something.cool.<span class="method">call</span>(this)，我们实际上“借用”了函数Something.cool()并在Another的<span class="object">上下文</span>中调用了它（通过this绑定；参见第2章）。				
   最终的结果是Something.cool()中的赋值操作都会应用在Another对象上而不是Something对象上。				
   * 因此，我们把Something的行为“混入”到了Another中。				
-  * 虽然这类技术利用了this的重新绑定功能，但是Something.cool.call(this)仍然无法变成相对（而且更灵活的）引用，所以使用时千万要小心。通常来说，尽量避免使用这样的结构，以保证代码的整洁和可维护性。	
+  * 虽然这类技术利用了this的重新绑定功能，但是Something.cool.<span class="method">call</span>(this)仍然无法变成相对（而且更灵活的）引用，所以使用时千万要小心。通常来说，尽量避免使用这样的结构，以保证代码的整洁和可维护性。	
 
 
 # 第5章 原型
-第3章和第4章多次提到了[[Prototype]]链，但没有说它到底是什么。现在我们来详细介绍一下它。								
-第4章中介绍的所有模拟类复制行为的方法，如各种混入，都没有使用[[Prototype]]链机制。								
+第3章和第4章多次提到了<span class="s6">[[Prototype]]</span>链，但没有说它到底是什么。现在我们来详细介绍一下它。								
+第4章中介绍的所有模拟类复制行为的方法，如各种混入，都没有使用<span class="s6">[[Prototype]]</span>链机制。								
 								
-## 5.1 [[Prototype]]
-JavaScript中的对象有一个特殊的[[Prototype]]内置属性，其实就是对于其他对象的引用。几乎所有的对象在创建时[[Prototype]]属性都会被赋予一个非空的值。								
-注意：很快我们就可以看到，对象的[[Prototype]]链接可以为空，虽然很少见								
-### [[Prototype]]引用有什么用呢？
+## 5.1 <span class="s6">[[Prototype]]</span>
+JavaScript中的对象有一个特殊的<span class="s6">[[Prototype]]</span>内置属性，其实就是对于其他对象的引用。几乎所有的对象在创建时<span class="s6">[[Prototype]]</span>属性都会被赋予一个非空的值。								
+注意：很快我们就可以看到，对象的<span class="s6">[[Prototype]]</span>链接可以为空，虽然很少见								
+### <span class="s6">[[Prototype]]</span>引用有什么用呢？
 ```javascript							
 var myObject = {						
     a: 2					
@@ -2010,9 +2013,9 @@ myObject.a; // 2
 * 在第3章中我们说过，当你试图引用对象的属性时会触发[[Get]]操作，比如myObject.a。						
 对于默认的[[Get]]操作来说，第一步是检查对象本身是否有这个属性，如果有的话就使用它。						
     * ES6中的Proxy超出了本书的范围（但是在本系列之后的书中会介绍），但是要注意，如果包含Proxy的话，我们这里对[[Get]]和[[Put]]的讨论就不适用。					
-* 但是如果a不在myObject中，就需要使用对象的[[Prototype]]链了。
-如果要访问对象中并不存在的一个属性，[[Get]]操作（参见第3章）就会查找对象内部[[Prototype]]关联的对象。这个关联关系实际上定义了一条“原型链”（有点像嵌套的作用域链），在查找属性时会对它进行遍历。						
-对于默认的[[Get]]操作来说，如果无法在对象本身找到需要的属性，就会继续访问对象的[[Prototype]]链：	
+* 但是如果a不在myObject中，就需要使用对象的<span class="s6">[[Prototype]]</span>链了。
+如果要访问对象中并不存在的一个属性，[[Get]]操作（参见第3章）就会查找对象内部<span class="s6">[[Prototype]]</span>关联的对象。这个关联关系实际上定义了一条“原型链”（有点像嵌套的作用域链），在查找属性时会对它进行遍历。						
+对于默认的[[Get]]操作来说，如果无法在对象本身找到需要的属性，就会继续访问对象的<span class="s6">[[Prototype]]</span>链：	
 ```javascript
 var anotherObject = {						
     a: 2					
@@ -2021,12 +2024,12 @@ var anotherObject = {
 var myObject = Object.create(anotherObject);						
 myObject.a; // 2	
 ```					
-    * 稍后我们会介绍Object.create(..)的原理，现在只需要知道它会创建一个对象并把这个对象的[[Prototype]]关联到指定的对象。					
-    * 现在myObject对象的[[Prototype]]关联到了anotherObject。显然myObject.a并不存在，但是尽管如此，属性访问仍然成功地（在anotherObject中）找到了值2。					
-    但是，如果anotherObject中也找不到a并且[[Prototype]]链不为空的话，就会继续查找下去。					
-    这个过程会持续到找到匹配的属性名或者查找完整条[[Prototype]]链。如果是后者的话，[[Get]]操作的返回值是undefined。					
+    * 稍后我们会介绍Object.create(..)的原理，现在只需要知道它会创建一个对象并把这个对象的<span class="s6">[[Prototype]]</span>关联到指定的对象。					
+    * 现在myObject对象的<span class="s6">[[Prototype]]</span>关联到了anotherObject。显然myObject.a并不存在，但是尽管如此，属性访问仍然成功地（在anotherObject中）找到了值2。					
+    但是，如果anotherObject中也找不到a并且<span class="s6">[[Prototype]]</span>链不为空的话，就会继续查找下去。					
+    这个过程会持续到找到匹配的属性名或者查找完整条<span class="s6">[[Prototype]]</span>链。如果是后者的话，[[Get]]操作的返回值是undefined。					
                         
-* 使用for..in遍历对象时原理和查找[[Prototype]]链类似，任何可以通过原型链访问到（并且是enumerable，参见第3章）的属性都会被枚举。						
+* 使用for..in遍历对象时原理和查找<span class="s6">[[Prototype]]</span>链类似，任何可以通过原型链访问到（并且是enumerable，参见第3章）的属性都会被枚举。						
 使用in操作符来检查属性在对象中是否存在时，同样会查找对象的整条原型链（无论属性是否可枚举）：
 ```javascript						
 var anotherObject = {						
@@ -2040,13 +2043,13 @@ for(var k in myObject){
 // found: a						
 ("a" in myObject); // true	
 ```					
-因此，当你通过各种语法进行属性查找时都会查找[[Prototype]]链，直到找到属性或者查找完整条原型链。						
+因此，当你通过各种语法进行属性查找时都会查找<span class="s6">[[Prototype]]</span>链，直到找到属性或者查找完整条原型链。						
                           
-### 5.1.1 Object.prototype							
-但是到哪里是[[Prototype]]的“尽头”呢？							
-所有普通的[[Prototype]]链最终都会指向内置的Object.prototype。由于所有的“普通”（内置，不是特定主机的扩展）对象都“源于”（或者说把[[Prototype]]链的顶端设置为）这个Object.prototype对象，所以它包含JavaScript中许多通用的功能。							
+### 5.1.1 Object.<span class="s8">prototype</span>							
+但是到哪里是<span class="s6">[[Prototype]]</span>的“尽头”呢？							
+所有普通的<span class="s6">[[Prototype]]</span>链最终都会指向内置的Object.<span class="s8">prototype</span>。由于所有的“普通”（内置，不是特定主机的扩展）对象都“源于”（或者说把<span class="s6">[[Prototype]]</span>链的顶端设置为）这个Object.<span class="s8">prototype</span>对象，所以它包含JavaScript中许多通用的功能。							
 有些功能你应该已经很熟悉了，比如说．toString()和．valueOf()，第3章还介绍过．hasOwnProperty(..)。稍后我们还会介绍．isPrototypeOf(..)，这个你可能不太熟悉。							
-所有普通对象都有内置的Object.prototype，指向原型链的顶端（比如说全局作用域），如果在原型链中找不到指定的属性就会停止。toString()、valueOf()和其他一些通用的功能都存在于Object.prototype对象上，因此语言中所有的对象都可以使用它们。							
+所有普通对象都有内置的Object.<span class="s8">prototype</span>，指向原型链的顶端（比如说全局作用域），如果在原型链中找不到指定的属性就会停止。toString()、valueOf()和其他一些通用的功能都存在于Object.<span class="s8">prototype</span>对象上，因此语言中所有的对象都可以使用它们。							
                             
 ### 5.1.2 属性设置和屏蔽							
 第3章提到过，给一个对象设置属性并不仅仅是添加一个新属性或者修改已有的属性值。							
@@ -2055,27 +2058,27 @@ for(var k in myObject){
 myObject.foo = "bar";							
 ```
 * 如果myObject对象中包含名为foo的普通数据访问属性，这条赋值语句只会修改已有的属性值。						
-* 如果foo不是直接存在于myObject中，[[Prototype]]链就会被遍历，类似[[Get]]操作。						
+* 如果foo不是直接存在于myObject中，<span class="s6">[[Prototype]]</span>链就会被遍历，类似[[Get]]操作。						
     * 如果原型链上找不到foo, foo就会被直接添加到myObject上。					
     * 然而，如果foo存在于原型链上层，赋值语句myObject.foo = "bar"的行为就会有些不同（而且可能很出人意料）。稍后我们会进行介绍。					
-* 如果属性名foo既出现在myObject中也出现在myObject的[[Prototype]]链上层，那么就会发生屏蔽。						
+* 如果属性名foo既出现在myObject中也出现在myObject的<span class="s6">[[Prototype]]</span>链上层，那么就会发生屏蔽。						
 myObject中包含的foo属性会屏蔽原型链上层的所有foo属性，因为myObject.foo总是会选择原型链中最底层的foo属性。						
     * 屏蔽比我们想象中更加复杂。					
     下面我们分析一下如果foo不直接存在于myObject中而是存在于原型链上层时myObject.foo = "bar"会出现的三种情况。					
-        1. 如果在[[Prototype]]链上层存在名为foo的普通数据访问属性（参见第3章）并且没有被标记为只读（writable:false），那就会直接在myObject中添加一个名为foo的新属性，它是屏蔽属性。				
-        2. 如果在[[Prototype]]链上层存在foo，但是它被标记为只读（writable:false），那么无法修改已有属性或者在myObject上创建屏蔽属性。				
+        1. 如果在<span class="s6">[[Prototype]]</span>链上层存在名为foo的普通数据访问属性（参见第3章）并且没有被标记为只读（writable:false），那就会直接在myObject中添加一个名为foo的新属性，它是屏蔽属性。				
+        2. 如果在<span class="s6">[[Prototype]]</span>链上层存在foo，但是它被标记为只读（writable:false），那么无法修改已有属性或者在myObject上创建屏蔽属性。				
             * 总之，不会发生屏蔽。			
                 * 如果运行在严格模式下，代码会抛出一个错误。		
                 * 否则，这条赋值语句会被忽略。		
-            * 第二种情况可能是最令人意外的，只读属性会阻止[[Prototype]]链下层隐式创建（屏蔽）同名属性。			
+            * 第二种情况可能是最令人意外的，只读属性会阻止<span class="s6">[[Prototype]]</span>链下层隐式创建（屏蔽）同名属性。			
             这样做主要是为了模拟类属性的继承。			
             你可以把原型链上层的foo看作是父类中的属性，它会被myObject继承（复制），这样一来myObject中的foo属性也是只读，所以无法创建。			
             但是一定要注意，实际上并不会发生类似的继承复制（参见第4章和第5章）。这看起来有点奇怪，myObject对象竟然会因为其他对象中有一个只读foo就不能包含foo属性。			
             更奇怪的是，这个限制只存在于=赋值中，使用Object. defineProperty(..)并不会受到影响。			
-        3. 如果在[[Prototype]]链上层存在foo并且它是一个setter（参见第3章），那就一定会调用这个setter。				
+        3. 如果在<span class="s6">[[Prototype]]</span>链上层存在foo并且它是一个setter（参见第3章），那就一定会调用这个setter。				
         foo不会被添加到（或者说屏蔽于）myObject，				
         也不会重新定义foo这个setter。				
-        大多数开发者都认为如果向[[Prototype]]链上层已经存在的属性（[[Put]]）赋值，就一定会触发屏蔽，但是如你所见，三种情况中只有一种（第一种）是这样的。				
+        大多数开发者都认为如果向<span class="s6">[[Prototype]]</span>链上层已经存在的属性（[[Put]]）赋值，就一定会触发屏蔽，但是如你所见，三种情况中只有一种（第一种）是这样的。				
         如果你希望在第二种和第三种情况下也屏蔽foo，那就不能使用=操作符来赋值，而是使用Object.defineProperty(..)（参见第3章）来向myObject添加foo。				
     * 如果需要对屏蔽方法进行委托的话就不得不使用丑陋的显式伪多态（参见第4章）。通常来说，使用屏蔽得不偿失，所以应当尽量避免使用。第6章会介绍另一种不使用屏蔽的更加简洁的设计模式。					
     * 有些情况下会隐式产生屏蔽，一定要当心。思考下面的代码：
@@ -2095,30 +2098,30 @@ myObject中包含的foo属性会屏蔽原型链上层的所有foo属性，因为
     myObject.hasOwnProperty("a"); // true		
     ```			
         * 尽管myObject.a++看起来应该（通过委托）查找并增加anotherObject.a属性，但是别忘了++操作相当于myObject.a = myObject.a + 1。				
-        因此++操作首先会通过[[Prototype]]查找属性a并从anotherObject.a获取当前属性值2，然后给这个值加1，接着用[[Put]]将值3赋给myObject中新建的屏蔽属性a，天呐！				
+        因此++操作首先会通过<span class="s6">[[Prototype]]</span>查找属性a并从anotherObject.a获取当前属性值2，然后给这个值加1，接着用[[Put]]将值3赋给myObject中新建的屏蔽属性a，天呐！				
         * 修改委托属性时一定要小心。如果想让anotherObject.a的值增加，唯一的办法是anotherObject.a++。
 
 ## 5.2 “类”
-现在你可能会很好奇：为什么一个对象需要关联到另一个对象？这样做有什么好处？这个问题非常好，但是在回答之前我们首先要理解[[Prototype]]“不是”什么。
+现在你可能会很好奇：为什么一个对象需要关联到另一个对象？这样做有什么好处？这个问题非常好，但是在回答之前我们首先要理解<span class="s6">[[Prototype]]</span>“不是”什么。
 第4章中我们说过，JavaScript和面向类的语言不同，它并没有类来作为对象的抽象模式或者说蓝图。JavaScript中只有对象。								
 实际上，JavaScript才是真正应该被称为“面向对象”的语言，因为它是少有的可以不通过类，直接创建对象的语言。								
 实际上，JavaScript才是真正应该被称为“面向对象”的语言，因为它是少有的可以不通过类，直接创建对象的语言。								
 在JavaScript中，类无法描述对象的行为，（因为根本就不存在类！）对象直接定义自己的行为。再说一遍，JavaScript中只有对象。								
 * 关联两个对象最常用的方法是使用new关键词进行函数调用，在调用的4个步骤（第2章）中会创建一个关联其他对象的新对象。							
-使用new调用函数时会把新对象的．prototype属性关联到“其他对象”。带new的函数调用通常被称为“构造函数调用”，尽管它们实际上和传统面向类语言中的类构造函数不一样。							
-虽然这些JavaScript机制和传统面向类语言中的“类初始化”和“类继承”很相似，但是JavaScript中的机制有一个核心区别，那就是不会进行复制，对象之间是通过内部的[[Prototype]]链关联的。							
+使用new调用函数时会把新对象的．<span class="s8">prototype</span>属性关联到“其他对象”。带new的函数调用通常被称为“**构造函数**调用”，尽管它们实际上和传统面向类语言中的类**构造函数**不一样。							
+虽然这些JavaScript机制和传统面向类语言中的“类初始化”和“类继承”很相似，但是JavaScript中的机制有一个核心区别，那就是不会进行复制，对象之间是通过内部的<span class="s6">[[Prototype]]</span>链关联的。							
 * 5.2.1 “类”函数							
 多年以来，JavaScript中有一种奇怪的行为一直在被无耻地滥用，那就是模仿类。我们会仔细分析这种方法。							
-这种奇怪的“类似类”的行为利用了函数的一种特殊特性：所有的函数默认都会拥有一个名为prototype的公有并且不可枚举（参见第3章）的属性，它会指向另一个对象：
+这种奇怪的“类似类”的行为利用了函数的一种特殊特性：所有的函数默认都会拥有一个名为<span class="s8">prototype</span>的公有并且不可枚举（参见第3章）的属性，它会指向另一个对象：
 ```javascript							
 function Foo(){							
     // ...						
 }							
 Foo.prototype; // {}	
 ```						
-这个对象通常被称为Foo的原型，因为我们通过名为Foo.prototype的属性引用来访问它。然而不幸的是，这个术语对我们造成了极大的误导，稍后我们就会看到。如果是我的话就会叫它“之前被称为Foo的原型的那个对象”。好吧我是开玩笑的，你觉得“被贴上‘Foo点prototype’标签的对象”这个名字怎么样？							
+这个对象通常被称为Foo的原型，因为我们通过名为Foo.<span class="s8">prototype</span>的属性引用来访问它。然而不幸的是，这个术语对我们造成了极大的误导，稍后我们就会看到。如果是我的话就会叫它“之前被称为Foo的原型的那个对象”。好吧我是开玩笑的，你觉得“被贴上‘Foo点<span class="s8">prototype</span>’标签的对象”这个名字怎么样？							
 * 抛开名字不谈，这个对象到底是什么？							
-    * 最直接的解释就是，这个对象是在调用new Foo()（参见第2章）时创建的，最后会被（有点武断地）关联到这个“Foo.prototype”对象上。						
+    * 最直接的解释就是，这个对象是在调用new Foo()（参见第2章）时创建的，最后会被（有点武断地）关联到这个“Foo.<span class="s8">prototype</span>”对象上。						
     我们来验证一下：		
     ```javascript				
     function Foo(){						
@@ -2127,26 +2130,26 @@ Foo.prototype; // {}
     var a = new Foo();						
     Object.getPrototypeOf(a) === Foo.prototype; // true	
     ```					
-    * 调用new Foo()时会创建a（具体的4个步骤参见第2章），其中一步就是将a内部的[[Prototype]]链接到Foo.prototype所指向的对象。						
+    * 调用new Foo()时会创建a（具体的4个步骤参见第2章），其中一步就是将a内部的<span class="s6">[[Prototype]]</span>链接到Foo.<span class="s8">prototype</span>所指向的对象。						
     暂停一下，仔细思考这条语句的含义。						
         * 在面向类的语言中，类可以被复制（或者说实例化）多次，就像用模具制作东西一样。					
         我们在第4章中看到过，之所以会这样是因为实例化（或者继承）一个类就意味着“把类的行为复制到物理对象中”，对于每一个新实例来说都会重复这个过程。					
         * 但是在JavaScript中，并没有类似的复制机制。					
-        你不能创建一个类的多个实例，只能创建多个对象，它们[[Prototype]]关联的是同一个对象。					
+        你不能创建一个类的多个实例，只能创建多个对象，它们<span class="s6">[[Prototype]]</span>关联的是同一个对象。					
         但是在默认情况下并不会进行复制，因此这些对象之间并不会完全失去联系，它们是互相关联的。					
-    * new Foo()会生成一个新对象（我们称之为a），这个新对象的内部链接[[Prototype]]关联的是Foo.prototype对象。						
+    * new Foo()会生成一个新对象（我们称之为a），这个新对象的内部链接<span class="s6">[[Prototype]]</span>关联的是Foo.<span class="s8">prototype</span>对象。						
     最后我们得到了两个对象，它们之间互相关联，就是这样。						
     我们并没有初始化一个类，实际上我们并没有从“类”中复制任何行为到一个对象中，只是让两个对象互相关联。						
     实际上，绝大多数JavaScript开发者不知道的秘密是，new Foo()这个函数调用实际上并没有直接创建关联，这个关联只是一个意外的副作用。new Foo()只是间接完成了我们的目标：一个关联到其他对象的新对象。						
     * 那么有没有更直接的方法来做到这一点呢？当然！功臣就是Object.create(..)，不过我们现在暂时不介绍它。						
 *  关于名称							
-在JavaScript中，我们并不会将一个对象（“类”）复制到另一个对象（“实例”），只是将它们关联起来。从视觉角度来说，[[Prototype]]机制如下图所示，箭头从右到左，从下到上：
+在JavaScript中，我们并不会将一个对象（“类”）复制到另一个对象（“实例”），只是将它们关联起来。从视觉角度来说，<span class="s6">[[Prototype]]</span>机制如下图所示，箭头从右到左，从下到上：
 ![](.this_images/7b115aba.png)							
     * 这个机制通常被称为原型继承（稍后我们会分析具体代码），它常常被视为动态语言版本的类继承。这个名称主要是为了对应面向类的世界中“继承”的意义，但是违背（写作违背，读作推翻）了动态脚本中对应的语义。						
     “继承”这个词会让人产生非常强的心理预期（参见第4章）。仅仅在前面加上“原型”并不能区分出JavaScript中和类继承几乎完全相反的行为，因此在过去20年中造成了极大的误解。						
     在我看来，在“继承”前面加上“原型”对于事实的曲解就好像一只手拿橘子一只手拿苹果然后把苹果叫作“红橘子”一样。无论添加什么标签都无法改变事实：一种水果是苹果，另一种是橘子。						
     更好的方法是直接把苹果叫作苹果——使用更加准确并且直接的术语。这样有助于理解它们的相似之处以及不同之处，因为我们大家都明白“苹果”的含义。						
-    因此我认为这个容易混淆的组合术语“原型继承”（以及使用其他面向类的术语比如“类”、“构造函数”、“实例”、“多态”，等等）严重影响了大家对于JavaScript机制真实原理的理解。						
+    因此我认为这个容易混淆的组合术语“原型继承”（以及使用其他面向类的术语比如“类”、“**构造函数**”、“实例”、“多态”，等等）严重影响了大家对于JavaScript机制真实原理的理解。						
     继承意味着复制操作，JavaScript（默认）并不会复制对象属性。相反，JavaScript会在两个对象之间创建一个关联，这样一个对象就可以通过委托访问另一个对象的属性和函数。						
         * 委托（参见第6章）这个术语可以更加准确地描述JavaScript中对象的关联机制。					
     * 还有个偶尔会用到的JavaScript术语差异继承。						
@@ -2154,10 +2157,10 @@ Foo.prototype; // {}
     举例来说，描述汽车时你会说汽车是有四个轮子的一种交通工具，但是你不会重复描述交通工具具备的通用特性（比如引擎）。						
     如果你把JavaScript中对象的所有委托行为都归结到对象本身并且把对象看作是实物的话，那就（差不多）可以理解差异继承了。						
     但是和原型继承一样，差异继承会更多是你脑中构建出的模型，而非真实情况。它忽略了一个事实，那就是对象B实际上并不是被差异构造出来的，我们只是定义了B的一些指定特性，其他没有定义的东西都变成了“洞”。而这些洞（或者说缺少定义的空白处）最终会被委托行为“填满”。						
-    默认情况下，对象并不会像差异继承暗示的那样通过复制生成。因此，差异继承也不适合用来描述JavaScript的[[Prototype]]机制。						
+    默认情况下，对象并不会像差异继承暗示的那样通过复制生成。因此，差异继承也不适合用来描述JavaScript的<span class="s6">[[Prototype]]</span>机制。						
     当然，如果你喜欢，完全可以使用差异继承这个术语，但是无论如何它只适用于你脑中的模型，并不符合引擎的真实行为。						
                             
-### 5.2.2 “构造函数”							
+### 5.2.2 “**构造函数**”							
 好了，回到之前的代码：
 ```javascript							
 function Foo(){							
@@ -2167,8 +2170,8 @@ var a = new Foo();
 ```						
 * 到底是什么让我们认为Foo是一个“类”呢？						
     * 其中一个原因是我们看到了关键字new，在面向类的语言中构造类实例时也会用到它。					
-    * 另一个原因是，看起来我们执行了类的构造函数方法，Foo()的调用方式很像初始化类时类构造函数的调用方式。					
-        * 除了令人迷惑的“构造函数”语义外，Foo.prototype还有另一个绝招。				
+    * 另一个原因是，看起来我们执行了类的**构造函数**方法，Foo()的调用方式很像初始化类时类**构造函数**的调用方式。					
+        * 除了令人迷惑的“**构造函数**”语义外，Foo.<span class="s8">prototype</span>还有另一个绝招。				
         思考下面的代码：				
         function Foo(){				
             // ...			
@@ -2176,15 +2179,15 @@ var a = new Foo();
         Foo.prototype.constructor === Foo; // true				
         var a = new Foo();				
         a.constructor === Foo; // true				
-        Foo.prototype默认（在代码中第一行声明时！）有一个公有并且不可枚举（参见第3章）的属性．constructor，这个属性引用的是对象关联的函数（本例中是Foo）。				
-        此外，我们可以看到通过“构造函数”调用newFoo()创建的对象也有一个．constructor属性，指向“创建这个对象的函数”。				
+        Foo.<span class="s8">prototype</span>默认（在代码中第一行声明时！）有一个公有并且不可枚举（参见第3章）的属性．constructor，这个属性引用的是对象关联的函数（本例中是Foo）。				
+        此外，我们可以看到通过“**构造函数**”调用newFoo()创建的对象也有一个．constructor属性，指向“创建这个对象的函数”。				
         实际上a本身并没有．constructor属性。而且，虽然a.constructor确实指向Foo函数，但是这个属性并不是表示a由Foo“构造”，稍后我们会解释。				
     * 哦耶，好吧……按照JavaScript世界的惯例，“类”名首字母要大写，所以名字写作Foo而非foo似乎也提示它是一个“类”。显而易见，是吧？!					
     这个惯例影响力非常大，以至于如果你用new来调用小写方法或者不用new调用首字母大写的函数，许多JavaScript开发者都会责怪你。这很令人吃惊，我们竟然会如此努力地维护JavaScript中（假）“面向类”的权力，尽管对于JavaScript引擎来说首字母大写没有任何意义。					
                         
-* 构造函数还是调用						
-上一段代码很容易让人认为Foo是一个构造函数，因为我们使用new来调用它并且看到它“构造”了一个对象。						
-实际上，Foo和你程序中的其他函数没有任何区别。函数本身并不是构造函数，然而，当你在普通的函数调用前面加上new关键字之后，就会把这个函数调用变成一个“构造函数调用”。实际上，new会劫持所有普通函数并用构造对象的形式来调用它。
+* **构造函数**还是调用						
+上一段代码很容易让人认为Foo是一个**构造函数**，因为我们使用new来调用它并且看到它“构造”了一个对象。						
+实际上，Foo和你程序中的其他函数没有任何区别。函数本身并不是**构造函数**，然而，当你在普通的函数调用前面加上new关键字之后，就会把这个函数调用变成一个“**构造函数**调用”。实际上，new会劫持所有普通函数并用构造对象的形式来调用它。
 举例来说：	
 
 ```javascript					
@@ -2197,9 +2200,9 @@ var a = new NothingSpecial();
 a; // {}	
 ```			
 
-NothingSpecial只是一个普通的函数，但是使用new调用时，它就会构造一个对象并赋值给a，这看起来像是new的一个副作用（无论如何都会构造一个对象）。这个调用是一个构造函数调用，但是NothingSpecial本身并不是一个构造函数。					
-换句话说，在JavaScript中对于“构造函数”最准确的解释是，所有带new的函数调用					
-函数不是构造函数，但是当且仅当使用new时，函数调用会变成“构造函数调用”。					
+NothingSpecial只是一个普通的函数，但是使用new调用时，它就会构造一个对象并赋值给a，这看起来像是new的一个副作用（无论如何都会构造一个对象）。这个调用是一个**构造函数**调用，但是NothingSpecial本身并不是一个**构造函数**。					
+换句话说，在JavaScript中对于“**构造函数**”最准确的解释是，所有带new的函数调用					
+函数不是**构造函数**，但是当且仅当使用new时，函数调用会变成“**构造函数**调用”。					
                             
 *  5.2.3 技术							
 我们是不是已经介绍了JavaScript中所有和“类”相关的问题了呢？							
@@ -2221,15 +2224,15 @@ a.myName(); // "a"
 b.myName(); // "b"	
 ```					
 1. this.name = name给每个对象（也就是a和b，参见第2章中的this绑定）都添加了．name属性，有点像类实例封装的数据值。					
-2. Foo.prototype.myName = ..．可能个更有趣的技巧，它会给Foo.prototype对象添加一个属性（函数）。					
+2. Foo.<span class="s8">prototype</span>.myName = ..．可能个更有趣的技巧，它会给Foo.<span class="s8">prototype</span>对象添加一个属性（函数）。					
 现在，a.myName()可以正常工作，但是你可能会觉得很惊讶，这是什么原理呢？					
-    * 在这段代码中，看起来似乎创建a和b时会把Foo.prototype对象复制到这两个对象中，然而事实并不是这样。				
-        * 在本章开头介绍默认[[Get]]算法时我们介绍过[[Prototype]]链，以及当属性不直接存在于对象中时如何通过它来进行查找。			
-        因此，在创建的过程中，a和b的内部[[Prototype]]都会关联到Foo.prototype上。当a和b中无法找到myName时，它会（通过委托，参见第6章）在Foo.prototype上找到。			
+    * 在这段代码中，看起来似乎创建a和b时会把Foo.<span class="s8">prototype</span>对象复制到这两个对象中，然而事实并不是这样。				
+        * 在本章开头介绍默认[[Get]]算法时我们介绍过<span class="s6">[[Prototype]]</span>链，以及当属性不直接存在于对象中时如何通过它来进行查找。			
+        因此，在创建的过程中，a和b的内部<span class="s6">[[Prototype]]</span>都会关联到Foo.<span class="s8">prototype</span>上。当a和b中无法找到myName时，它会（通过委托，参见第6章）在Foo.<span class="s8">prototype</span>上找到。			
         * 之前讨论．constructor属性时我们说过，看起来a.constructor ===Foo为真意味着a确实有一个指向Foo的．constructor属性，但是事实不是这样。			
-        这是一个很不幸的误解。实际上，.constructor引用同样被委托给了Foo.prototype，而Foo.prototype.constructor默认指向Foo。			
-        把．constructor属性指向Foo看作是a对象由Foo“构造”非常容易理解，但这只不过是一种虚假的安全感。a.constructor只是通过默认的[[Prototype]]委托指向Foo，这和“构造”毫无关系。相反，对于．constructor的错误理解很容易对你自己产生误导。			
-            * 举例来说，Foo.prototype的．constructor属性只是Foo函数在声明时的默认属性。如果你创建了一个新对象并替换了函数默认的．prototype对象引用，那么新对象并不会自动获得．constructor属性。
+        这是一个很不幸的误解。实际上，.constructor引用同样被委托给了Foo.<span class="s8">prototype</span>，而Foo.<span class="s8">prototype</span>.constructor默认指向Foo。			
+        把．constructor属性指向Foo看作是a对象由Foo“构造”非常容易理解，但这只不过是一种虚假的安全感。a.constructor只是通过默认的<span class="s6">[[Prototype]]</span>委托指向Foo，这和“构造”毫无关系。相反，对于．constructor的错误理解很容易对你自己产生误导。			
+            * 举例来说，Foo.<span class="s8">prototype</span>的．constructor属性只是Foo函数在声明时的默认属性。如果你创建了一个新对象并替换了函数默认的．<span class="s8">prototype</span>对象引用，那么新对象并不会自动获得．constructor属性。
             ```javascript		
             function Foo(){ /* .. */ }		
             Foo.prototype = {/* .. */ }; // 创建一个新原型对象		
@@ -2239,11 +2242,11 @@ b.myName(); // "b"
             ```
             Object(..)并没有“构造”a1，对吧？看起来应该是Foo()“构造”了它。大部分开发者都认为是Foo()执行了构造工作，但是问题在于，如果你认为“constructor”表示“由……构造”的话，a1.constructor应该是Foo，但是它并不是Foo！		
                 * 到底怎么回事？	
-                a1并没有．constructor属性，所以它会委托[[Prototype]]链上的Foo. prototype。	
-                但是这个对象也没有．constructor属性（不过默认的Foo.prototype对象有这个属性！），所以它会继续委托，这次会委托给委托链顶端的Object.prototype。	
+                a1并没有．constructor属性，所以它会委托<span class="s6">[[Prototype]]</span>链上的Foo. <span class="s8">prototype</span>。	
+                但是这个对象也没有．constructor属性（不过默认的Foo.<span class="s8">prototype</span>对象有这个属性！），所以它会继续委托，这次会委托给委托链顶端的Object.<span class="s8">prototype</span>。	
                 这个对象有．constructor属性，指向内置的Object(..)函数。	
                 错误观点已被摧毁。	
-                * 当然，你可以给Foo.prototype添加一个．constructor属性，不过这需要手动添加一个符合正常行为的不可枚举（参见第3章）属性。	
+                * 当然，你可以给Foo.<span class="s8">prototype</span>添加一个．constructor属性，不过这需要手动添加一个符合正常行为的不可枚举（参见第3章）属性。	
                 举例来说：	
                 ```javascript
                 function Foo(){ /* .. * }	
@@ -2259,9 +2262,9 @@ b.myName(); // "b"
                 });	
                 ```
                     * 修复．constructor需要很多手动操作。所有这些工作都是源于把“constructor”错误地理解为“由……构造”，这个误解的代价实在太高了。
-                    * 实际上，对象的．constructor会默认指向一个函数，这个函数可以通过对象的．prototype引用。“constructor”和“prototype”这两个词本身的含义可能适用也可能不适用。最好的办法是记住这一点“constructor并不表示被构造”。
-                    * .constructor并不是一个不可变属性。它是不可枚举（参见上面的代码）的，但是它的值是可写的（可以被修改）。此外，你可以给任意[[Prototype]]链中的任意对象添加一个名为constructor的属性或者对其进行修改，你可以任意对其赋值。
-                    * 和[[Get]]算法查找[[Prototype]]链的机制一样，.constructor属性引用的目标可能和你想的完全不同。
+                    * 实际上，对象的．constructor会默认指向一个函数，这个函数可以通过对象的．<span class="s8">prototype</span>引用。“constructor”和“<span class="s8">prototype</span>”这两个词本身的含义可能适用也可能不适用。最好的办法是记住这一点“constructor并不表示被构造”。
+                    * .constructor并不是一个不可变属性。它是不可枚举（参见上面的代码）的，但是它的值是可写的（可以被修改）。此外，你可以给任意<span class="s6">[[Prototype]]</span>链中的任意对象添加一个名为constructor的属性或者对其进行修改，你可以任意对其赋值。
+                    * 和[[Get]]算法查找<span class="s6">[[Prototype]]</span>链的机制一样，.constructor属性引用的目标可能和你想的完全不同。
                     现在你应该明白这个属性多么随意了吧？
                     结论？一些随意的对象属性引用，比如a1.constructor，实际上是不被信任的，它们不一定会指向默认的函数引用。此外，很快我们就会看到，稍不留神a1.constructor就可能会指向你意想不到的地方。
                     a1.constructor是一个非常不可靠并且不安全的引用。通常来说要尽量避免使用这些引用。
@@ -2271,9 +2274,9 @@ b.myName(); // "b"
 我们已经看过了许多JavaScript程序中常用的模拟类行为的方法，但是如果没有“继承”机制的话，JavaScript中的类就只是一个空架子。								
 * 出于各种原因，以“继承”结尾的术语（包括“原型继承”）和其他面向对象的术语都无法帮助你理解JavaScript的真实机制（不仅仅是限制我们的思维模式）。								
 相比之下，“委托”是一个更合适的术语，因为对象之间的关系不是复制而是委托。								
-* 实际上，我们已经了解了通常被称作原型继承的机制，a可以“继承”Foo.prototype并访问Foo.prototype的myName()函数。但是之前我们只把继承看作是类和类之间的关系，并没有把它看作是类和实例之间的关系
+* 实际上，我们已经了解了通常被称作原型继承的机制，a可以“继承”Foo.<span class="s8">prototype</span>并访问Foo.<span class="s8">prototype</span>的myName()函数。但是之前我们只把继承看作是类和类之间的关系，并没有把它看作是类和实例之间的关系
 ![](.this_images/8aef33a6.png)						
-	还记得这张图吗，它不仅展示出对象（实例）a1到Foo.prototype的委托关系，还展示出Bar.prototype到Foo.prototype的委托关系，而后者和类继承很相似，只有箭头的方向不同。图中由下到上的箭头表明这是委托关联，不是复制操作。							
+	还记得这张图吗，它不仅展示出对象（实例）a1到Foo.<span class="s8">prototype</span>的委托关系，还展示出Bar.<span class="s8">prototype</span>到Foo.<span class="s8">prototype</span>的委托关系，而后者和类继承很相似，只有箭头的方向不同。图中由下到上的箭头表明这是委托关联，不是复制操作。							
 	* 下面这段代码使用的就是典型的“原型风格”：		
 	```javascript					
 	function Foo(name){							
@@ -2304,9 +2307,9 @@ b.myName(); // "b"
 	```					
 								
 	如果不明白为什么this指向a的话，请查看第2章。							
-		* 这段代码的核心部分就是语句Bar.prototype =Object.create(Foo.prototype)。						
-		调用Object.create(..)会凭空创建一个“新”对象并把新对象内部的[[Prototype]]关联到你指定的对象（本例中是Foo.prototype）。						
-			* 声明function Bar() { .. }时，和其他函数一样，Bar会有一个．prototype关联到默认的对象，但是这个对象并不是我们想要的Foo.prototype。					
+		* 这段代码的核心部分就是语句Bar.<span class="s8">prototype</span> =Object.create(Foo.<span class="s8">prototype</span>)。						
+		调用Object.create(..)会凭空创建一个“新”对象并把新对象内部的<span class="s6">[[Prototype]]</span>关联到你指定的对象（本例中是Foo.<span class="s8">prototype</span>）。						
+			* 声明function Bar() { .. }时，和其他函数一样，Bar会有一个．<span class="s8">prototype</span>关联到默认的对象，但是这个对象并不是我们想要的Foo.<span class="s8">prototype</span>。					
 			因此我们创建了一个新对象并把它关联到我们希望的对象上，直接把原始的关联对象抛弃掉。					
 			* 注意，下面这两种方式是常见的错误做法，实际上它们都存在一些问题：
 			```javascript					
@@ -2315,17 +2318,17 @@ b.myName(); // "b"
 			// 基本上满足你的需求，但是可能会产生一些副作用：（					
 			Bar.prototype = new Foo();		
 			```			
-				* Bar.prototype = Foo.prototype并不会创建一个关联到Bar.prototype的新对象，它只是让Bar.prototype直接引用Foo.prototype对象。				
-				因此当你执行类似Bar.prototype. myLabel = ..．的赋值语句时会直接修改Foo.prototype对象本身。				
+				* Bar.<span class="s8">prototype</span> = Foo.<span class="s8">prototype</span>并不会创建一个关联到Bar.<span class="s8">prototype</span>的新对象，它只是让Bar.<span class="s8">prototype</span>直接引用Foo.<span class="s8">prototype</span>对象。				
+				因此当你执行类似Bar.<span class="s8">prototype</span>. myLabel = ..．的赋值语句时会直接修改Foo.<span class="s8">prototype</span>对象本身。				
 				显然这不是你想要的结果，否则你根本不需要Bar对象，直接使用Foo就可以了，这样代码也会更简单一些。				
-				* Bar.prototype = new Foo()的确会创建一个关联到Bar.prototype的新对象。				
-				但是它使用了Foo(..)的“构造函数调用”，如果函数Foo有一些副作用（比如写日志、修改状态、注册到其他对象、给this添加数据属性，等等）的话，就会影响到Bar()的“后代”，后果不堪设想。				
+				* Bar.<span class="s8">prototype</span> = new Foo()的确会创建一个关联到Bar.<span class="s8">prototype</span>的新对象。				
+				但是它使用了Foo(..)的“**构造函数**调用”，如果函数Foo有一些副作用（比如写日志、修改状态、注册到其他对象、给this添加数据属性，等等）的话，就会影响到Bar()的“后代”，后果不堪设想。				
 			* 因此，要创建一个合适的关联对象，我们必须使用Object.create(..)而不是使用具有副作用的Foo(..)。这样做唯一的缺点就是需要创建一个新对象然后把旧对象抛弃掉，不能直接修改已有的默认对象。					
 								
-* 如果能有一个标准并且可靠的方法来修改对象的[[Prototype]]关联就好了。								
+* 如果能有一个标准并且可靠的方法来修改对象的<span class="s6">[[Prototype]]</span>关联就好了。								
 	* 在ES6之前，我们只能通过设置.\_\_proto__属性来实现，但是这个方法并不是标准并且无法兼容所有浏览器。							
 	* ES6添加了辅助函数Object.setPrototypeOf(..)，可以用标准并且可靠的方法来修改关联。							
-	我们来对比一下两种把Bar.prototype关联到Foo.prototype的方法：
+	我们来对比一下两种把Bar.<span class="s8">prototype</span>关联到Foo.<span class="s8">prototype</span>的方法：
 	```javascript							
 	// ES6之前需要抛弃默认的Bar.prototype							
 	Bar.prototype = Object.create(Foo.prototype);							
@@ -2345,11 +2348,11 @@ b.myName(); // "b"
 	```		
 		* 我们如何通过内省找出a的“祖先”（委托关联）呢？第一种方法是站在“类”的角度来判断：						
 		a instanceof Foo; // true						
-		instanceof操作符的左操作数是一个普通的对象，右操作数是一个函数。instanceof回答的问题是：在a的整条[[Prototype]]链中是否有指向Foo.prototype的对象？						
-			* 可惜，这个方法只能处理对象（a）和函数（带．prototype引用的Foo）之间的关系。					
-			如果你想判断两个对象（比如a和b）之间是否通过[[Prototype]]链关联，只用instanceof无法实现。					
-			* 如果使用内置的．bind(..)函数来生成一个硬绑定函数（参见第2章）的话，该函数是没有．prototype属性的。在这样的函数上使用instanceof的话，目标函数的．prototype会代替硬绑定函数的．prototype。					
-			通常我们不会在“构造函数调用”中使用硬绑定函数，不过如果你这么做的话，实际上相当于直接调用目标函数。同理，在硬绑定函数上使用instanceof也相当于直接在目标函数上使用instanceof。					
+		instanceof操作符的左操作数是一个普通的对象，右操作数是一个函数。instanceof回答的问题是：在a的整条<span class="s6">[[Prototype]]</span>链中是否有指向Foo.<span class="s8">prototype</span>的对象？						
+			* 可惜，这个方法只能处理对象（a）和函数（带．<span class="s8">prototype</span>引用的Foo）之间的关系。					
+			如果你想判断两个对象（比如a和b）之间是否通过<span class="s6">[[Prototype]]</span>链关联，只用instanceof无法实现。					
+			* 如果使用内置的．<span class="method">bind(..)</span>函数来生成一个硬绑定函数（参见第2章）的话，该函数是没有．<span class="s8">prototype</span>属性的。在这样的函数上使用instanceof的话，目标函数的．<span class="s8">prototype</span>会代替硬绑定函数的．<span class="s8">prototype</span>。					
+			通常我们不会在“**构造函数**调用”中使用硬绑定函数，不过如果你这么做的话，实际上相当于直接调用目标函数。同理，在硬绑定函数上使用instanceof也相当于直接在目标函数上使用instanceof。					
 			* 下面这段荒谬的代码试图站在“类”的角度使用instanceof来判断两个对象的关系：					
 			```javascript
 			// 用来判断o1是否关联到（委托）o2的辅助函数					
@@ -2363,32 +2366,34 @@ b.myName(); // "b"
 								
 			isRelatedTo(b, a); // true		
 			```			
-			在isRelatedTo(..)内部我们声明了一个一次性函数F，把它的．prototype重新赋值并指向对象o2，然后判断o1是否是F的一个“实例”。显而易见，o1实际上并没有继承F也不是由F构造，所以这种方法非常愚蠢并且容易造成误解。问题的关键在于思考的角度，强行在JavaScript中应用类的语义（在本例中就是使用instanceof）就会造成这种尴尬的局面。					
-		* 下面是第二种判断[[Prototype]]反射的方法，它更加简洁：
+			在isRelatedTo(..)内部我们声明了一个一次性函数F，把它的．<span class="s8">prototype</span>重新赋值并指向对象o2，然后判断o1是否是F的一个“实例”。显而易见，o1实际上并没有继承F也不是由F构造，所以这种方法非常愚蠢并且容易造成误解。问题的关键在于思考的角度，强行在JavaScript中应用类的语义（在本例中就是使用instanceof）就会造成这种尴尬的局面。					
+		* 下面是第二种判断<span class="s6">[[Prototype]]</span>反射的方法，它更加简洁：
 		```javascript						
 		Foo.prototype.isPrototypeOf(a); // true			
 		```			
-		注意，在本例中，我们实际上并不关心（甚至不需要）Foo，我们只需要一个可以用来判断的对象（本例中是Foo.prototype）就行。isPrototypeOf(..)回答的问题是：在a的整条[[Prototype]]链中是否出现过Foo.prototype？						
-		同样的问题，同样的答案，但是在第二种方法中并不需要间接引用函数（Foo），它的．prototype属性会被自动访问。						
+		注意，在本例中，我们实际上并不关心（甚至不需要）Foo，我们只需要一个可以用来判断的对象（本例中是Foo.<span class="s8">prototype</span>）就行。isPrototypeOf(..)回答的问题是：在a的整条<span class="s6">[[Prototype]]</span>链中是否出现过Foo.<span class="s8">prototype</span>？						
+		同样的问题，同样的答案，但是在第二种方法中并不需要间接引用函数（Foo），它的．<span class="s8">prototype</span>属性会被自动访问。						
 		我们只需要两个对象就可以判断它们之间的关系。举例来说：	
 		```javascript					
 		// 非常简单：b是否出现在c的[[Prototype]]链中？						
 		b.isPrototypeOf(c);		
 		```				
 		注意，这个方法并不需要使用函数（“类”），它直接使用b和c之间的对象引用来判断它们的关系。换句话说，语言内置的isPrototypeOf(..)函数就是我们的isRelatedTo(..)函数。						
-		* 我们也可以直接获取一个对象的[[Prototype]]链。						
+		* 我们也可以直接获取一个对象的<span class="s6">[[Prototype]]</span>链。						
 			* 在ES5中，标准的方法是：			
 			```javascript		
-			Object.getPrototypeOf(a);					
-			可以验证一下，这个对象引用是否和我们想的一样：					
+			Object.getPrototypeOf(a);	
+            ```				
+			可以验证一下，这个对象引用是否和我们想的一样：	
+            ```javascript					
 			Object.getPrototypeOf(a) === Foo.prototype; // true		
 			```			
-			* 绝大多数（不是所有！）浏览器也支持一种非标准的方法来访问内部[[Prototype]]属性：					
+			* 绝大多数（不是所有！）浏览器也支持一种非标准的方法来访问内部<span class="s6">[[Prototype]]</span>属性：					
 			```javascript
 			a.\_\_proto__ === Foo.prototype; // true				
 			```	
-			这个奇怪的.<span class="key">\_\_proto__</span>（在ES6之前并不是标准！）属性“神奇地”引用了内部的[[Prototype]]对象，如果你想直接查找（甚至可以通过．<span class="key">\_\_proto__</span>.<span class="key">\_\_prtoto__</span>..．来遍历）原型链的话，这个方法非常有用。					
-			和我们之前说过的．constructor一样，.<span class="key">\_\_proto__</span>实际上并不存在于你正在使用的对象中（本例中是a）。实际上，它和其他的常用函数（.toString()、.isPrototypeOf(..)，等等）一样，存在于内置的Object.prototype中。（它们是不可枚举的，参见第2章。）					
+			这个奇怪的.<span class="key">\_\_proto__</span>（在ES6之前并不是标准！）属性“神奇地”引用了内部的<span class="s6">[[Prototype]]</span>对象，如果你想直接查找（甚至可以通过．<span class="key">\_\_proto__</span>.<span class="key">\_\_prtoto__</span>..．来遍历）原型链的话，这个方法非常有用。					
+			和我们之前说过的．constructor一样，.<span class="key">\_\_proto__</span>实际上并不存在于你正在使用的对象中（本例中是a）。实际上，它和其他的常用函数（.toString()、.isPrototypeOf(..)，等等）一样，存在于内置的Object.<span class="s8">prototype</span>中。（它们是不可枚举的，参见第2章。）					
 			此外，.<span class="key">\_\_proto__</span>看起来很像一个属性，但是实际上它更像一个getter/setter（参见第3章）。					
 			.<span class="key">\_\_proto__</span>的实现大致上是这样的（对象属性的定义参见第3章）
 			```javascript					
@@ -2403,20 +2408,20 @@ b.myName(); // "b"
 				}				
 			});			
 			```		
-			因此，访问（获取值）a.<span class="key">\_\_proto__</span>时，实际上是调用了a.<span class="key">\_\_proto__</span>()（调用getter函数）。虽然getter函数存在于Object.prototype对象中，但是它的this指向对象a（this的绑定规则参见第2章），所以和Object.getPrototypeOf(a)结果相同。					
-			.<span class="key">\_\_proto__</span>是可设置属性，之前的代码中使用ES6的Object.setPrototypeOf(..)进行设置。然而，通常来说你不需要修改已有对象的[[Prototype]]。					
+			因此，访问（获取值）a.<span class="key">\_\_proto__</span>时，实际上是调用了a.<span class="key">\_\_proto__</span>()（调用getter函数）。虽然getter函数存在于Object.<span class="s8">prototype</span>对象中，但是它的this指向对象a（this的绑定规则参见第2章），所以和Object.getPrototypeOf(a)结果相同。					
+			.<span class="key">\_\_proto__</span>是可设置属性，之前的代码中使用ES6的Object.setPrototypeOf(..)进行设置。然而，通常来说你不需要修改已有对象的<span class="s6">[[Prototype]]</span>。					
 			一些框架会使用非常复杂和高端的技术来实现“子类”机制，但是通常来说，我们不推荐这种用法，因为这会极大地增加代码的阅读难度和维护难度。					
-			我们只有在一些特殊情况下（我们前面讨论过）需要设置函数默认．prototype对象的[[Prototype]]，让它引用其他对象（除了Object.prototype）。这样可以避免使用全新的对象替换默认对象。此外，最好把[[Prototype]]对象关联看作是只读特性，从而增加代码的可读性。					
+			我们只有在一些特殊情况下（我们前面讨论过）需要设置函数默认．<span class="s8">prototype</span>对象的<span class="s6">[[Prototype]]</span>，让它引用其他对象（除了Object.<span class="s8">prototype</span>）。这样可以避免使用全新的对象替换默认对象。此外，最好把<span class="s6">[[Prototype]]</span>对象关联看作是只读特性，从而增加代码的可读性。					
 			JavaScript社区中对于双下划线有一个非官方的称呼，他们会把类似<span class="key">\_\_proto__</span>的属性称为“笨蛋（dunder）”。所以，JavaScript潮人会把<span class="key">\_\_proto__</span>叫作“笨蛋proto”。					
 				* ES6中的class关键字可以在内置的类型（比如Array）上实现类似“子类”的功能。详情参考附录A中关于ES6中class语法的介绍。
 
 								
 ## 5.4 对象关联
-现在我们知道了，[[Prototype]]机制就是存在于对象中的一个内部链接，它会引用其他对象。								
-通常来说，这个链接的作用是：如果在对象上没有找到需要的属性或者方法引用，引擎就会继续在[[Prototype]]关联的对象上进行查找。同理，如果在后者中也没有找到需要的引用就会继续查找它的[[Prototype]]，以此类推。这一系列对象的链接被称为“原型链”。								
+现在我们知道了，<span class="s6">[[Prototype]]</span>机制就是存在于对象中的一个内部链接，它会引用其他对象。								
+通常来说，这个链接的作用是：如果在对象上没有找到需要的属性或者方法引用，引擎就会继续在<span class="s6">[[Prototype]]</span>关联的对象上进行查找。同理，如果在后者中也没有找到需要的引用就会继续查找它的<span class="s6">[[Prototype]]</span>，以此类推。这一系列对象的链接被称为“原型链”。								
 * 5.4.1 创建关联							
-我们已经明白了为什么JavaScript的[[Prototype]]机制和类不一样，也明白了它如何建立对象间的关联。							
-那[[Prototype]]机制的意义是什么呢？为什么JavaScript开发者费这么大的力气（模拟类）在代码中创建这些关联呢？							
+我们已经明白了为什么JavaScript的<span class="s6">[[Prototype]]</span>机制和类不一样，也明白了它如何建立对象间的关联。							
+那<span class="s6">[[Prototype]]</span>机制的意义是什么呢？为什么JavaScript开发者费这么大的力气（模拟类）在代码中创建这些关联呢？							
 还记得吗，本章前面曾经说过Object.create(..)是一个大英雄，现在是时候来弄明白为什么了：	
 ```javascript						
 var foo = {							
@@ -2427,10 +2432,10 @@ var foo = {
 var bar = Object.create(foo);							
 bar.something(); // Tell me something good...	
 ```						
-    * Object.create(..)会创建一个新对象（bar）并把它关联到我们指定的对象（foo），这样我们就可以充分发挥[[Prototype]]机制的威力（委托）并且避免不必要的麻烦（比如使用new的构造函数调用会生成．prototype和．constructor引用）。						
-        *  Object.create(null)会创建一个拥有空（或者说null）[[Prototype]]链接的对象，这个对象无法进行委托。					
+    * Object.create(..)会创建一个新对象（bar）并把它关联到我们指定的对象（foo），这样我们就可以充分发挥<span class="s6">[[Prototype]]</span>机制的威力（委托）并且避免不必要的麻烦（比如使用new的**构造函数**调用会生成．<span class="s8">prototype</span>和．constructor引用）。						
+        *  Object.create(null)会创建一个拥有空（或者说null）<span class="s6">[[Prototype]]</span>链接的对象，这个对象无法进行委托。					
         由于这个对象没有原型链，所以instanceof操作符（之前解释过）无法进行判断，因此总是会返回false。					
-        这些特殊的空[[Prototype]]对象通常被称作“字典”，它们完全不会受到原型链的干扰，因此非常适合用来存储数据。					
+        这些特殊的空<span class="s6">[[Prototype]]</span>对象通常被称作“字典”，它们完全不会受到原型链的干扰，因此非常适合用来存储数据。					
     * 我们并不需要类来创建两个对象之间的关系，只需要通过委托来关联对象就足够了。						
     而Object.create(..)不包含任何“类的诡计”，所以它可以完美地创建我们想要的关联关系。						
     * Object.create()的polyfill代码			
@@ -2443,7 +2448,7 @@ bar.something(); // Tell me something good...
         };					
     }				
     ```		
-    这段polyfill代码使用了一个一次性函数F，我们通过改写它的．prototype属性使其指向想要关联的对象，然后再使用new F()来构造一个新对象进行关联。						
+    这段polyfill代码使用了一个一次性函数F，我们通过改写它的．<span class="s8">prototype</span>属性使其指向想要关联的对象，然后再使用new F()来构造一个新对象进行关联。						
     * 由于Object.create(..)可以被模拟，因此这个函数被应用得非常广泛。						
     标准ES5中内置的Object.create(..)函数还提供了一系列附加功能，但是ES5之前的版本不支持这些功能。						
     通常来说，这些功能的应用范围要小得多，但是出于完整性考虑，我们还是介绍一下：						
@@ -2495,7 +2500,7 @@ bar.something(); // Tell me something good...
     我并不赞同这个严格的观点，相反，我很赞同在ES5中使用上面那段polyfill代码。如何选择取决于你。						
                             
 * 5.4.2 关联关系是备用							
-看起来对象之间的关联关系是处理“缺失”属性或者方法时的一种备用选项。这个说法有点道理，但是我认为这并不是[[Prototype]]的本质。	
+看起来对象之间的关联关系是处理“缺失”属性或者方法时的一种备用选项。这个说法有点道理，但是我认为这并不是<span class="s6">[[Prototype]]</span>的本质。	
 ```javascript						
 var anotherObject ={							
     cool: function(){						
@@ -2505,12 +2510,12 @@ var anotherObject ={
 var myObject = Object.create(anotherObject);							
 myObject.cool(); // "cool!"		
 ```					
-    * 由于存在[[Prototype]]机制，这段代码可以正常工作。但是如果你这样写只是为了让myObject在无法处理属性或者方法时可以使用备用的anotherObject，那么你的软件就会变得有点“神奇”，而且很难理解和维护。						
+    * 由于存在<span class="s6">[[Prototype]]</span>机制，这段代码可以正常工作。但是如果你这样写只是为了让myObject在无法处理属性或者方法时可以使用备用的anotherObject，那么你的软件就会变得有点“神奇”，而且很难理解和维护。						
     * 这并不是说任何情况下都不应该选择备用这种设计模式，但是这在JavaScript中并不是很常见。所以如果你使用的是这种模式，那或许应当退后一步并重新思考一下这种模式是否合适。						
     千万不要忽略这个微妙但是非常重要的区别。						
         * 在ES6中有一个被称为“代理”（Proxy）的高端功能，它实现的就是“方法无法找到”时的行为。代理超出了本书的讨论范围，但是在本系列之后的书中会介绍。					
     当你给开发者设计软件时，假设要调用myObject.cool()，如果myObject中不存在cool()时这条语句也可以正常工作的话，那你的API设计就会变得很“神奇”，对于未来维护你软件的开发者来说这可能不太好理解。						
-    * 但是你可以让你的API设计不那么“神奇”，同时仍然能发挥[[Prototype]]关联的威力：				
+    * 但是你可以让你的API设计不那么“神奇”，同时仍然能发挥<span class="s6">[[Prototype]]</span>关联的威力：				
     ```javascript		
     var anotherObject = {						
         cool: function(){					
@@ -2523,8 +2528,738 @@ myObject.cool(); // "cool!"
     };						
     myObject.doCool(); // "Cool! "		
     ```				
-    这里我们调用的myObject.doCool()是实际存在于myObject中的，这可以让我们的API设计更加清晰（不那么“神奇”）。从内部来说，我们的实现遵循的是委托设计模式（参见第6章），通过[[Prototype]]委托到anotherObject.cool()。						
+    这里我们调用的myObject.doCool()是实际存在于myObject中的，这可以让我们的API设计更加清晰（不那么“神奇”）。从内部来说，我们的实现遵循的是委托设计模式（参见第6章），通过<span class="s6">[[Prototype]]</span>委托到anotherObject.cool()。						
     换句话说，内部委托比起直接委托可以让API接口设计更加清晰。下一章我们会详细解释委托。						
                         	
 								
-								
+# 第6章 行为委托
+* 第5章详细介绍了<span class="s6">[[Prototype]]</span>机制并说明了为什么在“类”或者“继承”的背景下讨论<span class="s6">[[Prototype]]</span>容易产生误解（这种不恰当的方式已经持续了20年）。					
+	* 我们搞清楚了繁杂的语法（各种．<span class="s8">prototype</span>代码），				
+	* 也见识了各种各样的陷阱（比如出人意料的．constructor和丑陋的伪多态语法），				
+	* 我们还看到了用来解决这些问题的各种“混入”方法。				
+* 你可能会很好奇，为什么看起来简单的事情会变得这么复杂。现在我们会把帘子拉开，看看后面到底有什么。不出意外，绝大多数JavaScript开发者从来没有如此深入地了解过JavaScript，他们只是把这些交给一个“类”库来处理。					
+现在，我希望你不仅满足于掩盖这些细节并把它们交给一个“黑盒”库。忘掉令人困惑的类，我们用一种更加简单直接的方法来深入发掘一下JavaScript中对象的<span class="s6">[[Prototype]]</span>机制到底是什么。					
+* 首先简单回顾一下第5章的结论：<span class="s6">[[Prototype]]</span>机制就是指对象中的一个内部链接引用另一个对象。					
+如果在第一个对象上没有找到需要的属性或者方法引用，引擎就会继续在<span class="s6">[[Prototype]]</span>关联的对象上进行查找。同理，如果在后者中也没有找到需要的引用就会继续查找它的<span class="s6">[[Prototype]]</span>，以此类推。这一系列对象的链接被称为“原型链”。					
+换句话说，JavaScript中这个机制的本质就是对象之间的关联关系。					
+这个观点对于理解本章的内容来说是非常基础并且非常重要的。					
+* 在软件架构中你可以选择是否使用类和继承设计模式。大多数开发者理所当然地认为类是唯一（合适）的代码组织方式，但是本章中我们看到了另一种更少见但是更强大的设计模式：行为委托。					
+	* 行为委托认为对象之间是兄弟关系，互相委托，而不是父类和子类的关系。JavaScript的<span class="s6">[[Prototype]]</span>机制本质上就是行为委托机制。也就是说，我们可以选择在JavaScript中努力实现类机制（参见第4和第5章），也可以拥抱更自然的<span class="s6">[[Prototype]]</span>委托机制。				
+	* 当你只用对象来设计代码时，不仅可以让语法更加简洁，而且可以让代码结构更加清晰。对象关联（对象之前互相关联）是一种编码风格，它倡导的是直接创建和关联对象，不把它们抽象成类。对象关联可以用基于<span class="s6">[[Prototype]]</span>的行为委托非常自然地实现。				
+					
+## 6.1 面向委托的设计
+* 为了更好地学习如何更直观地使用<span class="s6">[[Prototype]]</span>，我们必须认识到它代表的是一种不同于类（参见第4章）的设计模式。				
+面向类的设计中有些原则依然有效，因此不要把所有知识都抛掉。（只需要抛掉大部分就够了！）				
+举例来说，封装是非常有用的，它同样可以应用在委托中（虽然不太常见）。				
+* 我们需要试着把思路从类和继承的设计模式转换到委托行为的设计模式。				
+如果你在学习或者工作的过程中几乎一直在使用类，那转换思路可能不太自然并且不太舒服。你可能需要多重复几次才能熟悉这种思维模式。				
+首先我会带你们进行一些理论训练，然后再传授一些能够应用在代码中的具体实例。				
+					
+### 6.1.1 类理论
+假设我们需要在软件中建模一些类似的任务（“XYZ”、“ABC”等）。					
+* 如果使用类，那设计方法可能是这样的：					
+	* 定义一个通用父（基）类，可以将其命名为Task，在Task类中定义所有任务都有的行为。				
+	* 接着定义子类XYZ和ABC，它们都继承自Task并且会添加一些特殊的行为来处理对应的任务。				
+* 非常重要的是，类设计模式鼓励你在继承时使用方法重写（和多态），					
+比如说在XYZ任务中重写Task中定义的一些通用方法，甚至在添加新行为时通过super调用这个方法的原始版本。					
+你会发现许多行为可以先“抽象”到父类然后再用子类进行特殊化（重写）。					
+* 下面是对应的伪代码：				
+```javascript	
+class Task {					
+	id;				
+					
+	// 构造函数Task()				
+	Task(ID) { id = ID; }				
+	outputTask() { output(id); }				
+}					
+class XYZ inherits Task {					
+	label;				
+					
+	// 构造函数XYZ()				
+	XYZ(ID, Label) {				
+		super(ID); 			
+		label = Label; 			
+	}				
+	outputTask() {				
+		super();			
+		output(label);			
+	}				
+}					
+class ABC inherits Task{					
+	// ...				
+}			
+```
+		
+现在你可以实例化子类XYZ的一些副本然后使用这些实例来执行任务“XYZ”。这些实例会复制Task定义的通用行为以及XYZ定义的特殊行为。同理，ABC类的实例也会复制Task的行为和ABC的行为。在构造完成后，你通常只需要操作这些实例（而不是类），因为每个实例都有你需要完成任务的所有行为。					
+					
+### 6.1.2 委托理论
+* 但是现在我们试着来使用委托行为而不是类来思考同样的问题。					
+	* 首先你会定义一个名为Task的对象（和许多JavaScript开发者告诉你的不同，它既不是类也不是函数），它会包含所有任务都可以使用（写作使用，读作委托）的具体行为。				
+	* 接着，对于每个任务（“XYZ”、“ABC”）你都会定义一个对象来存储对应的数据和行为。				
+	* 你会把特定的任务对象都关联到Task功能对象上，让它们在需要的时候可以进行委托。				
+* 基本上你可以想象成，执行任务“XYZ”需要两个兄弟对象（XYZ和Task）协作完成。					
+但是我们并不需要把这些行为放在一起，通过类的复制，我们可以把它们分别放在各自独立的对象中，需要时可以允许XYZ对象委托给Task。					
+* 下面是推荐的代码形式，非常简单：
+
+	```javascript					
+	Task = { 					
+		setID: function(ID) { this.id = ID; },				
+		outputID: function(){ console.log(this.id); }				
+	};					
+	// 让XYZ委托Task					
+	XYZ = Object.create(Task);					
+						
+	XYZ.prepareTask = function(ID, Label){					
+		this.setID(ID);				
+		this.label = Label;				
+	};					
+						
+	XYZ.outputTaskDetails = function(){					
+		this.outputID();				
+		console.log(this.label);				
+	};					
+						
+	// ABC = Object.create(Task);					
+	// ABC ... = ...	
+	```				
+	* 在这段代码中，Task和XYZ并不是类（或者函数），它们是对象。				
+	XYZ通过Object. create(..)创建，它的<span class="s6">[[Prototype]]</span>委托了Task对象（参见第5章）。				
+* 相比于面向类（或者说面向对象），我会把这种编码风格称为“对象关联”（OLOO, objects linked to other objects）。我们真正关心的只是XYZ对象（和ABC对象）委托了Task对象。					
+在JavaScript中，<span class="s6">[[Prototype]]</span>机制会把对象关联到其他对象。无论你多么努力地说服自己，JavaScript中就是没有类似“类”的抽象机制。这有点像逆流而上：你确实可以这么做，但是如果你选择对抗事实，那要达到目的就显然会更加困难。					
+* 对象关联风格的代码还有一些不同之处。					
+	1. 在上面的代码中，id和label数据成员都是直接存储在XYZ上（而不是Task）。				
+	通常来说，在<span class="s6">[[Prototype]]</span>委托中最好把状态保存在委托者（XYZ、ABC）而不是委托目标（Task）上。				
+	2. 在类设计模式中，我们故意让父类（Task）和子类（XYZ）中都有outputTask方法，这样就可以利用重写（多态）的优势。				
+	在委托行为中则恰好相反：我们会尽量避免在<span class="s6">[[Prototype]]</span>链的不同级别中使用相同的命名，否则就需要使用笨拙并且脆弱的语法来消除引用歧义（参见第4章）。				
+		* 这个设计模式要求尽量少使用容易被重写的通用方法名，提倡使用更有描述性的方法名，尤其是要写清相应对象行为的类型。			
+		这样做实际上可以创建出更容易理解和维护的代码，因为方法名（不仅在定义的位置，而是贯穿整个代码）更加清晰（自文档）。			
+	3. this.setID(ID); XYZ中的方法首先会寻找XYZ自身是否有setID(..)，但是XYZ中并没有这个方法名，因此会通过<span class="s6">[[Prototype]]</span>委托关联到Task继续寻找，这时就可以找到setID(..)方法。				
+	此外，由于<span class="s4">调用位置</span>触发了this的隐式绑定规则（参见第2章），因此虽然setID(..)方法在Task中，运行时this仍然会绑定到XYZ，这正是我们想要的。在之后的代码中我们还会看到this.outputID()，原理相同。				
+	换句话说，我们和XYZ进行交互时可以使用Task中的通用方法，因为XYZ委托了Task。				
+		* 委托行为意味着某些对象（XYZ）在找不到属性或者方法引用时会把这个请求委托给另一个对象（Task）。			
+					
+* 这是一种极其强大的设计模式，和父类、子类、继承、多态等概念完全不同。在你的脑海中对象并不是按照父类到子类的关系垂直组织的，而是通过任意方向的委托关联并排组织的。					
+在API接口的设计中，委托最好在内部实现，不要直接暴露出去。在之前的例子中我们并没有让开发者通过API直接调用XYZ.setID()。（当然，可以这么做！）相反，我们把委托隐藏在了API的内部，XYZ.prepareTask(..)会委托Task.setID(..)。更多细节参见5.4.2节。					
+	1. 互相委托（禁止）				
+	你无法在两个或两个以上互相（双向）委托的对象之间创建循环委托。如果你把B关联到A然后试着把A关联到B，就会出错。				
+	很遗憾（并不是非常出乎意料，但是有点烦人）这种方法是被禁止的。如果你引用了一个两边都不存在的属性或者方法，那就会在<span class="s6">[[Prototype]]</span>链上产生一个无限**递归**的循环。但是如果所有的引用都被严格限制的话，B是可以委托A的，反之亦然。因此，互相委托理论上是可以正常工作的，在某些情况下这是非常有用的。				
+	之所以要禁止互相委托，是因为引擎的开发者们发现在设置时检查（并禁止！）一次无限循环引用要更加高效，否则每次从对象中查找属性时都需要进行检查。				
+	2. 调试				
+	我们来简单介绍一个容易让开发者感到迷惑的细节。通常来说，JavaScript规范并不会控制浏览器中开发者工具对于特定值或者结构的表示方式，浏览器和引擎可以自己选择合适的方式来进行解析，因此浏览器和工具的解析结果并不一定相同。比如，下面这段代码的结果只能在Chrome的开发者工具中才能看到。				
+	这段传统的“类**构造函数**”JavaScript代码在Chrome开发者工具的控制台中结果如下所示：
+    ```javascript				
+	functin Foo(){ }				
+	var a1 = new Foo();				
+	a1; // {}			
+    ```	
+		* 我们看代码的最后一行：表达式a1的输出是Foo {}。如果你在Firefox中运行同样的代码会得到Object {}。为什么会这样呢？这些输出是什么意思呢？			
+			* Chrome实际上想说的是“{}是一个空对象，由名为Foo的函数构造”。		
+			看起来可以用JavaScript的机制来解释Chrome的跟踪原理：
+            ```javascript
+            function Foo(){}		
+			var a1 = new Foo();		
+			a1.constructor; // Foo(){}		
+			a1.constructor.name; // "Foo"
+            ```		
+				* Chrome是不是直接输出了对象的．constructor.name呢？令人迷惑的是，答案是“既是又不是”。	
+				思考下面的代码：
+        ```javascript    	    
+				function Foo(){ }	
+				var a1 = new Foo();	
+				Foo.prototype.constructor = function Gotcha(){};	
+				a1.constructor; // Gotcha(){}	
+				a1.constructor.name; // "Gotcha"	
+				a1; // Foo{}	
+        ```    
+				即使我们把a1.constructor.name修改为另一个合理的值（Gotcha）,Chrome控制台仍然会输出Foo。	
+				* 看起来之前那个问题（是否使用．constructor.name?）的答案是“不是”;Chrome在内部肯定是通过另一种方式进行跟踪。	
+				Chrome在内部肯定是通过另一种方式进行跟踪。	
+				别着急！我们先看看下面这段代码：
+				```javascript
+				var Foo = {};	
+				var a1 = Object.create(Foo);	
+				a1; // {}	
+				Object.defineProperty(Foo, "constructor", {	
+					enumerable: false,
+					value: function Gotcha(){}
+				});	
+				a1; // Gotcha{}	
+				```
+				啊哈！抓到你了（Gotcha的意思就是抓到你了）！本例中Chrome的控制台确实使用了．constructor.name。实际上，在编写本书时，这个行为被认定是Chrome的一个bug，当你读到此书时，它可能已经被修复了。所以你看到的可能是a1; // Object {}。	
+				除了这个bug, Chrome内部跟踪（只用于调试输出）“**构造函数**名称”的方法是Chrome自身的一种扩展行为，并不包含在JavaScript的规范中。	
+				如果你并不是使用“**构造函数**”来生成对象，比如使用本章介绍的对象关联风格来编写代码，那Chrome就无法跟踪对象内部的“**构造函数**名称”，这样的对象输出是Object {}，意思是“Object()构造出的对象”。	
+				当然，这并不是对象关联风格代码的缺点。当你使用对象关联风格来编写代码并使用行为委托设计模式时，并不需要关注是谁“构造了”对象（就是使用new调用的那个函数）。只有使用类风格来编写代码时Chrome内部的“**构造函数**名称”跟踪才有意义，使用对象关联时这个功能不起任何作用。	
+			* Firefox想说的是“{}是一个空对象，由Object构造”。		
+			之所以有这种细微的差别，是因为Chrome会动态跟踪并把实际执行构造过程的函数名当作一个内置属性，但是其他浏览器并不会跟踪这些额外的信息。		
+					
+### 6.1.3 比较思维模型
+现在你已经明白了“类”和“委托”这两种设计模式的理论区别，接下来我们看看它们在思维模型方面的区别。					
+我们会通过一些示例（Foo、Bar）代码来比较一下两种设计模式（面向对象和对象关联）具体的实现方法。下面是典型的（“原型”）面向对象风格：					
+#### 下面是典型的（“原型”）面向对象风格：
+```javascript				
+function Foo(who){					
+	this.me = who;				
+}					
+Foo.prototype.identity = function(){					
+	return "I am " + this.me;				
+};					
+					
+function Bar(who){					
+	Foo.call(this, who);				
+}					
+					
+Bar.prototype = Object.create(Foo.prototype);					
+Bar.prototype.speak = function(){					
+	alert("Hello, " + this.identityf() + ".");				
+};					
+var b1 = new Bar("b1");					
+var b2 = new Bar("b2");					
+					
+b1.speak();					
+b2.speak();		
+```			
+子类Bar继承了父类Foo，然后生成了b1和b2两个实例。b1委托了Bar.<span class="s8">prototype</span>, Bar.<span class="s8">prototype</span>委托了Foo.<span class="s8">prototype</span>。这种风格很常见，你应该很熟悉了。					
+
+#### 下面我们看看如何使用对象关联风格来编写功能完全相同的代码：
+```javascript
+Foo = {					
+	init: function(who){				
+		this.me = who;			
+	},				
+	identify: function(){				
+		return "I am " + this.me;			
+	}				
+};					
+Bar = Object.create(Foo);					
+Bar.speak = function(){					
+	alert("Hello, " + this.identify() + ".");				
+};					
+var b1 = Object.create(Bar);					
+b1.init("b1");					
+var b2 = Object.create(Bar);					
+					
+b2.init("b2");					
+					
+b1.speak();					
+b2.speak();		
+```			
+这段代码中我们同样利用<span class="s6">[[Prototype]]</span>把b1委托给Bar并把Bar委托给Foo，和上一段代码一模一样。我们仍然实现了三个对象之间的关联。					
+但是非常重要的一点是，这段代码简洁了许多，我们只是把对象关联起来，并不需要那些既复杂又令人困惑的模仿类的行为（**构造函数**、原型以及new）。					
+问问你自己：如果对象关联风格的代码能够实现类风格代码的所有功能并且更加简洁易懂，那它是不是比类风格更好？					
+#### 下面我们看看两段代码对应的思维模型。
+* 实际上这张图有点不清晰/误导人，因为它还展示了许多技术角度不需要关注的细节（但是你必须理解它们）！从图中可以看出这是一张十分复杂的关系网。此外，如果你跟着图中的箭头走就会发现，JavaScript机制有很强的内部连贯性。
+![](.this_images/36d47dee.png)
+						
+* 好，下面我们来看一张简化版的图，它更“清晰”一些——只展示了必要的对象和关系：	
+![](.this_images/9896c80f.png)
+仍然很复杂，是吧？虚线表示的是Bar.<span class="s8">prototype</span>继承Foo.<span class="s8">prototype</span>之后丢失的．constructor属性引用（参见5.2.3节的“回顾‘**构造函数**’”部分），它们还没有被修复。即使移除这些虚线，这个思维模型在你处理对象关联时仍然非常复杂。					
+					
+* 现在我们看看对象关联风格代码的思维模型：
+![](.this_images/1521a5c6.png)			
+通过比较可以看出，对象关联风格的代码显然更加简洁，因为这种代码只关注一件事：对象之间的关联关系。					
+其他的“类”技巧都是非常复杂并且令人困惑的。去掉它们之后，事情会变得简单许多（同时保留所有功能）。					
+					
+					
+## 6.2 类与对象
+我们已经看到了“类”和“行为委托”在理论和思维模型方面的区别，现在看看在真实场景中如何应用这些方法。					
+首先看看Web开发中非常典型的一种前端场景：创建UI控件（按钮、下拉列表，等等）。					
+					
+### 6.2.1 控件“类”
+					
+#### 你可能已经习惯了面向对象设计模式，所以很快会想到一个包含所有通用控件行为的父类（可能叫作Widget）和继承父类的特殊控件子类（比如Button）。
+这里将使用jQuery来操作DOM和CSS，因为这些操作和我们现在讨论的内容没有关系。这些代码并不关注你是否使用，或使用哪种JavaScript框架（jQuery、Dojo、YUI，等等）来解决问题。					
+下面这段代码展示的是如何在不使用任何“类”辅助库或者语法的情况下，使用纯JavaScript实现类风格的代码：
+```javascript					
+// 父类					
+function Widget(width, height){					
+	this.width = width || 50;				
+	this.height = height || 50;				
+	this.$elem = null;				
+}					
+Widget.prototype.render = function($where){					
+	if(this.$elem){				
+		this.$elem.css({			
+			width: this.width + "px",		
+			height: this.height + "px"		
+		}).appendTo($where);			
+	}				
+};					
+					
+// 子类					
+function Button(width, height, label){					
+	// 调用“super"构造函数				
+	Widget.call(this, width, height);				
+	this.label = label || "Default";				
+	this.$elem = $("<button>").text(this.label);				
+}					
+					
+// 让Button“继承”Widget					
+Button.prototype = Object.create(Widget.prototype);					
+					
+// 重写render(..)					
+Button.prototype.render = function($where){					
+	// “super”调用				
+	Widget.prototype.render.call(this, $where);				
+	this.$elem.click(this.onClick.bind(this));				
+};					
+Button.prototype.onClick = function(evt){					
+	console.log("Button '" + this.label + "' clicked! ");				
+};					
+					
+$(document).ready(function(){					
+	var $body = $(document.body);				
+	var btn1 = new Button(125, 30, "Hello");				
+	var btn2 = new Button(150, 40, "World");				
+	btn1.render($body);				
+	btn2.render($body);				
+});		
+```			
+在面向对象设计模式中我们需要先在父类中定义基础的render(..)，然后在子类中重写它。子类并不会替换基础的render(..)，只是添加一些按钮特有的行为。					
+可以看到代码中出现了丑陋的显式伪多态（参见第4章），即通过Widget.<span class="method">call</span>和Widget. <span class="s8">prototype</span>.render.<span class="method">call</span>从“子类”方法中引用“父类”中的基础方法。呸！					
+					
+#### ES6的class语法糖
+附录A会详细介绍ES6的class语法糖，不过这里可以简单介绍一下如何使用class来实现相同的功能：		
+```javascript			
+class Widget {					
+	constructor(width, height){				
+		this.width = width || 50;			
+		this.height = height || 50;			
+		this.$elem = null;			
+	}				
+	render($where){				
+		if(this.$elem){			
+			this.$elem.css({		
+				width: this.width + "px",	
+				height: this.height + "px"	
+			}).appendTo($where);		
+		}			
+	}				
+}					
+					
+class Button extends Widget {					
+	constructor(width, height, label){				
+		super(width, height);			
+		this.label = label || "Default";			
+		this.$elem = $("<button>").text(this.label);			
+	}				
+	render($where){				
+		super.render($where);			
+		this.$elem.click(this.onClick.bind(this));			
+	}				
+	onClick(evt)[				
+		console.log("Button '" + this.label + "' clicked! ");			
+	}				
+}					
+					
+$(document).ready(function(){					
+	var $body = $(document.body);				
+	var btn1 = new Button(125, 30, "Hello");				
+	var btn2 = new Button(150, 40, "World");				
+	btn1.render($body);				
+	btn2.render($body);				
+});			
+```		
+* 毫无疑问，使用ES6的class之后，上一段代码中许多丑陋的语法都不见了，super(..)函数棒极了。（尽管深入探究就会发现并不是那么完美！）					
+* 尽管语法上得到了改进，但实际上这里并没有真正的类，class仍然是通过<span class="s6">[[Prototype]]</span>机制实现的，因此我们仍然面临第4章至第6章提到的思维模式不匹配问题。					
+附录A会详细介绍ES6的class语法及其实现细节，我们会看到为什么解决语法上的问题无法真正解除对于JavaScript中类的误解，尽管它看起来非常像一种解决办法！					
+* 无论你使用的是传统的原型语法还是ES6中的新语法糖，你仍然需要用“类”的概念来对问题（UI控件）进行建模。就像前几章试图证明的一样，这种做法会为你带来新的麻烦。					
+					
+### 6.2.2 委托控件对象
+下面的例子使用对象关联风格委托来更简单地实现Widget/Button：
+```javascript					
+var Widget = {					
+	init: function(width, height){				
+		this.width = width || 50;			
+		this.height = height || 50;			
+		this.$elem = null;			
+	},				
+	insert:function($where){				
+		if(this.$elem){			
+			this.$elem.css({		
+				width: this.width + "px",	
+				height: this.height + "px"	
+			}).appendTo($where);		
+		}			
+	}				
+};					
+var Button = Object.create(Widget);					
+Button.setup = function(width, height, label){					
+	// 委托调用				
+	this.init(width, height);				
+	this.label = label || "Default";				
+	this.$elem = $("<button>").text(this.label);				
+};					
+Button.build = function($where){					
+	// 委托调用				
+	this.insert($where);				
+	this.$elem.click(this.onClick.bind(this));				
+};					
+Button.onClick = function(evt){					
+	console.log("Button '" + this.label + "' clicked!");				
+};					
+					
+$(document).ready(function(){					
+	var $body = $(document.body);				
+	var btn1 = Object.create(Button);				
+	btn1.set(125, 30, "Hello");				
+					
+	var btn2 = Object.create(Button);				
+	btn2.setup(150, 40, "World");				
+					
+	btn1.build($body);				
+	btn2.build($body);				
+});				
+```	
+* 使用对象关联风格来编写代码时不需要把Widget和Button当作父类和子类。相反，Widget只是一个对象，包含一组通用的函数，任何类型的控件都可以委托，Button同样只是一个对象。（当然，它会通过委托关联到Widget!）					
+* 从设计模式的角度来说，我们并没有像类一样在两个对象中都定义相同的方法名render(..)，相反，我们定义了两个更具描述性的方法名（insert(..)和build(..)）。同理，初始化方法分别叫作init(..)和setup(..)。					
+* 在委托设计模式中，除了建议使用不相同并且更具描述性的方法名之外，还要通过对象关联避免丑陋的显式伪多态调用（Widget.<span class="method">call</span>和Widget.<span class="s8">prototype</span>.render.<span class="method">call</span>），代之以简单的相对委托调用this.init(..)和this.insert(..)。					
+* 从语法角度来说，我们同样没有使用任何**构造函数**、.<span class="s8">prototype</span>或new，实际上也没必要使用它们。					
+* 如果你仔细观察就会发现，之前的一次调用（var btn1 = new Button(..)）现在变成了两次（var btn1 = Object.create(Button)和btn1.setup(..)）。乍一看这似乎是一个缺点（需要更多代码）。					
+* 但是这一点其实也是对象关联风格代码相比传统原型风格代码有优势的地方。为什么呢？					
+* 使用类**构造函数**的话，你需要（并不是硬性要求，但是强烈建议）在同一个步骤中实现构造和初始化。然而，在许多情况下把这两步分开（就像对象关联代码一样）更灵活。					
+* 举例来说，假如你在程序启动时创建了一个实例池，然后一直等到实例被取出并使用时才执行特定的初始化过程。这个过程中两个函数调用是挨着的，但是完全可以根据需要让它们出现在不同的位置。					
+* 对象关联可以更好地支持关注分离（separation of concerns）原则，创建和初始化并不需要合并为一个步骤。					
+					
+					
+## 6.3 更简洁的设计
+对象关联除了能让代码看起来更简洁（并且更具扩展性）外还可以通过行为委托模式简化代码结构。					
+* 我们来看最后一个例子，它展示了对象关联如何简化整体设计。					
+在这个场景中我们有两个控制器对象，一个用来操作网页中的登录表单，另一个用来与服务器进行验证（通信）。					
+我们需要一个辅助函数来创建Ajax通信。我们使用的是jQuery（尽管其他框架也做得不错），它不仅可以处理Ajax并且会返回一个类Promise的结果，因此我们可以使用．then(..)来监听响应。					
+这里我们不会介绍Promise，但是在本系列之后的书中会介绍。					
+### 在传统的类设计模式中，我们会把基础的函数定义在名为Controller的类中，然后派生两个子类LoginController和AuthController，它们都继承自Controller并且重写了一些基础行为：
+
+```javascript			
+// 父类					
+function Controller(){					
+	this.errors = [];				
+}					
+Controller.prototype.showDialog = function(title, msg){					
+	// 给用户显示标题和消息				
+};					
+Controller.prototype.success = function(msg){					
+	this.showDialog("Success", msg);				
+};					
+Controller.prototype.failure = function(err){					
+	this.errors.push(err);				
+	this.showDialog("Error", err);				
+};					
+// 子类					
+function LoginController(){					
+	Controller.call(this);				
+}					
+// 把子类关联到父类					
+LoginController.prototype = Object.create(Controller.prototype);					
+LoginController.prototype.getUser = function(){					
+	return document.getElementById("login username").value;				
+}					
+LoginController.prototype.getPassword = function(){					
+	return document.getElementById("login password").value;				
+};					
+LoginController.prototype.validateEntry = function(user, pw){					
+	user = user || this.getUser();				
+	pw = pw || this.getPassword();				
+	if(!(user && pw)){				
+		return this.failure("Please enter a username & password!);			
+	}				
+	else if(pw.length < 5){				
+		return this.failure("Password must be 5+ characters!");			
+	}				
+	// 如果执行到这里说明通过验证				
+	return true;				
+};					
+// 重写基础的failure()					
+LoginController.prototype.failure = function(err){					
+	// "super"调用				
+	Controller.prototype.failure.call(				
+		this,			
+		"Login invalid: " + err			
+	);				
+};					
+					
+// 子类					
+function AuthController(login){					
+	Controller.call(this);				
+	// 合成				
+	this.login = login;				
+}					
+// 把子类关联到父类					
+AuthController.prototype = Object.create(Controller.prototype);					
+AuthController.prototype.server = function(url, data){					
+	return $.ajax({				
+		url: url,			
+		data: data			
+	});				
+};					
+AuthController.prototype.checkAuth = function(){					
+	var user = this.login.getUser();				
+	var pw = this.login.getPassword();				
+	if(this.login.validateEntry(user, pw)){				
+		this.server("/check-auth", {			
+			user: user,		
+			pw: pw		
+		})			
+		.then(this.success.bind(this))			
+		.fail(this.failure.bind(this));			
+	}				
+};					
+// 重写基础的success()					
+AuthController.prototype.success = function(){					
+	// “super”调用				
+	Controller.prototype.success.call(this, "Authenticated!");				
+};					
+// 重写基础的failure()					
+AuthContoller.prototype.failure = function(err){					
+	// “super"调用				
+	Controller.prototype.failure.call(				
+		this, 			
+		"Auth Failed: " + err			
+	);				
+};					
+					
+var auth = new AuthController(					
+	// 除了继承，我们还需要合成				
+	new LoginController()				
+);					
+auth.checkAuth();		
+```			
+* 所有控制器共享的基础行为是success(..)、failure(..)和showDialog(..)。子类LoginController和AuthController通过重写failure(..)和success(..)来扩展默认基础类行为。此外，注意AuthController需要一个LoginController的实例来和登录表单进行交互，因此这个实例变成了一个数据属性。					
+* 另一个需要注意的是我们在继承的基础上进行了一些合成。AuthController需要使用LoginController，因此我们实例化后者（newLoginController()）并用一个类成员属性this.login来引用它，这样AuthController就可以调用LoginController的行为。					
+	* 你可能想让AuthController继承LoginController或者相反，这样我们就通过继承链实现了真正的合成。但是这就是类继承在问题领域建模时会产生的问题，因为AuthController和LoginController都不具备对方的基础行为，所以这种继承关系是不恰当的。我们的解决办法是进行一些简单的合成从而让它们既不必互相继承又可以互相合作。				
+* 如果你熟悉面向类设计，你一定会觉得以上内容非常亲切和自然。					
+					
+### 反类
+但是，我们真的需要用一个Controller父类、两个子类加上合成来对这个问题进行建模吗？能不能使用对象关联风格的行为委托来实现更简单的设计呢？当然可以！	
+```javascript				
+var LoginController = {					
+	errors: [],				
+	getUser: function(){				
+		return document.getElementById("login username").value;			
+	},				
+	getPassword: function(){				
+		return document.getElementById("login passwrod").value;			
+	},				
+	validateEntry: function(user, pw){				
+		user = user || this.getUser();			
+		pw = pw || this.getPassword();			
+		if(!(user && pw)){			
+			return this.failure("Please enter a username & password!");		
+		}			
+		else if(pw.length < 5){			
+			return this.failure("Password must be 5+ characters!");		
+		}			
+		// 如果执行到这里说明通过验证			
+		return true;			
+	},				
+	showDialog: function(title, msg){				
+		// 给用户显示标题和消息			
+	},				
+	failure: function(err){				
+		this.errors.push(err);			
+		this.showDialog("Error", "Login invalid: " + err);			
+	}				
+};					
+// 让AuthController委托LoginController					
+var AuthController = Object.create(LoginController);					
+AuthController.errors = [];					
+AuthController.checkAuth = function(){					
+	var user = this.getUser();				
+	var pw = this.getPassword();				
+	if(this.validateEntry(user, pw)){				
+		this.server("/check-auth", {			
+			user: user,		
+			pw: pw		
+		})			
+		.then(this.accepted.bind(this))			
+		.fail(this.rejected.bind(this));			
+	}				
+};					
+AuthController.server = function(url, data){					
+	return $.ajax({				
+		url: url,			
+		data: data			
+	});				
+};					
+AuthController.accepted = function(){					
+	this.showDialog("Success", "Authenticated!")				
+};					
+AuthController.rejected = function(err){					
+	this.failure("Auth Failed: " + err);				
+};		
+```			
+由于AuthController只是一个对象（LoginController也一样），因此我们不需要实例化（比如new AuthController()），只需要一行代码就行：					
+AuthController.checkAuth();					
+借助对象关联，你可以简单地向委托链上添加一个或多个对象，而且同样不需要实例化：
+```javascript					
+var controller1 = Object.create(AuthController);					
+var controller2 = Object.create(AuthController);		
+```			
+在行为委托模式中，AuthController和LoginController只是对象，它们之间是兄弟关系，并不是父类和子类的关系。代码中AuthController委托了LoginController，反向委托也完全没问题。					
+这种模式的重点在于只需要两个实体（LoginController和AuthController），而之前的模式需要三个。					
+我们不需要Controller基类来“共享”两个实体之间的行为，因为委托足以满足我们需要的功能。同样，前面提到过，我们也不需要实例化类，因为它们根本就不是类，它们只是对象。此外，我们也不需要合成，因为两个对象可以通过委托进行合作。					
+最后，我们避免了面向类设计模式中的多态。我们在不同的对象中没有使用相同的函数名success(..)和failure(..)，这样就不需要使用丑陋的显示伪多态。相反，在AuthController中它们的名字是accepted(..)和rejected(..)——可以更好地描述它们的行为。					
+总结：我们用一种（极其）简单的设计实现了同样的功能，这就是对象关联风格代码和行为委托设计模式的力量。					
+					
+## 6.4 更好的语法
+### ES6的class语法可以简洁地定义类方法，这个特性让class乍看起来更有吸引力（附录A会介绍为什么要避免使用这个特性）：
+```javascript
+class Foo{					
+	methodName(){ /* .. */}				
+}					
+```
+我们终于可以抛弃定义中的关键字function了，对所有JavaScript开发者来说真是大快人心！					
+你可能注意到了，在之前推荐的对象关联语法中出现了许多function，看起来违背了对象关联的简洁性。但是实际上大可不必如此！					
+### 在ES6中我们可以在任意对象的字面形式中使用简洁方法声明（concisemethod declaration），所以对象关联风格的对象可以这样声明（和class的语法糖一样）：
+```javascript					
+var LoginController = {					
+	errors: [],				
+	getUser(){ // 妈妈再也不用担心代码里有function了！				
+		// ...			
+	},				
+	getPassword(){				
+		// ...			
+	}				
+	// ...				
+};		
+```			
+唯一的区别是对象的字面形式仍然需要使用“, ”来分隔元素，而class语法不需要。这个区别对于整体的设计来说无关紧要。					
+此外，在ES6中，你可以使用对象的字面形式（这样就可以使用简洁方法定义）来改写之前繁琐的属性赋值语法（比如AuthController的定义），然后用Object. setPrototypeOf(..)来修改它的<span class="s6">[[Prototype]]</span>：	
+```javascript				
+// 使用更好的对象字面形式语法和简洁方法					
+var AuthController = {					
+	errors: [],				
+	checkAuth(){				
+		// ...			
+	},				
+	server(url, data){				
+		// ...			
+	}				
+	// ...				
+};					
+// 现在把AuthController关联到LoginController					
+Object.setPrototypeOf(AuthController, LoginController);	
+```				
+使用ES6的简洁方法可以让对象关联风格更加人性化（并且仍然比典型的原型风格代码更加简洁和优秀）。你完全不需要使用类就能享受整洁的对象语法！	
+
+### 反词法
+简洁方法有一个非常小但是非常重要的缺点。思考下面的代码：
+```javascript					
+var Foo = {					
+	bar(){ /* .. */},				
+	baz: function baz(){ /* .. */ }				
+};					
+去掉语法糖之后的代码如下所示：					
+var Foo = {					
+	bar: function(){ /* .. */},				
+	baz: function baz(){ /* .. */ }				
+};					
+```
+看到区别了吗？由于函数对象本身没有名称标识符，所以bar()的缩写形式（function()..）实际上会变成一个匿名函数表达式并赋值给bar属性。相比之下，具名函数表达式（function baz()..）会额外给．baz属性附加一个词法名称标识符baz。					
+* 然后呢？在本书第一部分“作用域和闭包”中我们分析了匿名函数表达式的三大主要缺点，下面我们会简单介绍一下这三个缺点，然后和简洁方法定义进行对比。					
+匿名函数没有name标识符，这会导致：					
+	1. 调试栈更难追踪；				
+	2. 自我引用（**递归**、事件（解除）绑定，等等）更难；				
+	3. 代码（稍微）更难理解。				
+* 简洁方法没有第1和第3个缺点。					
+去掉语法糖的版本使用的是匿名函数表达式，通常来说并不会在追踪栈中添加name，但是简洁方法很特殊，会给对应的函数对象设置一个内部的name属性，这样理论上可以用在追踪栈中。（但是追踪的具体实现是不同的，因此无法保证可以使用。）					
+* 很不幸，简洁方法无法避免第2个缺点，它们不具备可以自我引用的词法标识符。					
+思考下面的代码：
+```javascript					
+var Foo = {					
+	bar: function(x){				
+		if(x<10){			
+			return Foo.bar(x * 2);		
+		}			
+		return x;			
+	},				
+	baz: function baz(x){				
+		if(x<10) {			
+			return baz(x*2);		
+		}			
+		return x;			
+	}				
+};		
+```			
+在本例中使用Foo.bar(x＊2)就足够了，但是在许多情况下无法使用这种方法，比如多个对象通过代理共享函数、使用this绑定，等等。这种情况下最好的办法就是使用函数对象的name标识符来进行真正的自我引用。使用简洁方法时一定要小心这一点。如果你需要自我引用的话，那最好使用传统的具名函数表达式来定义对应的函数（· baz: function baz(){..}·），不要使用简洁方法。					
+使用简洁方法时一定要小心这一点。如果你需要自我引用的话，那最好使用传统的具名函数表达式来定义对应的函数（· baz: function baz(){..}·），不要使用简洁方法。					
+					
+## 6.5 内省
+* 如果你写过许多面向类的程序（无论是使用JavaScript还是其他语言），那你可能很熟悉内省。					
+内省就是检查实例的类型。					
+类实例的内省主要目的是通过创建方式来判断对象的结构和功能。					
+	1. 下面的代码使用instanceof（参见第5章）来推测对象a1的功能：
+		```javascript				
+		function Foo(){			
+			// ...		
+		}			
+		Foo.prototype.something = function(){			
+			// ...		
+		}			
+		var a1 = new Foo();			
+					
+		// 之后			
+		if(a1 instanceof Foo){			
+			a1.something();		
+		}			
+		```
+			* 因为Foo.<span class="s8">prototype</span>（不是Foo!）在a1的<span class="s6">[[Prototype]]</span>链上（参见第5章），所以instanceof操作（会令人困惑地）告诉我们a1是Foo“类”的一个实例。知道了这点后，我们就可以认为a1有Foo“类”描述的功能。		
+			* 当然，Foo类并不存在，只有一个普通的函数Foo，它引用了a1委托的对象（Foo. <span class="s8">prototype</span>）。从语法角度来说，instanceof似乎是检查a1和Foo的关系，但是实际上它想说的是a1和Foo.<span class="s8">prototype</span>（引用的对象）是互相关联的。		
+		* instanceof语法会产生语义困惑而且非常不直观。如果你想检查对象a1和某个对象的关系，那必须使用另一个引用该对象的函数才行——你不能直接判断两个对象是否关联。			
+		还记得本章之前介绍的抽象的Foo/Bar/b1例子吗，简单来说是这样的：		
+		```javascript	
+		function Foo(){ /* ... */ }			
+		Foo.prototype...			
+					
+		function Bar(){ /* .. */ }			
+		Bar.prototype = Object.create(Foo.prototype);			
+		var b1 = new Bar("b1");	
+		```		
+		如果要使用instanceof和．<span class="s8">prototype</span>语义来检查本例中实体的关系，那必须这样做：			
+		```javascript
+		// Foo和Bar互相关联			
+		Bar.prototype  instanceof Foo; // true			
+		Object.getPrototypeOf(Bar.prototype) === Foo.prototype; // true			
+		Foo.prototype.isPrototypeOf(Bar.prototype); // true			
+					
+		// 让b1关联到Foo和Bar			
+		b1 instanceof Foo; // true			
+		b1 instanceof Bar;  // true			
+		Object.getPrototypeOf(b1) === Bar.prototype; // true			
+		Foo.prototype.isPrototypeOf(b1); // true			
+		Bar.prototype.isPrototypeOf(b1); // true		
+		```	
+		显然这是一种非常糟糕的方法。举例来说，（使用类时）你最直观的想法可能是使用Bar instanceof Foo（因为很容易把“实例”理解成“继承”），但是在JavaScript中这是行不通的，你必须使用Bar.<span class="s8">prototype</span> instanceofFoo。			
+					
+	2. 还有一种常见但是可能更加脆弱的内省模式，许多开发者认为它比instanceof更好。这种模式被称为“鸭子类型”。这个术语源自这句格言“如果看起来像鸭子，叫起来像鸭子，那就一定是鸭子。”				
+	举例来说：		
+	```javascript		
+	if(a1.something) {				
+		a1.something();			
+	}				
+	```
+	我们并没有检查a1和委托something()函数的对象之间的关系，而是假设如果a1通过了测试a1.something的话，那a1就一定能调用．something()（无论这个方法存在于a1自身还是委托到其他对象）。这个假设的风险其实并不算很高。				
+	但是“鸭子类型”通常会在测试之外做出许多关于对象功能的假设，这当然会带来许多风险（或者说脆弱的设计）。				
+		* ES6的Promise就是典型的“鸭子类型”（之前解释过，本书并不会介绍Promise）。			
+			* 出于各种各样的原因，我们需要判断一个对象引用是否是Promise，但是判断的方法是检查对象是否有then()方法。		
+			换句话说，如果对象有then()方法，ES6的Promise就会认为这个对象是“可持续”（thenable）的，因此会期望它具有Promise的所有标准行为。		
+			* 如果有一个不是Promise但是具有then()方法的对象，那你千万不要把它用在ES6的Promise机制中，否则会出错。		
+			这个例子清楚地解释了“鸭子类型”的危害。你应该尽量避免使用这个方法，即使使用也要保证条件是可控的。		
+		* 现在回到本章想说的对象关联风格代码，其内省更加简洁。我们先来回顾一下之前的Foo/Bar/b1对象关联例子（只包含关键代码）：
+		```javascript			
+		var Foo = { /* .. */ };			
+		var Bar = Object.create(Foo);			
+		Bar...			
+		var b1 = Object.create(Bar);	
+		```		
+		使用对象关联时，所有的对象都是通过<span class="s6">[[Prototype]]</span>委托互相关联，下面是内省的方法，非常简单：			
+		```javascript
+		// 让Foo和Bar互相关联			
+		Foo.isPrototypeOf(Bar); // true			
+		Object.getPrototypeOf(Bar) === Foo; // true			
+		// 让b1关联到Foo和Bar			
+		Foo.isPrototypeOf(b1); // true			
+		Bar.isPrototypeOf(b1); // true			
+		Object.getPrototypeOf(b1) === Bar; // true	
+		```		
+		我们没有使用instanceof，因为它会产生一些和类有关的误解。现在我们想问的问题是“你是我的原型吗？”我们并不需要使用间接的形式，比如Foo.<span class="s8">prototype</span>或者繁琐的Foo. <span class="s8">prototype</span>.isPrototypeOf(..)。			
+		我觉得和之前的方法比起来，这种方法显然更加简洁并且清晰。再说一次，我们认为JavaScript中对象关联比类风格的代码更加简洁（而且功能											
