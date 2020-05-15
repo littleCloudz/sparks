@@ -482,7 +482,7 @@ function drag(elementToDrag, event){
 其中一些事件现在已经可以开始使用，但更详细的信息在本书的其他地方，																					
 另外一些尚未得到广泛实现，也没有详细文档。	
 																				
-#### 广泛推广的HTML5特性之一是加入用于播放音频和视频的<audio>和<video元素
+#### 广泛推广的HTML5特性之一是加入用于播放音频和视频的`<audio>`和`<video>`元素
 这些元素有长长的事件列表，它们触发各种关于网络事件、数据缓冲状况和播放状态的通知：																						
 * canplay																					
 * loadeddata																					
@@ -700,7 +700,7 @@ HTML5及相关规范定义的大量Web API都有自己的事件类型。
 * “seeking”																									
 * “volumechange”等相关事件																									
 这些事件通常仅用于Web应用，这些Web应用希望为视频和音频的播放定义自定义控件。																									
-## 计时器和错误**处理程序**																											
+## 计时器和错误**处理程序**
 已经在第14章介绍过的计时器（timer）和错误**处理程序**（error handler）属于客户端JavaScript异步编程模型的部分，并有相似的事件。																										
 虽然本章不会讨论计时器和错误**处理程序**，但思考它们同事件处理之间的关系是有益的，所以在本章的语境中重读14.1节和14.6节会发现很有趣。
 
@@ -714,11 +714,11 @@ HTML5及相关规范定义的大量Web API都有自己的事件类型。
 在17.1节之后，接着两节会介绍如何注册**事件处理程序**和浏览器如何调用这些**事件处理程序**。																											
 由于JavaScript事件模型的历史演变和<span class="s5">IE</span> 9之前版本缺乏对标准的支持，因此这两个主题可能会超出想象的复杂。																											
 																											
-## 17.2 注册**事件处理程序**																											
+## 17.2 注册**事件处理程序**
 注册**事件处理程序**有两种基本方式。																											
 但复杂的是，每种技术都有两个版本。																											
 																											
-### 1. 第一种方式出现在Web初期，给<span class="s8">事件目标</span>对象或文档元素设置属性。																											
+### 1. 第一种方式出现在Web初期，给<span class="s8">事件目标</span>对象或文档元素设置属性
 17.2.2 设置HTML标签属性为**事件处理程序**																											
 * 对于文档元素，可以在HTML中直接设置相应属性。																											
 用于设置的文档元素**事件处理程序**属性（property）也能换成对应HTML标签的属性（attribute）。																											
@@ -769,9 +769,9 @@ HTML5及相关规范定义的大量Web API都有自己的事件类型。
 	当仔细研究17.3节的**事件处理程序**调用时，我们将看到关于event参数和with语句的更多内容。																										
 * 客户端编程的通用风格是保持HTML内容和JavaScript行为分离，遵循这条规则的程序员应禁止（或至少避免）使用HTML**事件处理程序**属性，因为这些属性直接混合了JavaScript和HTML。																											
 																											
-### 2. 第二种方式更新并且更通用，是将**事件处理程序**传递给对象或元素的一个方法。																											
-																											
-#### 17.2.1 设置JavaScript对象属性为**事件处理程序**																											
+### 2. 第二种方式更新并且更通用，是将**事件处理程序**传递给对象或元素的一个方法
+
+#### 17.2.1 设置JavaScript对象属性为**事件处理程序**
 注册**事件处理程序**最简单的方式就是通过设置<span class="s8">事件目标</span>的属性为所需**事件处理程序**函数。																											
 按照约定，**事件处理程序**属性的名字由“on”后面跟着事件名组成：onclick、on<span class="s1">change</span>、onload、onmouseover等。																											
 注意这些属性名是区分大小写的，所有都是小写，即使事件类型是由多个词组成（比如“<span class="event-1">readystatechange</span>”）。																											
@@ -793,7 +793,7 @@ window.onload=function() {
 一般情况下，所有广泛实现的Web API定义的事件都允许通过设置**事件处理程序**属性来注册处理程序。																											
 **事件处理程序**属性的缺点是其设计都是围绕着假设每个<span class="s8">事件目标</span>对于每种事件类型将最多只有一个**处理程序**。																											
 如果想编写能够在任意文档中都能使用的脚本库代码，更好的方式是使用一种不修改或覆盖任何已有注册**处理程序**的技术（比如<span class="method">addEventListener（）</span>）。																											
-#### 17.2.3 <span class="method">addEventListener（）</span>																											
+#### 17.2.3 <span class="method">addEventListener（）</span>
 * 可以在JavaScript代码中设置**事件处理程序**为对象属性，																											
 	对于通过方法调用的**处理程序**注册，有一个标准方法，命名为<span class="method">addEventListener（）</span>，																										
 	除<span class="s5">IE</span>8及以前版本之外，所有浏览器都支持这种方式，																										
@@ -833,7 +833,8 @@ window.onload=function() {
 		**处理程序**仍然只注册一次，																									
 		同时重复调用也不会改变调用**处理程序**的顺序。																									
 																											
-##### 相对<span class="method">addEventListener（）</span>的是<span class="method">removeEventListener（）</span>方法，																											
+##### <span class="method">removeEventListener（）</span>方法
+相对<span class="method">addEventListener（）</span>的是<span class="method">removeEventListener（）</span>方法
 它同样有三个参数，																										
 从对象中删除**事件处理程序**函数而非添加，它常用于临时注册**事件处理程序**，然后不久就删除它。																										
 例如，当你要得到<span class="s2">mousedown</span>事件时，可以为<span class="s2">mousemove</span>和mouseup事件注册临时**捕获** **事件处理程序**来看看用户是否拖动鼠标。																										
@@ -844,18 +845,18 @@ document.removeEventListener("mousemove", handleMouseMove, true);
 document.removeEventListener("mouseup", handleMouseUp, true);
 ```																										
 																											
-#### <span class="method">attachEvent（）</span>																											
-而<span class="s5">IE</span> 9之前的<span class="s5">IE</span>版本支持的是一个叫<span class="method">attachEvent（）</span>的不同方法。																											
-<span class="s5">IE</span>9之前的<span class="s5">IE</span>不支持<span class="method">addEventListener（）</span>和<span class="method">removeEventListener（）</span>。																											
+#### <span class="method">attachEvent（）</span>
+* <span class="s5">IE</span>9之前的<span class="s5">IE</span>不支持<span class="method">addEventListener（）</span>和<span class="method">removeEventListener（）</span>。
+* <span class="s5">IE</span> 9之前的<span class="s5">IE</span>版本支持的是一个叫<span class="method">attachEvent（）</span>的不同方法。																											
 <span class="s5">IE</span>5及以后版本定义了类似的方法<span class="method">attachEvent（）</span>和<span class="method">detachEvent（）</span>。																											
 <span class="method">attachEvent（）</span>和<span class="method">detachEvent（）</span>方法的工作原理与<span class="method">addEventListener（）</span>和<span class="method">removeEventListener（）</span>类似，但有如下例外：																											
-* <span class="s5">IE</span>方法的第一个参数使用了带“on”前缀的**事件处理程序**属性名，而非没有前缀的事件类型。																											
-	例如，当给<span class="method">addEventListener（）</span>传递“click”时，要给<span class="method">attachEvent（）</span>传递“onclick”。																										
-* 因为<span class="s5">IE事件模型</span>不支持事件**捕获**，所以<span class="method">attachEvent（）</span>和<span class="method">detachEvent（）</span>要求只有两个参数：																											
-	事件类型																										
-	**处理程序**函数																										
-* <span class="method">attachEvent（）</span>允许相同的**事件处理程序**函数注册多次。																											
-	当特定的事件类型发生时，注册函数的调用次数和注册次数一样。																										
+    * <span class="s5">IE</span>方法的第一个参数使用了带“on”前缀的**事件处理程序**属性名，而非没有前缀的事件类型。																											
+        例如，当给<span class="method">addEventListener（）</span>传递“click”时，要给<span class="method">attachEvent（）</span>传递“onclick”。																										
+    * 因为<span class="s5">IE事件模型</span>不支持事件**捕获**，所以<span class="method">attachEvent（）</span>和<span class="method">detachEvent（）</span>要求只有两个参数：																											
+        事件类型																										
+        **处理程序**函数																										
+    * <span class="method">attachEvent（）</span>允许相同的**事件处理程序**函数注册多次。																											
+        当特定的事件类型发生时，注册函数的调用次数和注册次数一样。																										
 * 经常可以看到的**事件处理程序**注册代码是在支持<span class="method">addEventListener（）</span>的浏览器中就调用它，否则就用<span class="method">attachEvent（）</span>：			
 	```javascript																								
 	var b = document.getElementById("mybutton");																										
@@ -868,10 +869,10 @@ document.removeEventListener("mouseup", handleMouseUp, true);
 		b.attachEvent("onclick", handler);		
 	```																								
 																											
-## 17.3 **事件处理程序**的调用																											
+## 17.3 **事件处理程序**的调用
 一旦注册了**事件处理程序**，浏览器就会在指定对象上发生指定类型事件时自动调用它。																											
 本节会详细介绍**事件处理程序**的调用，说明																											
-### 17.3.1 **事件处理程序**的参数																											
+### 17.3.1 **事件处理程序**的参数
 * 通常调用**事件处理程序**时把<span class="object">事件对象</span>作为它们的一个参数（有一个例外，后面会介绍）。																											
 <span class="object">事件对象</span>的属性提供了有关事件的详细信息。																											
 例如，type属性指定了发生的事件类型。																											
@@ -892,7 +893,7 @@ function handler(event)[
 在这两种情况下，HTML**事件处理程序**都能作为event引用<span class="object">事件对象</span>。																											
 																											
 																											
-### 17.3.2 **事件处理程序**的运行环境——调用上下文（this值）、																											
+### 17.3.2 **事件处理程序**的运行环境——调用上下文（this值）
 当通过设置属性注册**事件处理程序**时，这看起来好像是在文档元素上定义了新方法：
 ```javascript																											
 e.onclick = function(){ /* 处理程序代码 */ };				
@@ -900,7 +901,7 @@ e.onclick = function(){ /* 处理程序代码 */ };
 * **事件处理程序**在<span class="s8">事件目标</span>上定义，所以它们作为这个对象的方法来调用（后面会介绍一个和<span class="s5">IE</span>相关的例外）并不出人意料。																											
 这就是说，在**事件处理程序**内，this关键字指的是<span class="s8">事件目标</span>。																											
 * 甚至当使用<span class="method">addEventListener（）</span>注册时，调用的**处理程序**使用<span class="s8">事件目标</span>作为它们的this值。																											
-但是，对于<span class="method">attachEvent（）</span>来讲这是不对的：使用<span class="method">attachEvent（）</span>注册的**处理程序**作为函数调用，它们的this值是全局（<span class="object">Window</span>Window</span>）对象。																											
+但是，对于<span class="method">attachEvent（）</span>来讲这是不对的：使用<span class="method">attachEvent（）</span>注册的**处理程序**作为函数调用，它们的this值是全局（<span class="object">Window</span>）对象。																											
 可以用如下代码来解决这个问题：		
 ```javascript																									
 /*																											
@@ -970,7 +971,7 @@ function addEvent(target, type, handler){
 调用<span class="s8">目标</span>的父元素的**事件处理程序**，然后调用在<span class="s8">目标</span>的祖父元素上注册的**事件处理程序**。																											
 这会一直到<span class="object">Document</span>对象，最后到达<span class="object">Window</span>对象。																											
 事件**冒泡**为在大量单独文档元素上注册**处理程序**提供了替代方案，即在共同的祖先元素上注册一个**处理程序**来处理所有的事件。																											
-例如，可以在<form>元素上注册“<span class="s1">change</span>”**事件处理程序**来取代在表单的每个元素上注册“<span class="s1">change</span>”**事件处理程序**。																											
+例如，可以在`<form>`元素上注册“<span class="s1">change</span>”**事件处理程序**来取代在表单的每个元素上注册“<span class="s1">change</span>”**事件处理程序**。																											
 * 发生在文档元素上的大部分事件都会**冒泡**，值得注意的例外是<span class="s1">focus</span>、<span class="s1">blur</span>和<span class="event">scroll</span>事件。																											
 文档元素上的load事件会**冒泡**，但它会在<span class="object">Document</span>对象上停止**冒泡**而不会传播到<span class="object">Window</span>对象。																											
 只有当整个文档都加载完毕时才会触发<span class="object">Window</span>对象的load事件。																											
@@ -1008,10 +1009,14 @@ function addEvent(target, type, handler){
 <span class="s5">IE</span> 8及之前版本不支持事件**捕获**，所以不常用它。																										
 但是，当处理鼠标<span class="event-1">拖放事件</span>时，**捕获**或“夺取”<span class="s2">鼠标事件</span>的能力是必需的，例17-2会展示如何实现这种能力。																										
 																											
-### 17.3.7 事件取消																											
+### 17.3.7 事件取消
+																											
 #### 三种取消技术：
-##### 1. 17.3.4节介绍了用属性注册的**事件处理程序**的返回值能用于取消事件的浏览器默认操作。																											
-##### 2. 在支持<span class="method">addEventListener（）</span>的浏览器中，也能通过调用<span class="object">事件对象</span>的preventDefault（）方法取消事件的默认操作。																											
+
+##### 1. 17.3.4节介绍了用属性注册的**事件处理程序**的返回值能用于取消事件的浏览器默认操作。
+																											
+##### 2. 在支持<span class="method">addEventListener（）</span>的浏览器中，也能通过调用<span class="object">事件对象</span>的preventDefault（）方法取消事件的默认操作。
+																											
 ##### 3. 不过，在<span class="s5">IE</span>9之前的<span class="s5">IE</span>中，可以通过设置<span class="object">事件对象</span>的returnValue属性为false来达到同样的效果。																											
 下面的代码假设一个**事件处理程序**，它使用全部三种取消技术：	
   ```javascript																										
