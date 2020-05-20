@@ -55,7 +55,7 @@
 	"<span class="event">load</span>"表示文档（或某个其他资源）从网络上加载完毕。																				
 	当文档和其所有外部资源（比如图片）完全加载并显示给用户时就会触发它。																				
 	有关<span class="event">load</span>事件的讨论贯穿整个第13章。																				
-	<span class="event-1">DOMContentLoaded</span>和<span class="event-1"><span class="event-1">readystatechange</span></span>是<span class="event">load</span>事件的替代方案，当文档和其元素为操作准备就绪，但外部资源完全加载完毕之前，浏览器就会尽早触发它们。																				
+	<span class="event-1">DOMContentLoaded</span>和<span class="event-1">readystatechange</span>是<span class="event">load</span>事件的替代方案，当文档和其元素为操作准备就绪，但外部资源完全加载完毕之前，浏览器就会尽早触发它们。																				
 	17.4节有这些与文件加载相关事件的示例。																				
 	17.4 文档加载事件——文档加载和准备就绪事件																				
 	* 现在已经介绍了JavaScript事件处理的基本原理，我们将开始深入探索具体事件类别，本节将从文档<span class="event">load</span>事件开始。																				
@@ -69,7 +69,7 @@
 	尽管其名字中有“DOM”，并属于3级DOM事件标准的一部分，但HTML5标准化了它。																				
 	* 正如13.3.4节所述，document.<span class="key">readyState</span>属性随着文档加载过程而变。																				
 	在<span class="s5">IE</span>中，每次状态改变都伴随着<span class="object">Document</span>对象上的<span class="event-1">readystatechange</span>事件，当<span class="s5">IE</span>接收到“<span class="key-value">complete</span>”状态时使用这个事件来做判断是可行的。																				
-	HTML5标准化了<span class="event-1"><span class="event-1">readystatechange</span></span>事件，但它仅在<span class="event">load</span>事件之前立即触发，所以目前尚不清楚监听“<span class="event-1"><span class="event-1">readystatechange</span></span>”取代“<span class="event">load</span>”会带来多大好处。																				
+	HTML5标准化了<span class="event-1">readystatechange</span>事件，但它仅在<span class="event">load</span>事件之前立即触发，所以目前尚不清楚监听“<span class="event-1">readystatechange</span>”取代“<span class="event">load</span>”会带来多大好处。																				
 	* 例17-1定义了whenReady（）函数，它非常像示例13-5的onLoad（）函数。																				
 	当文档为操作准备就绪时，传递给whenReady（）的函数将会作为<span class="object">Document</span>对象的方法调用。																				
 	和之前的onLoad（）函数不同，whenReady（）监听<span class="event-1">DOMContentLoaded</span>和<span class="event-1">readystatechange</span>事件，而使用<span class="event">load</span>事件仅仅是为了兼容那些不支持之前事件的较老浏览器。																				
@@ -79,7 +79,7 @@
 			/*																		
 			 * 传递函数给whenReady()，当文档解析完毕且为操作准备就绪时，																		
 			 * 函数将作为文档对象的方法调用																		
-			 * DOMContentLoaded、<span class="event-1">readystatechange</span> 或<span class="event">load</span>事件发生时会触发注册函数																		
+			 * DOMContentLoaded、readystatechange或load事件发生时会触发注册函数																		
 			 * 一旦文档准备就绪，所有函数都将被调用，任何传递给whenReady()的函数都将立即调用																		
 			 */																		
 			var whenReady = (function(){    // 这个函数返回whenReady()函数																		
@@ -547,7 +547,7 @@ codecodecode
 任何文档元素都可以是<span class="s8">拖放目标</span>，这不需要像<span class="s7">拖放源</span>一样设置HTML属性，只需要简单地定义合适的**事件监听程序**。（但是使用新的HTML5 **DnD** API，将可以在<span class="s8">拖放目标</span>上定义dropzone属性来取代定义后面介绍的一部分**事件处理程序**。）有4个事件在<span class="s8">拖放目标</span>上触发。当拖放对象（dragged object）进入文档元素时，浏览器在这个元素上触发<span class="event-1">dragenter</span>事件。<span class="s8">拖放目标</span>应该使用<span class="key">dataTransfer</span>.types属性确定拖放对象的可用数据是否是它能理解的格式。（也可以检查<span class="key">dataTransfer</span>. effectAllowed确保<span class="s7">拖放源</span>和<span class="s8">拖放目标</span>同意使用移动、复制和链接操作中的一个。）如果检查成功，<span class="s8">拖放目标</span>必须要让用户和浏览器都知道它对放置感兴趣。可以通过改变它的边框或背景颜色来向用户反馈。令人吃惊的是，<span class="s8">拖放目标</span>通过取消事件来告知浏览器它对放置感兴趣。																						
 * 如果元素不取消浏览器发送给它的<span class="event-1">dragenter</span>事件，浏览器将不会把它作为这次拖放的<span class="s8">拖放目标</span>，并不会向它再发送任何事件。但如果<span class="s8">拖放目标</span>取消了<span class="event-1">dragenter</span>事件，浏览器将发送dragover事件表示用户继续在目标上拖动对象。再一次令人吃惊的是，<span class="s8">拖放目标</span>必须监听且取消所有这些事情来表明它继续对放置感兴趣。如果<span class="s8">拖放目标</span>想指定它只允许移动、复制或链接操作，它应该使用dragover**事件处理程序**来设置dataTransfrer.dropEffect。																						
 * 如果用户移动拖放对象离开通过取消事件表明有兴趣的<span class="s8">拖放目标</span>，那么在<span class="s8">拖放目标</span>上将触发dragleave事件。这个事件的**处理程序**应该恢复元素的边框或背景颜色或取消任何其他为响应<span class="event-1">dragenter</span>事件而执行的可视化反馈。遗憾的是，<span class="event-1">dragenter</span>和dragleave事件会**冒泡**，如果<span class="s8">拖放目标</span>内部有嵌套元素，想知道dragleave事件表示拖放对象从<span class="s8">拖放目标</span>离开到目标外的事件还是到目标内的事件非常困难。																						
-* 最后，如果用户把拖放对象放置到<span class="s8">拖放目标</span>上，在<span class="s8">拖放目标</span>上会触发drop事件。这个事件的**处理程序**应该使用<span class="key">dataTransfer</span>.getData（）获取传输的数据并做一些适当的处理。另外，如果用户在<span class="s8">拖放目标</span>放置一或多个文件，<span class="key">dataTransfer</span>.files属性将是一个类数组的File对象。（见例18-11的说明。）使用新的HTML5 API，drop**事件处理程序**将能遍历<span class="key">dataTransfer</span>.items[]的元素去检查文件和非文件数据。																						
+* 最后，如果用户把拖放对象放置到<span class="s8">拖放目标</span>上，在<span class="s8">拖放目标</span>上会触发drop事件。这个事件的**处理程序**应该使用<span class="key">dataTransfer</span>.getData（）获取传输的数据并做一些适当的处理。另外，如果用户在<span class="s8">拖放目标</span>放置一或多个文件，<span class="key">dataTransfer</span>.files属性将是一个<span class="s5">类数组</span>的File对象。（见例18-11的说明。）使用新的HTML5 API，drop**事件处理程序**将能遍历<span class="key">dataTransfer</span>.items[]的元素去检查文件和非文件数据。																						
 * 例17-5演示如何使<ul>元素成为<span class="s8">拖放目标</span>，同时如何使它们中的<li>元素成为<span class="s7">拖放源</span>。这个示例是一段不唐突的JavaScript[插图]代码，它查找class属性包含“dnd”的<ul>元素，在它找到的此类列表上注册**DnD** **事件处理程序**。这些**事件处理程序**使列表本身成为<span class="s8">拖放目标</span>，在这个列表上放置的任何文本会变成新的列表项并插入到列表尾部。这些**事件处理程序**也监听列表项的拖动，使得每个列表项的文本可用于传输。<span class="s7">拖放源</span>**事件处理程序**允许“复制”和“移动”操作，并在移动操作下放置对象时会删除原有列表项。（但是，请注意并不是所有的浏览器都支持移动操作。）																						
 	* 英文为Unobtrusive Javascript，在网页中编写JavaScript的一种通用方法。详细内容请看`http://en.wikipedia.org/wiki/Unobtrusive_JavaScript`																			
 * 例17-5：作为<span class="s8">拖放目标</span>和<span class="s7">拖放源</span>的列表																						
@@ -603,37 +603,35 @@ codecodecode
     这些事件不应该用于处理打印文档的样式，因为CSS媒体类型更适合这个用途。																				
 																						
 ### 3. 17.1.4 触摸屏和移动设备事件
-* 基于触摸和支持JavaScript的移动设备的出现，比如iPhone，它们需要定义新的触摸和手势事件类型。																					
-在17.1.4节会看到一些针对Apple产品的例子。																					
-                                                                                    
-* 强大的移动设备的广泛采用（特别是使用触摸屏的那些设备）需要建立新的事件类别。																					
-在许多情况下，触摸屏事件映射到传统的事件类型（比如<span class="s1">click</span>和srcoll），但不是每次和触摸屏UI的交互都能仿效鼠标，也不是所有的触摸都可以当做<span class="s2">鼠标事件</span>处理。																					
-本节主要介绍																					
+* 基于触摸和支持JavaScript的移动设备的出现，比如iPhone，它们需要定义新的触摸和手势事件类型。在17.1.4节会看到一些针对Apple产品的例子。	
     * 运行在Apple的iPhone和iPad设备上的Safari所产生的手势和<span class="event-1">触摸事件</span>																				
-        * Safari产生的手势事件用于两个手指的缩放和旋转手势。																			
+        1. Safari产生的手势事件用于两个手指的缩放和旋转手势。																			
             当手势开始时生成gesturestart事件，																		
             而手势结束时生成gestureend事件。																		
             在这两个事件之间是跟踪手势过程的<span class="event-1">gesturechange</span>事件队列。																		
-        * 这些事件传递的<span class="object">事件对象</span>有数字属性<span class="key">scale</span>和<span class="key">rotation</span>。																			
-            * <span class="key">scale</span>属性是两个手指之间当前距离和初始距离的比值。																		
-                “捏紧”手势的<span class="key">scale</span>值小于1.0																	
-                “撑开”手势的<span class="key">scale</span>值大于1.0																	
-            * <span class="key">rotation</span>属性是指从事件开始手指旋转的角度，它以度为单位，正值表示按照顺时针方向旋转。																		
-        * 手势事件是高级事件，用于通知已经翻译的手势。																			
-            * 如果想实现自定义手势，你可以监听低级<span class="event-1">触摸事件</span>。																		
-                当手指触摸屏幕时会触发<span class="event-1">touchstart</span>事件，																	
-                当手指移动时会触发<span class="event-1">touchmove</span>事件，																	
-                而当手指离开屏幕时会触发<span class="event-1">touchend</span>事件。																	
+            * 这些事件传递的<span class="object">事件对象</span>有数字属性<span class="key">scale</span>和<span class="key">rotation</span>。																			
+                * <span class="key">scale</span>属性是两个手指之间当前距离和初始距离的比值。																		
+                    “捏紧”手势的<span class="key">scale</span>值小于1.0																	
+                    “撑开”手势的<span class="key">scale</span>值大于1.0																	
+                * <span class="key">rotation</span>属性是指从事件开始手指旋转的角度，它以度为单位，正值表示按照顺时针方向旋转。																		
+            * 手势事件是高级事件，用于通知已经翻译的手势。																			
+        2. 如果想实现自定义手势，你可以监听低级<span class="event-1">触摸事件</span>。																		
+            当手指触摸屏幕时会触发<span class="event-1">touchstart</span>事件，																	
+            当手指移动时会触发<span class="event-1">touchmove</span>事件，																	
+            而当手指离开屏幕时会触发<span class="event-1">touchend</span>事件。																	
             * 不像<span class="s2">鼠标事件</span>，<span class="event-1">触摸事件</span>并不直接报告触摸的坐标。																		
             * 相反，<span class="event-1">触摸事件</span>传递的<span class="object">事件对象</span>有一个																		
                 <span class="key">changedTouches</span>属性，																	
-                该属性是一个类数组对象，其每个元素都描述触摸的位置。																
-    * 还包括用户旋转这些设备时产生的orientationchange事件。																				
-        当设备允许用户从竖屏旋转到横屏模式时会在<span class="object">Window</span>对象上触发orientationchanged事件，																			
+                该属性是一个<span class="s5">类数组</span>对象，其每个元素都描述触摸的位置。																
+    * 还包括用户旋转这些设备时产生的<span class="method">orientationchange</span>事件。																				
+        当设备允许用户从竖屏旋转到横屏模式时会在<span class="object">Window</span>对象上触发<span class="method">orientationchange</span>d事件，																			
         该事件传递的<span class="object">事件对象</span>本身没有用。																			
         但是，在移动版的Safari中，<span class="object">Window</span>对象的orientation属性能给出当前方位，其值是0、90、180或-90。																			
                                                                                     
-在写本章时，这些事件尚未标准化，但W3C已经开始用Apple的<span class="event-1">触摸事件</span>作为起点制定“<span class="event-1">触摸事件</span>规范”。																					
+* 强大的移动设备的广泛采用（特别是使用触摸屏的那些设备）需要建立新的事件类别。																					
+在许多情况下，触摸屏事件映射到传统的事件类型（比如<span class="s1">click</span>和srcoll），但不是每次和触摸屏UI的交互都能仿效鼠标，也不是所有的触摸都可以当做<span class="s2">鼠标事件</span>处理。																					
+                                                             
+* 在写本章时，这些事件尚未标准化，但W3C已经开始用Apple的<span class="event-1">触摸事件</span>作为起点制定“<span class="event-1">触摸事件</span>规范”。																					
 本书第四部分并没有记录这些事件，但你可以在Apple的开发者中心（http://developer.apple.com/）查询更多信息。																					
                                                                                     
 * 注意，许多新事件类型尚未广泛实现，定义它们的标准也依旧处于草案阶段。																					
@@ -718,20 +716,21 @@ HTML5及相关规范定义的大量Web API都有自己的事件类型。
 注册**事件处理程序**有两种基本方式。																											
 但复杂的是，每种技术都有两个版本。																											
 																											
-### 1. 第一种方式出现在Web初期，给<span class="s8">事件目标</span>对象或文档元素设置属性
+### 1. 第一种方式出现在Web初期
+给<span class="s8">事件目标</span>对象或文档元素设置属性
 17.2.2 设置HTML标签属性为**事件处理程序**																											
-* 对于文档元素，可以在HTML中直接设置相应属性。																											
+#### 对于文档元素，可以在HTML中直接设置相应属性。																											
 用于设置的文档元素**事件处理程序**属性（property）也能换成对应HTML标签的属性（attribute）。																											
 如果这样做，属性值应该是JavaScript代码字符串。																											
 这段代码应该是**事件处理程序**函数的主体，而非完整的函数声明。																											
 也就是说，HTML**事件处理程序**代码不应该用大括号包围且使用function关键字作为前缀。例如：																											
 ```<button onclick="alert('Thank you');">点击这里</button>```																											
-   * 如果HTML**事件处理程序**属性包含多条JavaScript语句，要记住必须																											
-   使用分号分隔这些语句																										
-   或断开属性值使其跨多行。																										
+* 如果HTML**事件处理程序**属性包含多条JavaScript语句，要记住必须																											
+使用分号分隔这些语句																										
+或断开属性值使其跨多行。																										
 * 某些事件类型通常直接在浏览器而非任何特定文档元素上触发。																											
-    * 在JavaScript中，这些**事件处理程序**在<span class="object">Window</span>Window</span>对象上注册。																										
-	* 在HTML中，会把它们放到<body>标签上，但浏览器会在<span class="object">Window</span>Window</span>对象上注册它们。																										
+    * 在JavaScript中，这些**事件处理程序**在<span class="object">Window</span>对象上注册。																										
+	* 在HTML中，会把它们放到<body>标签上，但浏览器会在<span class="object">Window</span>对象上注册它们。																										
     * 下面是HTML5规范草案定义的这类**事件处理程序**的完整列表：																									
         * onafterprint																								
         * on<span class="s1">focus</span>																								
@@ -768,8 +767,8 @@ HTML5及相关规范定义的大量Web API都有自己的事件类型。
 	如果浏览器支持ES5，它将在非严格模式下定义这个函数（见5.7.3节）。																										
 	当仔细研究17.3节的**事件处理程序**调用时，我们将看到关于event参数和with语句的更多内容。																										
 * 客户端编程的通用风格是保持HTML内容和JavaScript行为分离，遵循这条规则的程序员应禁止（或至少避免）使用HTML**事件处理程序**属性，因为这些属性直接混合了JavaScript和HTML。																											
-																											
-### 2. 第二种方式更新并且更通用，是将**事件处理程序**传递给对象或元素的一个方法
+
+
 
 #### 17.2.1 设置JavaScript对象属性为**事件处理程序**
 注册**事件处理程序**最简单的方式就是通过设置<span class="s8">事件目标</span>的属性为所需**事件处理程序**函数。																											
@@ -793,6 +792,12 @@ window.onload=function() {
 一般情况下，所有广泛实现的Web API定义的事件都允许通过设置**事件处理程序**属性来注册处理程序。																											
 **事件处理程序**属性的缺点是其设计都是围绕着假设每个<span class="s8">事件目标</span>对于每种事件类型将最多只有一个**处理程序**。																											
 如果想编写能够在任意文档中都能使用的脚本库代码，更好的方式是使用一种不修改或覆盖任何已有注册**处理程序**的技术（比如<span class="method">addEventListener（）</span>）。																											
+
+
+
+																								
+### 2. 第二种方式更新并且更通用，是将**事件处理程序**传递给对象或元素的一个方法
+
 #### 17.2.3 <span class="method">addEventListener（）</span>
 * 可以在JavaScript代码中设置**事件处理程序**为对象属性，																											
 	对于通过方法调用的**处理程序**注册，有一个标准方法，命名为<span class="method">addEventListener（）</span>，																										
@@ -832,9 +837,10 @@ window.onload=function() {
 	* 使用相同的参数在同一个对象上多次调用<span class="method">addEventListener（）</span>是没用的，																										
 		**处理程序**仍然只注册一次，																									
 		同时重复调用也不会改变调用**处理程序**的顺序。																									
-																											
+					
+																						
 ##### <span class="method">removeEventListener（）</span>方法
-相对<span class="method">addEventListener（）</span>的是<span class="method">removeEventListener（）</span>方法
+相对<span class="method">addEventListener（）</span>的是<span class="method">removeEventListener（）</span>
 它同样有三个参数，																										
 从对象中删除**事件处理程序**函数而非添加，它常用于临时注册**事件处理程序**，然后不久就删除它。																										
 例如，当你要得到<span class="s2">mousedown</span>事件时，可以为<span class="s2">mousemove</span>和mouseup事件注册临时**捕获** **事件处理程序**来看看用户是否拖动鼠标。																										
@@ -846,9 +852,9 @@ document.removeEventListener("mouseup", handleMouseUp, true);
 ```																										
 																											
 #### <span class="method">attachEvent（）</span>
+##### <span class="method">detachEvent（）</span>
 * <span class="s5">IE</span>9之前的<span class="s5">IE</span>不支持<span class="method">addEventListener（）</span>和<span class="method">removeEventListener（）</span>。
-* <span class="s5">IE</span> 9之前的<span class="s5">IE</span>版本支持的是一个叫<span class="method">attachEvent（）</span>的不同方法。																											
-<span class="s5">IE</span>5及以后版本定义了类似的方法<span class="method">attachEvent（）</span>和<span class="method">detachEvent（）</span>。																											
+* <span class="s5">IE</span>5及以后版本定义了类似的方法<span class="method">attachEvent（）</span>和<span class="method">detachEvent（）</span>。																											
 <span class="method">attachEvent（）</span>和<span class="method">detachEvent（）</span>方法的工作原理与<span class="method">addEventListener（）</span>和<span class="method">removeEventListener（）</span>类似，但有如下例外：																											
     * <span class="s5">IE</span>方法的第一个参数使用了带“on”前缀的**事件处理程序**属性名，而非没有前缀的事件类型。																											
         例如，当给<span class="method">addEventListener（）</span>传递“click”时，要给<span class="method">attachEvent（）</span>传递“onclick”。																										
@@ -922,7 +928,7 @@ function addEvent(target, type, handler){
 ```																								
 注意使用这个方法注册的**事件处理程序**不能删除，因为传递给<span class="method">attachEvent（）</span>的包装函数没有保留下来传递给<span class="method">detachEvent（）</span>。																											
 																											
-### 17.3.3 **事件处理程序**的作用域																											
+### 17.3.3 **事件处理程序**的作用域
 * 像所有的JavaScript函数一样，**事件处理程序**从词法上讲也是作用域。																											
 它们在其定义时的作用域而非调用时的作用域中执行，并且它们能存取那个作用域中的任何一个本地变量。																											
 例如，之前的addEvent（）函数就证明过。																											
@@ -933,26 +939,26 @@ function addEvent(target, type, handler){
 17.2.2节展示了如何从HTML**事件处理程序**属性中创建**事件处理程序**函数，以及其代码近似于使用with语句修改后的作用域链。																											
 * HTML属性最不自然的地方包括冗长的代码串和修改后的作用域链允许有用的快捷方式。																											
 可以使用tagName替代this.tagName，使用getElementById（）替代document. getElementById（）。																											
-并且，对于<form>中的文档元素，能通过ID引用任何其他的表单元素，例如，用zipcode替代this.form.zipcode。																											
+并且，对于`<form>`中的文档元素，能通过ID引用任何其他的表单元素，例如，用zipcode替代this.form.zipcode。																											
 * 另一方面，HTML**事件处理程序**中修改的作用域链是陷阱之源，																											
 因为作用域链中每个对象的属性在全局对象中都有相同名字的属性。																											
 	* 例如，由于<span class="object">Document</span>对象定义（很少使用）open（）方法，																										
-	因此HTML**事件处理程序**想调用<span class="object">Window</span>Window</span>对象的open（）方法就必须显式地写window.open而不是open。																										
+	因此HTML**事件处理程序**想调用<span class="object">Window</span>对象的open（）方法就必须显式地写window.open而不是open。																										
 	表单有类似的问题但破坏性更大，因为表单元素的名字和ID在包含的表单元素上定义属性（见15.9.1节）。																										
 	例如，如果表单包含一个ID是“location”的元素，那么要是表单的所有HTML**事件处理程序**想引用window的location对象，就必须使用window.location而不能是location。																										
 																											
-### 17.3.4 **事件处理程序**的返回值——**事件处理程序**返回值的意义。																											
+### 17.3.4 **事件处理程序**的返回值——**事件处理程序**返回值的意义
 * 通过设置对象属性或HTML属性注册**事件处理程序**的返回值有时是非常有意义的。																											
 通常情况下，返回值false就是告诉浏览器不要执行这个事件相关的默认操作。																											
-例如，表单提交按钮的onclick**事件**处理程序****能返回false阻止浏览器提交表单。（当用户的输入在客户端验证失败时，这是有用的。）																											
+例如，表单提交按钮的onclick**事件处理程序**能返回false阻止浏览器提交表单。（当用户的输入在客户端验证失败时，这是有用的。）																											
 类似地，如果用户输入不合适的字符，输入域上的onkeypress**事件处理程序**能通过返回false来过滤键盘输入。（例17-6就是用这种方式过滤键盘输入。）																											
-* <span class="object">Window</span>Window</span>对象的onbeforeunload**事件处理程序**的返回值也非常有意义。																											
+* <span class="object">Window</span>对象的onbeforeunload**事件处理程序**的返回值也非常有意义。																											
 当浏览器将要跳转到新页面时触发这个事件。																											
 如果**事件处理程序**返回一个字符串，那么它将出现在询问用户是否想离开当前页面的标准对话框中。																											
 * 理解**事件处理程序**的返回值只对通过属性注册的**处理程序**才有意义这非常重要。																											
 接下来我们将看到使用<span class="method">addEventListener（）</span>或<span class="method">attachEvent（）</span>注册**事件处理程序**转而必须调用preventDefault（）方法或设置<span class="object">事件对象</span>的returnValue属性。																											
 																											
-### 17.3.5 调用顺序																											
+### 17.3.5 调用顺序
 文档元素或其他对象可以为指定事件类型注册多个**事件处理程序**。																											
 当适当的事件发生时，浏览器必须按照如下规则调用所有的**事件处理程序**：																											
 * 通过设置对象属性或HTML属性注册的**处理程序**一直优先调用。																											
@@ -964,17 +970,17 @@ function addEvent(target, type, handler){
 ### 17.3.6 事件传播
 除了介绍单个**处理程序**如何调用，本节也会说明事件传播的机制，即单个事件如何能在原始<span class="s8">事件目标</span>和文档的容器元素上触发多个**处理程序**的调用。																											
 事件传播（event propagation）是浏览器决定哪个对象触发其**事件处理程序**的过程。																											
-* 对于单个对象的特定事件（比如<span class="object">Window</span>对象的load事件），必须是不能传播的。																											
 * 当<span class="s8">事件目标</span>是<span class="object">Window</span>对象或其他一些单独对象（比如XMLHttpRequest）时，浏览器简单地通过调用对象上适当的**处理程序**响应事件。																											
-当<span class="s8">事件目标</span>是文档或文档元素时，情况比较复杂。																											
-* 在调用在<span class="s8">目标</span>元素上注册的事件处理函数后，大部分事件会“**冒泡**”到DOM树根。																											
-调用<span class="s8">目标</span>的父元素的**事件处理程序**，然后调用在<span class="s8">目标</span>的祖父元素上注册的**事件处理程序**。																											
-这会一直到<span class="object">Document</span>对象，最后到达<span class="object">Window</span>对象。																											
-事件**冒泡**为在大量单独文档元素上注册**处理程序**提供了替代方案，即在共同的祖先元素上注册一个**处理程序**来处理所有的事件。																											
-例如，可以在`<form>`元素上注册“<span class="s1">change</span>”**事件处理程序**来取代在表单的每个元素上注册“<span class="s1">change</span>”**事件处理程序**。																											
-* 发生在文档元素上的大部分事件都会**冒泡**，值得注意的例外是<span class="s1">focus</span>、<span class="s1">blur</span>和<span class="event">scroll</span>事件。																											
-文档元素上的load事件会**冒泡**，但它会在<span class="object">Document</span>对象上停止**冒泡**而不会传播到<span class="object">Window</span>对象。																											
-只有当整个文档都加载完毕时才会触发<span class="object">Window</span>对象的load事件。																											
+    * 对于单个对象的特定事件（比如<span class="object">Window</span>对象的load事件），必须是不能传播的。																											
+* 当<span class="s8">事件目标</span>是文档或文档元素时，情况比较复杂。																											
+    * 在调用在<span class="s8">目标</span>元素上注册的事件处理函数后，大部分事件会“**冒泡**”到DOM树根。																											
+    调用<span class="s8">目标</span>的父元素的**事件处理程序**，然后调用在<span class="s8">目标</span>的祖父元素上注册的**事件处理程序**。																											
+    这会一直到<span class="object">Document</span>对象，最后到达<span class="object">Window</span>对象。																											
+    事件**冒泡**为在大量单独文档元素上注册**处理程序**提供了替代方案，即在共同的祖先元素上注册一个**处理程序**来处理所有的事件。																											
+    例如，可以在`<form>`元素上注册“<span class="s1">change</span>”**事件处理程序**来取代在表单的每个元素上注册“<span class="s1">change</span>”**事件处理程序**。																											
+    * 发生在文档元素上的大部分事件都会**冒泡**，值得注意的例外是<span class="s1">focus</span>、<span class="s1">blur</span>和<span class="event">scroll</span>事件。																											
+    * 文档元素上的load事件会**冒泡**，但它会在<span class="object">Document</span>对象上停止**冒泡**而不会传播到<span class="object">Window</span>对象。																											
+    只有当整个文档都加载完毕时才会触发<span class="object">Window</span>对象的load事件。																											
 																											
 #### 事件传播的阶段：
 ##### 1. 第一个阶段甚至发生在<span class="s8">目标</span>**处理程序**调用之前，称为“**捕获**”阶段。

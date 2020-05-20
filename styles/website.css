@@ -91,6 +91,14 @@ strong {
     text-decoration: none;
     font-weight: bold;
 }
+/*内部属性*/
+.key-1 {
+    background-color: rgba(1,126,102,0.08);
+    color: #009a61;
+    border-radius: 0.25rem;
+    text-decoration: underline;
+    font-weight: bold;
+}
 
 /*属性值*/
 .key-value {
@@ -133,6 +141,19 @@ strong {
     padding: 0.25rem;
     font-style: normal!important;
     font-weight: bold;
+}
+/* 内部操作 */
+.method-1 {
+    background-color: #7952B3;
+    color: #fff;
+    border-radius: 0.25rem;
+    line-height: 1.25;
+    border: 1px solid transparent;
+    text-align: center;
+    padding: 0.25rem;
+    font-style: normal!important;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 .underline {

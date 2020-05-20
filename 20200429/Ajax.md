@@ -701,7 +701,7 @@ http.createServer(function(req, res){
 ## 如何向客户端发送数据
 发送表单和文件是Ajax的两个常见用途，它们能让Web应用程序创建出更丰富的用户体验。																												
 ### 表单数据收集方式
-#### 1. 最典型的情况是从客户端发送表单数据，即用户在form元素所含的各个input元素里输入的值。																												
+#### 1. 最典型的情况是从客户端发送表单数据，即用户在form元素所含的各个input元素里输入的值。
 * 33.1 准备向服务器发送数据																											
 Ajax最常见的一大用途是向服务器发送数据。																											
 代码清单33-1展示了一张简单的表单，它将会成为本章这一部分的基础。我把这段HTML保存在一个名为example.html的文件里。	
@@ -943,7 +943,7 @@ http.createServer(function(req, res){
   服务器响应表单提交后返回的HTML文档会显示在同一页上，而且该请求是异步执行的。																									
   这样做的效果比刚开始要好多了。																									
                     																					
-#### 2. 33.3 使用<span class="object">FormData</span>对象发送表单数据																												
+#### 2. 33.3 使用<span class="object">FormData</span>对象发送表单数据
 另一种更简洁的表单数据收集方式是使用一个<span class="object">FormData</span>对象，它是在<span class="object">XMLHttpRequest</span>的第二级规范中定义的。																												
 在编写本书过程中，Chrome、Safari和Firefox浏览器已经支持<span class="object">FormData</span>对象了，但Opera和Internet Explorer还不支持。																												
 * 33.3.1 创建<span class="object">FormData</span>对象																											
@@ -1019,7 +1019,7 @@ function handleResponse(){
 从图33-3可以看到它的效果，其中服务器返回的总数值不包括用户提供的cherries数值。
   ![](.Ajax_images/2db34390.png)
 																				
-#### 3. 33.4 发送JSON数据																												
+#### 3. 33.4 发送JSON数据
 Ajax不止用来发送表单数据，几乎可以发送任何东西，包括JavaScript对象表示法（JavaScript Object Notation, JSON）数据，而它已经成为一种流行的数据格式了。																												
 * Ajax扎根于XML，但这一格式很繁琐。当你运行的Web应用程序必须传输大量XML文档时，繁琐就意味着带宽和系统容量方面的实际成本。																												
 * JSON经常被称为XML的“脱脂”替代品。																												
