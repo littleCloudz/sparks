@@ -60,8 +60,85 @@ article a {
 \#content aiside {color: red;}
 body.ie #content aside {color: green;}
 
+# css小箭头的实现 tooltip
+
+# width: fit-content;
+> [关于怎么让div宽度自适应文字内容？](https://segmentfault.com/q/1010000006075682)
+直接设置display:inline-block;行元素是自适应文本长度的
+
+# [box-sizing](https://www.runoob.com/cssref/css3-pr-box-sizing.html) 
+## border-box
+## content-box
+## inherit
+
+# [用Javascript获取页面元素的位置](http://www.ruanyifeng.com/blog/2009/09/find_element_s_position_using_javascript.html)
+* 网页上的每个元素，都有clientHeight和clientWidth属性。
+这两个属性指元素的内容部分再加上padding的所占据的视觉面积，不包括border和滚动条占用的空间。
+document元素的clientHeight和clientWidth属性，就代表了网页的大小。
+getViewport函数
+* 网页上的每个元素还有scrollHeight和scrollWidth属性，指包含滚动条在内的该元素的视觉面积。
+document对象的scrollHeight和scrollWidth属性就是网页的大小，意思就是滚动条滚过的所有长度和宽度。
+getPagearea()
+* 这个函数有一个问题。如果网页内容能够在浏览器窗口中全部显示，不出现滚动条，那么网页的clientWidth和scrollWidth应该相等。但是实际上，不同浏览器有不同的处理，这两个值未必相等。
+所以，我们需要取它们之中较大的那个值
+## 获取网页元素的绝对位置
+网页元素的绝对位置，指该元素的左上角相对于整张网页左上角的坐标。这个绝对位置要通过计算才能得到。
+每个元素都有offsetTop和offsetLeft属性，表示该元素的左上角与父容器（offsetParent对象）左上角的距离。所以，只需要将这两个值进行累加，就可以得到该元素的绝对坐标。
+
+## 获取网页元素的相对位置
+网页元素的相对位置，指该元素左上角相对于浏览器窗口左上角的坐标。
+有了绝对位置以后，获得相对位置就很容易了，只要将绝对坐标减去页面的滚动条滚动的距离就可以了。
+* 滚动条滚动的垂直距离，是document对象的scrollTop属性；
+* 滚动条滚动的水平距离是document对象的scrollLeft属性。
+
+## 获取元素位置的快速方法
+getBoundingClientRect()
+它返回一个对象，其中包含了left、right、top、bottom四个属性，分别对应了该元素的左上角和右下角相对于浏览器窗口（viewport）左上角的距离。
+* 网页元素的相对位置就是
+var X= this.getBoundingClientRect().left;
+var Y =this.getBoundingClientRect().top;
+* 再加上滚动距离，就可以得到绝对位置
+var X= this.getBoundingClientRect().left+document.documentElement.scrollLeft;
+var Y =this.getBoundingClientRect().top+document.documentElement.scrollTop;
+
+# [transition-property]https://www.runoob.com/cssref/css3-pr-transition-property.html()
+* transition-property: none|all| property;
+transition-property: transform,visibility,opacity;
+  }
+  
+# [opacity](https://www.w3school.com.cn/cssref/pr_opacity.asp)
+0
+1
 
 
 
+# [CSS3中的transition属性详解](https://www.cnblogs.com/afighter/p/5731293.html)
+
+# transform-origin ???
 
 
+# [Css实现倒三角图标](https://blog.csdn.net/Cancer_Scorpio/article/details/52197800?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase)
+
+# [js 和 jQuery 修改伪类样式几种方法](https://blog.csdn.net/qq_41067835/article/details/80884762)
+
+.tooltip-arrow {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    color: #333;
+}
+
+
+.tooltip-box[data-placement^=top] > .tooltip-arrow:before {
+    left: 0;
+    bottom: -7px;
+    border-width: 8px 8px 0;
+    border-top-color: initial;
+}
+伪类的initial继承自color: #333;
+所以改变color就可以改变倒三角的颜色。
+
+
+# 省略三个点
+overflow: hidden;
+text-overflow: ellipsis;

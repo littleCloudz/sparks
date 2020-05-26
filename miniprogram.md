@@ -15,14 +15,22 @@ button
 ## 页面跳转
 >[mpvue——页面跳转](https://www.cnblogs.com/wangyang0210/p/10417976.html)
 
-#### a标签
+### a标签
 ```html
 <a href='/pages/counter/main' class='counter'>去往Vuex示例页面</a>
 ```
-#### 小程序组件 [navigator](https://developers.weixin.qq.com/miniprogram/dev/component/navigator.html)
+### 小程序组件 [navigator](https://developers.weixin.qq.com/miniprogram/dev/component/navigator.html)
 <navigator url='./join/main>参与场次</navigator>
-#### API
-保留当前页面，跳转到应用内的某个页面。但是不能跳到 tabbar 页面。
+### API
+
+#### 跳转带参数 wx.navigateTo
+* mpvue进行小程序开发的过程中，进行页面的跳转不能使用vue的路由
+* 只能使用微信小程序的页面跳转方法
+
+[wx.navigateTo\(Object object\)](https://developers.weixin.qq.com/miniprogram/dev/api/route/wx.navigateTo.html)
+
+
+* 保留当前页面，跳转到应用内的某个页面。但是不能跳到 tabbar 页面。
 使用 wx.navigateBack 可以返回到原页面。
 小程序中页面栈最多十层。
 ```html
@@ -39,22 +47,7 @@ methods: {
     }
 }
 ```
-### 内页跳首页
-wx.reLaunch()
-```html
-<img @click='goHome' class='empty-btn' src='/static/images/btn1.png'>
-```
-```javascript
-goHome(){
-    mpvue.reLaunch({url: '/pages/index/main'})
-}
-```
 
-### 跳转带参数
-* mpvue进行小程序开发的过程中，进行页面的跳转不能使用vue的路由
-* 只能使用微信小程序的页面跳转方法
-
-[wx.navigateTo\(Object object\)](https://developers.weixin.qq.com/miniprogram/dev/api/route/wx.navigateTo.html)
 
 ```javascript
 wx.navigateTo({
@@ -87,6 +80,16 @@ Page({
 ```
 
 
+#### 内页跳首页 wx.reLaunch()
+
+```html
+<img @click='goHome' class='empty-btn' src='/static/images/btn1.png'>
+```
+```javascript
+goHome(){
+    mpvue.reLaunch({url: '/pages/index/main'})
+}
+```
 
 
 
@@ -212,6 +215,41 @@ Uncaught SyntaxError: missing ) after argument list
 * [开发者工具版本RC1.02.1910121的问题](https://developers.weixin.qq.com/community/develop/doc/000aa0c2cb4b58410a5968dee56000)
 回退到RC1.02.19070301就不报错了，Stable1.02.1907300版本也没有问题
 现在Stable v1.02.1910120依然报错。
+
+## 生成领取积分链接二维码
+
+## 小程序分享自定义图片给朋友
+### wx.canvasToTempFilePath
+```javascript
+wx.canvasToTempFilePath({
+    canvasId: 'canvas_poster',
+    fileType: 'jpg',
+    quality: 1,
+    destWidth: that.data.cwidth,
+    destHeight: that.data.cheight,
+    success: function(res) {
+       // 获得图片临时路径
+       that.setData({
+           imageTempPath: res.tempFilePath,
+           canvasDisplay: 'none'
+       })
+       console.log(res.tempFilePath)
+       that.setData({
+           boxshadow: 'box-shadow: 0 0 10px #FFCD4F',
+           visible1: true
+       })
+       wx.hideLoading()
+       that.$wuxBackdrop.release()
+       that.showToolTip()
+       clearTimeout(t)
+    
+    }
+})
+```
+
+[微信小程序实现截屏](https://blog.csdn.net/qq_37413200/article/details/80231515)
+[微信小程序转发传值及自定义图片](https://www.jianshu.com/p/3cb1a37b9436)
+
 
 
 
