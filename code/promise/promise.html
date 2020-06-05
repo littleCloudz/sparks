@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Promise</title>
+   <meta charset='UTF-8'>
+   <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+
+</head>
+<body>
+   <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
+   <script src="https://unpkg.com/vue/dist/vue.js"></script>
+   <!-- 引入组件库 -->
+   <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+   <script type="module">
+      const INVALID_TOKEN = 500;
+      const service = axios.create({
+          baseURL: 'http://localhost:8080',
+          timeout: 5000
+      })
+      service.interceptors.request.use(config=> {
+         config.param = Object.assign({}, config.param, {
+             'userID': 'abc',
+             'token': '123',
+             'accountID': 'zxy7107'
+         })
+          return config;
+      }, error=> {
+          console.log(error);
+          Promise.reject(error);
+      });
+
+      service.interceptors.response.use(response => {
+          const data = response.data;
+          if(data.errorCode === INVALID_TOKEN) {
+
+          } else {
+              return data
+          }
+      },
+      error => {
+          console.log('err' + error);
+          ELEMENT.Message({
+              message: error.message,
+              type: 'error',
+              duration: 5 * 1000
+          })
+          return Promise.reject(error);
+      })
+
+      let openRedpacket = service({
+          url: '/openRedpacketForAPP.json',
+          method: 'post',
+          params: {
+              ID: 1234
+          }
+      })
+
+      let getIssuedCity = service({
+          url: 'getIssuedCity.json',
+          method: 'post',
+          params: {
+              ID: 5678
+          }
+      })
+
+      Promise.all([openRedpacket, getIssuedCity]).then(msgs => {
+          console.log(msgs)
+          return service({
+              url: '/getAccountInfo.json',
+              method: 'post',
+              params: {
+                  ID: 910
+              }
+          })
+      }).then(msg => {
+          console.log(msg);
+      })
+   </script>
+</body>
+
+</html>
