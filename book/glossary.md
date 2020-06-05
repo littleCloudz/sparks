@@ -1,3 +1,16 @@
+# git
+
+## 查看自己的用户名和邮箱地址：
+
+　　$ git config user.name
+
+　　$ git config user.email
+
+## 修改自己的用户名和邮箱地址：
+
+　　$ git config --global user.name "xxx"
+
+　　$ git config --global user.email "xxx"
 # npm init
 
 

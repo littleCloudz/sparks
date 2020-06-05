@@ -12,6 +12,7 @@
         * [http报文](http.md)
         * [Ajax](Ajax.md)
         * [Event](Event.md)
+        * [Glossary](glossary.md)
     * 书籍
         * [JavaScript权威指南_第6版](JavaScript权威指南_第6版.md)
         * [你不知道的JavaScript_上卷](你不知道的JavaScript_上卷.md)
@@ -20,6 +21,7 @@
         * [学习JavaScript数据结构与算法（第3版）](学习JavaScript数据结构与算法_第3版.md)
         * [深入理解TypeScript](深入理解TypeScript.md)
         * [Vue.js快跑:构建触手可及的高性能Web应用](Vue快跑_构建触手可及的高性能Web应用.md)
+        * [GitHub入门与实践](GitHub入门与实践.md)
 * [Introduction](README.md)
 * [interview-by-date](interview_by_date.md)
 * [GLOSSARY](glossary.md)
